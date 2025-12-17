@@ -77,33 +77,33 @@
           {
             "group": "Erste Schritte",
             "pages": [
-              "de/index",
-              "de/quickstart",
-              "de/development"
+              "index",
+              "quickstart",
+              "development"
             ]
           },
           {
             "group": "Anpassung",
             "pages": [
-              "de/essentials/settings",
-              "de/essentials/navigation"
+              "essentials/settings",
+              "essentials/navigation"
             ]
           },
           {
             "group": "Inhalte erstellen",
             "pages": [
-              "de/essentials/markdown",
-              "de/essentials/code",
-              "de/essentials/images",
-              "de/essentials/reusable-snippets"
+              "essentials/markdown",
+              "essentials/code",
+              "essentials/images",
+              "essentials/reusable-snippets"
             ]
           },
           {
             "group": "AI Tools",
             "pages": [
-              "de/ai-tools/cursor",
-              "de/ai-tools/claude-code",
-              "de/ai-tools/windsurf"
+              "ai-tools/cursor",
+              "ai-tools/claude-code",
+              "ai-tools/windsurf"
             ]
           }
         ]
@@ -115,16 +115,16 @@
           {
             "group": "API Dokumentation",
             "pages": [
-              "de/api-reference/introduction"
+              "api-reference/introduction"
             ]
           },
           {
             "group": "Endpoint Beispiele",
             "pages": [
-              "de/api-reference/endpoint/get",
-              "de/api-reference/endpoint/create",
-              "de/api-reference/endpoint/delete",
-              "de/api-reference/endpoint/webhook"
+              "api-reference/endpoint/get",
+              "api-reference/endpoint/create",
+              "api-reference/endpoint/delete",
+              "api-reference/endpoint/webhook"
             ]
           }
         ]
