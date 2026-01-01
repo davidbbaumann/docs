@@ -17,14 +17,6 @@
             "tab": "Guides",
             "groups": [
               {
-                "group": "Getting started",
-                "pages": [
-                  "index",
-                  "quickstart",
-                  "development"
-                ]
-              },
-              {
                 "group": "Core Concepts",
                 "pages": [
                   "core-concepts/accounts",
@@ -37,27 +29,14 @@
                 ]
               },
               {
-                "group": "Customization",
+                "group": "Timeline, Activities & Calendar",
                 "pages": [
-                  "essentials/settings",
-                  "essentials/navigation"
-                ]
-              },
-              {
-                "group": "Writing content",
-                "pages": [
-                  "essentials/markdown",
-                  "essentials/code",
-                  "essentials/images",
-                  "essentials/reusable-snippets"
-                ]
-              },
-              {
-                "group": "AI tools",
-                "pages": [
-                  "ai-tools/cursor",
-                  "ai-tools/claude-code",
-                  "ai-tools/windsurf"
+                  "activities/calendar",
+                  "activities/tasks",
+                  "activities/calls",
+                  "activities/meetings",
+                  "activities/emails",
+                  "activities/notes"
                 ]
               }
             ]
@@ -91,14 +70,6 @@
             "tab": "Anleitungen",
             "groups": [
               {
-                "group": "Erste Schritte",
-                "pages": [
-                  "index",
-                  "quickstart",
-                  "development"
-                ]
-              },
-              {
                 "group": "Kernkonzepte",
                 "pages": [
                   "de/core-concepts/accounts",
@@ -111,27 +82,14 @@
                 ]
               },
               {
-                "group": "Anpassung",
+                "group": "Aktivitäten(-leiste) & Kalender",
                 "pages": [
-                  "essentials/settings",
-                  "essentials/navigation"
-                ]
-              },
-              {
-                "group": "Inhalte erstellen",
-                "pages": [
-                  "essentials/markdown",
-                  "essentials/code",
-                  "essentials/images",
-                  "essentials/reusable-snippets"
-                ]
-              },
-              {
-                "group": "AI Tools",
-                "pages": [
-                  "ai-tools/cursor",
-                  "ai-tools/claude-code",
-                  "ai-tools/windsurf"
+                  "de/activities/calendar",
+                  "de/activities/tasks",
+                  "de/activities/calls",
+                  "de/activities/meetings",
+                  "de/activities/emails",
+                  "de/activities/notes"
                 ]
               }
             ]
