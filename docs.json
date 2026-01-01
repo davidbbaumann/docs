@@ -9,9 +9,11 @@
   },
   "favicon": "/favicon.svg",
   "navigation": {
+    "languages": ["en", "de"],
     "tabs": [
       {
         "tab": "Guides",
+        "language": "en",
         "groups": [
           {
             "group": "Getting started",
@@ -49,6 +51,7 @@
       },
       {
         "tab": "API reference",
+        "language": "en",
         "groups": [
           {
             "group": "API documentation",
@@ -58,6 +61,65 @@
           },
           {
             "group": "Endpoint examples",
+            "pages": [
+              "api-reference/endpoint/get",
+              "api-reference/endpoint/create",
+              "api-reference/endpoint/delete",
+              "api-reference/endpoint/webhook"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Anleitungen",
+        "language": "de",
+        "groups": [
+          {
+            "group": "Erste Schritte",
+            "pages": [
+              "index",
+              "quickstart",
+              "development"
+            ]
+          },
+          {
+            "group": "Anpassung",
+            "pages": [
+              "essentials/settings",
+              "essentials/navigation"
+            ]
+          },
+          {
+            "group": "Inhalte erstellen",
+            "pages": [
+              "essentials/markdown",
+              "essentials/code",
+              "essentials/images",
+              "essentials/reusable-snippets"
+            ]
+          },
+          {
+            "group": "AI Tools",
+            "pages": [
+              "ai-tools/cursor",
+              "ai-tools/claude-code",
+              "ai-tools/windsurf"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API Referenz",
+        "language": "de",
+        "groups": [
+          {
+            "group": "API Dokumentation",
+            "pages": [
+              "api-reference/introduction"
+            ]
+          },
+          {
+            "group": "Endpoint Beispiele",
             "pages": [
               "api-reference/endpoint/get",
               "api-reference/endpoint/create",
