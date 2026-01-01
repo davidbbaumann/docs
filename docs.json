@@ -25,6 +25,18 @@
                 ]
               },
               {
+                "group": "Core Concepts",
+                "pages": [
+                  "core-concepts/accounts",
+                  "core-concepts/contacts",
+                  "core-concepts/projects",
+                  "core-concepts/jobs",
+                  "core-concepts/campaigns",
+                  "core-concepts/applications",
+                  "core-concepts/candidates"
+                ]
+              },
+              {
                 "group": "Customization",
                 "pages": [
                   "essentials/settings",
@@ -88,6 +100,18 @@
               },
               {
                 "group": "Kernkonzepte",
+                "pages": [
+                  "de/core-concepts/accounts",
+                  "de/core-concepts/contacts",
+                  "de/core-concepts/projects",
+                  "de/core-concepts/jobs",
+                  "de/core-concepts/campaigns",
+                  "de/core-concepts/applications",
+                  "de/core-concepts/candidates"
+                ]
+              },
+              {
+                "group": "Anpassung",
                 "pages": [
                   "essentials/settings",
                   "essentials/navigation"
