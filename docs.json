@@ -32,6 +32,7 @@
                 "group": "Timeline, Activities & Calendar",
                 "pages": [
                   "activities/calendar",
+                  "en/guides/timeline-activities-and-calendar/activity-timeline",
                   "activities/tasks",
                   "activities/calls",
                   "activities/meetings",
