@@ -1,22 +1,209 @@
 ---
 title: 'Accounts'
-description: 'Learn about accounts in Nexus Search'
+description: 'Manage your business relationships with organizations and companies'
 icon: 'building'
 ---
 
 ## Overview
 
-Accounts represent organizations or companies within Nexus Search. They serve as the top-level entity for managing business relationships.
+Accounts in Nexus Search represent organizations or companies with whom you have or are establishing a business relationship. They serve as the central hub for managing all interactions, contacts, projects, and opportunities related to a specific company.
+
+## Finding Accounts
+
+You can access your accounts through the left sidebar navigation:
+
+1. Navigate to the **Records** section
+2. Click on **Accounts**
+3. View a complete list of all account records in Nexus Search
+
+## Account Creation
+
+### Quick Start
+
+To create a new account:
+
+<Steps>
+  <Step title="Open Account Creation">
+    Click the blue **"Add Account"** button in the top right corner
+  </Step>
+  <Step title="Configure AI Profile Generation">
+    A dialog opens where you can enable or disable AI-assisted account creation (enabled by default)
+  </Step>
+  <Step title="Enter Account Details">
+    Fill in the required and optional fields
+  </Step>
+  <Step title="Review AI-Generated Profile">
+    Review the automatically generated company profile
+  </Step>
+  <Step title="Create Account">
+    Click **"Create Account"** to finalize
+  </Step>
+</Steps>
+
+### AI-Assisted Profile Generation
+
+<Info>
+When AI-assisted profile generation is enabled, Nexus Search uses AI-powered web searches and additional data sources to automatically describe the organization or company. This includes:
+
+- Company activities and business description
+- Locations and office information
+- Publicly known decision-makers
+- Other relevant information to better understand the company
+
+Content from the company website is incorporated into the company portrait.
+</Info>
+
+### Required and Optional Fields
+
+**Company Name** (Required)
+- Enter the company name (e.g., "Mustermann AG")
+- This field is mandatory for account creation
+
+**Website/Domain** (Recommended)
+- Add the company website or domain
+- Used by AI to enhance the company portrait
+- Website content is analyzed and incorporated
+
+**Account Description** (Optional)
+- Add custom notes or observations
+- Options for adding content:
+  - Copy and paste from other sources
+  - Type your own thoughts and notes
+  - Use **Speech-to-Text** feature to dictate your observations
+    - AI creates a transcript automatically
+    - Transcript is inserted into the description field
+
+**Account Workflow** (Optional)
+- Select a workflow stage (e.g., "Prospect", "New Customer", "Existing Customer")
+- Account workflows can be configured in Settings under "Workflows"
+
+### Profile Review
+
+After clicking **"Create Profile"**, you'll see an overview page displaying:
+
+- **AI-Generated Company Portrait** - Comprehensive description of the company
+- **Extracted Information**:
+  - Industry classification
+  - Company size
+  - Headquarters location
+  - LinkedIn URL
+
+Review the generated information and click **"Create Account"** to finalize.
+
+## Viewing Account Details
+
+Once created, you'll be directed to the account detail page where you can:
+
+- View structured data in the **Details** tab
+- See the AI-generated company profile
+- Edit any information as needed
+- Access related records (contacts, projects, jobs, etc.)
+
+## Editing Account Details
+
+<Steps>
+  <Step title="Open Account Details">
+    Navigate to the account detail page
+  </Step>
+  <Step title="Access Details Tab">
+    Click on the **"Details"** tab
+  </Step>
+  <Step title="Enter Edit Mode">
+    Click the **"Edit"** button on the right side
+  </Step>
+  <Step title="Modify Fields">
+    All account sections will open for editing. Update any relevant fields.
+  </Step>
+  <Step title="Save or Cancel">
+    - Click **"Save"** at the bottom of the page to save changes
+    - Or click **"Cancel"** to discard changes
+  </Step>
+</Steps>
+
+## Deleting an Account
+
+<Warning>
+Deleting an account will permanently remove the account and associated data. This action cannot be undone.
+</Warning>
+
+To delete an account:
+
+<Steps>
+  <Step title="Open Account Details">
+    Navigate to the account detail page
+  </Step>
+  <Step title="Access Details Tab">
+    Click on the **"Details"** tab
+  </Step>
+  <Step title="Scroll to Danger Zone">
+    Scroll to the bottom of the page to find the red-highlighted danger zone
+  </Step>
+  <Step title="Initiate Deletion">
+    Click the **"Delete Account"** button
+  </Step>
+  <Step title="Confirm Deletion">
+    - Read the warning about data loss
+    - Type the account name into the confirmation field
+    - Click **"Delete Account"** to confirm
+  </Step>
+</Steps>
 
 ## Key Features
 
-- **Company Information**: Store detailed company profiles including name, industry, and contact details
-- **Relationship Management**: Track interactions and relationships with organizations
-- **Hierarchy**: Organize accounts in hierarchical structures for better management
+### Company Information
+Store comprehensive company profiles including:
+- Company name and branding
+- Industry and business sector
+- Company size and employee count
+- Headquarters and office locations
+- Website and social media links
 
-## Use Cases
+### AI-Powered Insights
+- Automatic company research and profiling
+- Industry classification
+- Decision-maker identification
+- Business intelligence gathering
 
-Accounts are essential for:
-- Managing client organizations
-- Tracking business relationships
-- Organizing recruitment efforts by company
+### Relationship Management
+- Track all interactions with the organization
+- Link contacts to accounts
+- Manage projects and job opportunities
+- Monitor account workflows and stages
+
+### Activity Timeline
+View a complete history of all activities related to the account:
+- Notes and observations
+- Meetings and calls
+- Emails and communications
+- Tasks and follow-ups
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Use AI Profile Generation">
+    Always enable AI-assisted profile generation when creating accounts. It saves time and provides valuable context about the company.
+  </Accordion>
+
+  <Accordion title="Add Website URLs">
+    Include the company website when creating accounts. This significantly improves the quality of AI-generated profiles.
+  </Accordion>
+
+  <Accordion title="Leverage Speech-to-Text">
+    Use the speech-to-text feature to quickly capture observations and notes after calls or meetings.
+  </Accordion>
+
+  <Accordion title="Assign Account Workflows">
+    Use account workflows to track the customer journey from prospect to existing customer.
+  </Accordion>
+
+  <Accordion title="Regular Updates">
+    Keep account information current by regularly reviewing and updating details as the business relationship evolves.
+  </Accordion>
+</AccordionGroup>
+
+## Related Documentation
+
+- [Contacts](/core-concepts/contacts) - Manage individuals within accounts
+- [Projects](/core-concepts/projects) - Organize recruitment initiatives by account
+- [Jobs](/core-concepts/jobs) - Track job openings for accounts
+- [Activity Timeline](/activities/activity-timeline) - Track all account interactions
