@@ -1,24 +1,219 @@
 ---
 title: 'Anrufe'
-description: 'Protokollieren und verfolgen Sie Telefonanrufe in Nexus Search'
+description: 'Protokollieren und verwalten Sie Telefonanrufe in Nexus Search'
 icon: 'phone'
 ---
 
-## Übersicht
+# Anrufe
 
-Die Anruf-Funktion ermöglicht es Ihnen, alle Telefonkommunikationen mit Kandidaten, Kunden und Kontakten zu protokollieren und zu verfolgen. Pflegen Sie eine vollständige Historie von Gesprächen und Ergebnissen.
+> Dokumentieren Sie eingehende und ausgehende Telefongespräche mit Ihrem Netzwerk
+
+## Überblick
+
+Anrufe sind ein wesentlicher Bestandteil der Aktivitätenleiste in Nexus Search. Sie dienen dazu, eingehende und ausgehende Gespräche per Telefon oder Mobiltelefon mit Kontakten, Kandidaten und befragten Werbern festzuhalten. Anrufe können verschiedenen Datensätzen zugeordnet werden und helfen Ihnen, eine vollständige Kommunikationshistorie zu pflegen.
+
+## Anruf protokollieren
+
+### Schnellstart
+
+Um einen neuen Anruf zu protokollieren:
+
+<Steps>
+  <Step title="Datensatz öffnen">
+    Klicken Sie auf den jeweiligen Datensatz (Account, Kontakt, Kandidat, Bewerbung, etc.)
+  </Step>
+
+  <Step title="Aktivitäten-Reiter öffnen">
+    Navigieren Sie zum Reiter **"Aktivitäten/Verlauf"**
+  </Step>
+
+  <Step title="Anruf erstellen">
+    Klicken Sie auf den Button **"Anruf"**
+  </Step>
+
+  <Step title="Anrufdetails eingeben">
+    Füllen Sie die Pflichtfelder und optionalen Felder aus
+  </Step>
+
+  <Step title="Anruf speichern">
+    Klicken Sie auf **"Anruf erstellen"**, um den Anruf zu speichern
+  </Step>
+</Steps>
+
+### Verknüpfte Datensätze
+
+<Info>
+Wenn Sie einen Anruf auf einem bestehenden Datensatz erstellen, wird dieser automatisch mit der neuen Aktivität verknüpft. Sie können jedoch über **verknüpfte Datensätze** weitere Datensätze mit diesem Anruf verbinden.
+
+Wenn Datensätze mit einem Anruf verknüpft werden, wird der Anruf entsprechend auch in den Aktivitätenleisten dieser Datensätze angezeigt.
+</Info>
+
+## Pflichtfelder und optionale Felder
+
+### Anrufrichtung (Pflichtfeld)
+
+Sie müssen die **Anrufrichtung** auswählen:
+
+- **Eingehend** - Anrufe, die Sie empfangen haben
+- **Ausgehend** - Anrufe, die Sie getätigt haben
+
+### Telefonnummer (Optional)
+
+Geben Sie die Telefonnummer ein, von der Sie angerufen wurden oder die Sie angerufen haben.
+
+### Anrufergebnis (Optional)
+
+Wählen Sie das Ergebnis des Anrufs aus den folgenden Optionen:
+
+- **Keine Antwort** - Der Anruf wurde nicht entgegengenommen
+- **Besetzt** - Die Leitung war besetzt
+- **Mailbox** - Der Anruf ging zur Mailbox
+- **Fehlgeschlagen** - Der Anruf konnte nicht hergestellt werden
+- **Abgeschlossen** - Der Anruf wurde erfolgreich durchgeführt
+
+### Dauer (Optional)
+
+Protokollieren Sie die Dauer des Anrufs in Minuten.
+
+### Aufnahme-URL (Optional)
+
+<Info>
+Wenn Sie eine **Telefon-Integration** nutzen, die beispielsweise Call-Transkripte zur Verfügung stellt, können Sie im Feld **Aufnahme-URL** einen Link zum Call-Transkript vergeben.
+</Info>
+
+### Anrufnotizen (Wichtig)
+
+Das Feld **Anrufnotizen** ist besonders wichtig. Hier können Sie Ihre Gedanken, Gesprächsthemen und alles festhalten, was für diesen Anruf relevant ist.
+
+#### Speech-to-Text Feature
+
+<Info>
+Nutzen Sie das **Speech-to-Text Feature**, um per Spracheingabe schnell und einfach Ihre Gedanken in das Anrufnotizfeld einzufügen. Ihre gesprochenen Worte werden transkribiert und direkt im Feld eingefügt.
+
+Schauen Sie sich die [Dokumentation zum Speech-to-Text Feature](/de/activities/notes#voice-input) für weitere Details an.
+</Info>
+
+## Anruf bearbeiten
+
+Um einen Anruf im Nachgang zu bearbeiten:
+
+<Steps>
+  <Step title="Detaildatensatz öffnen">
+    Öffnen Sie den entsprechenden Datensatz (z.B. Account, Kontakt, Bewerbung oder Kandidat)
+  </Step>
+
+  <Step title="Anruf in Aktivitätenleiste finden">
+    Suchen Sie in der Aktivitätenleiste nach der entsprechenden Anrufaktivität
+  </Step>
+
+  <Step title="Bearbeiten öffnen">
+    Klicken Sie auf das **Bearbeiten-Icon** auf der rechten Seite der Aktivität, oder klicken Sie auf das **Drei-Punkte-Menü** und wählen Sie **"Aktivität bearbeiten"**
+  </Step>
+
+  <Step title="Details anpassen">
+    Es öffnen sich die Details des Anrufs. Nehmen Sie die gewünschten Änderungen vor.
+  </Step>
+
+  <Step title="Änderungen speichern">
+    Klicken Sie auf **"Änderungen speichern"**, um die Bearbeitung abzuschließen
+  </Step>
+</Steps>
+
+## Anruf löschen
+
+<Warning>
+Das Löschen eines Anrufs entfernt die Aktivität dauerhaft aus allen verknüpften Datensätzen. Diese Aktion kann nicht rückgängig gemacht werden.
+</Warning>
+
+Um einen Anruf zu löschen:
+
+<Steps>
+  <Step title="Anruf in Aktivitätenleiste finden">
+    Suchen Sie in der Aktivitätenleiste nach dem zu löschenden Anruf
+  </Step>
+
+  <Step title="Drei-Punkte-Menü öffnen">
+    Klicken Sie auf der rechten Seite in der Aktivitätenleiste auf die **drei Punkte**
+  </Step>
+
+  <Step title="Löschen auswählen">
+    Wählen Sie den roten Button **"Aktivität löschen"**
+  </Step>
+
+  <Step title="Löschung bestätigen">
+    - Bestätigen Sie die Warnung, indem Sie **"Aktivität löschen"** klicken
+    - Oder klicken Sie **"Abbrechen"**, wenn Sie die Aktivität doch nicht löschen möchten
+  </Step>
+</Steps>
+
+## Data Management Agent (DMAA)
+
+<Info>
+**Wichtig:** Anrufnotizen sowie weitere Informationen werden dem **Data Management Agent (DMAA)** zur Verfügung gestellt.
+
+Der DMAA prüft die Inhalte des Anrufs darauf hin, ob der Datensatz eines Kandidaten, eines Kontakts oder einer Bewerbung aktualisiert werden sollte, aufgrund der Informationen aus dem Anruf.
+</Info>
+
+Vorgeschlagene Aktualisierungen finden Sie im **Agenten-Posteingang** auf der linken Seite der Navigation.
+
+Weitere Informationen zum Data Management Agent finden Sie in der [DMAA-Dokumentation](/de/activities/notes#dmaa-integration).
 
 ## Hauptfunktionen
 
-- **Anrufprotokollierung**: Erfassen Sie Details zu eingehenden und ausgehenden Anrufen
-- **Anrufhistorie**: Greifen Sie auf die vollständige Anrufhistorie für jeden Kontakt zu
-- **Notizen & Ergebnisse**: Dokumentieren Sie Anrufnotizen und Resultate
-- **Nachverfolgung**: Planen Sie Follow-up-Anrufe und Erinnerungen
+### Kommunikationshistorie
 
-## Anwendungsfälle
+Pflegen Sie eine vollständige Historie aller Telefonkommunikationen:
 
-Anrufe sind unverzichtbar für:
-- Kandidaten-Screening und Interviews
-- Kundenkommunikation
-- Nachfolgegespräche
-- Pflege von Kommunikationsaufzeichnungen
+- Eingehende und ausgehende Anrufe
+- Anrufergebnisse und -dauer
+- Detaillierte Gesprächsnotizen
+- Zeitstempel für jeden Anruf
+
+### Multi-Datensatz-Verknüpfung
+
+- Verknüpfen Sie Anrufe mit mehreren Datensätzen gleichzeitig
+- Sehen Sie Anrufe in den Aktivitätenleisten aller verknüpften Datensätze
+- Behalten Sie den Kontext über verschiedene Entities hinweg
+
+### Telefon-Integrationen
+
+- Verknüpfen Sie externe Call-Transkripte
+- Integrieren Sie Aufnahmen und Recordings
+- Verbinden Sie Telefonie-Systeme über Aufnahme-URLs
+
+### KI-gestützte Datenverwaltung
+
+- Automatische Analyse von Anrufnotizen durch DMAA
+- Intelligente Vorschläge für Datensatz-Updates
+- Extraktion relevanter Informationen aus Gesprächsinhalten
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Speech-to-Text nutzen">
+    Verwenden Sie die Speech-to-Text-Funktion direkt nach dem Anruf, um Ihre Gedanken frisch und detailliert zu erfassen, während die Gesprächsinhalte noch präsent sind.
+  </Accordion>
+
+  <Accordion title="Anrufergebnisse dokumentieren">
+    Protokollieren Sie immer das Anrufergebnis. Dies hilft bei der Nachverfolgung und gibt Kontext für zukünftige Interaktionen.
+  </Accordion>
+
+  <Accordion title="Datensätze verknüpfen">
+    Verknüpfen Sie Anrufe mit allen relevanten Datensätzen (Kandidat, Kontakt, Account, Bewerbung), um eine vollständige Kommunikationshistorie über alle Entities zu gewährleisten.
+  </Accordion>
+
+  <Accordion title="DMAA-Vorschläge prüfen">
+    Überprüfen Sie regelmäßig den Agenten-Posteingang für DMAA-Vorschläge, um Ihre Datensätze aktuell zu halten, basierend auf Anrufinformationen.
+  </Accordion>
+
+  <Accordion title="Anrufdauer erfassen">
+    Protokollieren Sie die Anrufdauer, um die Zeit zu tracken, die Sie in die Kommunikation mit Kontakten, Kandidaten und Accounts investieren.
+  </Accordion>
+</AccordionGroup>
+
+## Verwandte Dokumentation
+
+- [Notizen](/de/activities/notes) - Erfahren Sie mehr über das Speech-to-Text Feature und DMAA
+- [Meetings](/de/activities/meetings) - Protokollieren Sie persönliche Meetings
+- [E-Mails](/de/activities/emails) - Verwalten Sie E-Mail-Kommunikationen
+- [Aktivitäten-Zeitleiste](/de/activities/activity-timeline) - Überblick über alle Aktivitäten

@@ -1,24 +1,219 @@
 ---
 title: 'Calls'
-description: 'Log and track phone calls in Nexus Search'
+description: 'Log and manage phone calls in Nexus Search'
 icon: 'phone'
 ---
 
+# Calls
+
+> Document incoming and outgoing phone conversations with your network
+
 ## Overview
 
-The Calls feature allows you to log and track all phone communications with candidates, clients, and contacts. Maintain a complete history of conversations and outcomes.
+Calls are an essential component of the activity timeline in Nexus Search. They allow you to log incoming and outgoing phone or mobile conversations with contacts, candidates, and referred recruiters. Calls can be associated with various records and help you maintain a complete communication history.
+
+## Logging a Call
+
+### Quick Start
+
+To log a new call:
+
+<Steps>
+  <Step title="Open Record">
+    Click on the relevant record (Account, Contact, Candidate, Application, etc.)
+  </Step>
+
+  <Step title="Open Activities Tab">
+    Navigate to the **"Activities/History"** tab
+  </Step>
+
+  <Step title="Create Call">
+    Click the **"Call"** button
+  </Step>
+
+  <Step title="Enter Call Details">
+    Fill in the required and optional fields
+  </Step>
+
+  <Step title="Save Call">
+    Click **"Create Call"** to save the call
+  </Step>
+</Steps>
+
+### Linked Records
+
+<Info>
+When you create a call on an existing record, it is automatically linked to the new activity. However, you can connect additional records to this call through **linked records**.
+
+When records are linked to a call, the call will also appear in the activity timelines of those linked records.
+</Info>
+
+## Required and Optional Fields
+
+### Call Direction (Required)
+
+You must select the **call direction**:
+
+- **Inbound** - Calls you received
+- **Outbound** - Calls you made
+
+### Phone Number (Optional)
+
+Enter the phone number from which you were called or which you called.
+
+### Call Outcome (Optional)
+
+Select the outcome of the call from the following options:
+
+- **No Answer** - The call was not answered
+- **Busy** - The line was busy
+- **Voicemail** - The call went to voicemail
+- **Failed** - The call could not be established
+- **Completed** - The call was successfully completed
+
+### Duration (Optional)
+
+Log the duration of the call in minutes.
+
+### Recording URL (Optional)
+
+<Info>
+If you use a **phone integration** that provides call transcripts, for example, you can add a link to the call transcript in the **Recording URL** field.
+</Info>
+
+### Call Notes (Important)
+
+The **Call Notes** field is particularly important. Here you can capture your thoughts, conversation topics, and everything relevant to this call.
+
+#### Speech-to-Text Feature
+
+<Info>
+Use the **Speech-to-Text feature** to quickly and easily insert your thoughts into the call notes field via voice input. Your spoken words are transcribed and inserted directly into the field.
+
+Check out the [Speech-to-Text Feature documentation](/activities/notes#voice-input) for more details.
+</Info>
+
+## Editing a Call
+
+To edit a call after creation:
+
+<Steps>
+  <Step title="Open Record Details">
+    Open the relevant record (e.g., Account, Contact, Application, or Candidate)
+  </Step>
+
+  <Step title="Find Call in Activity Timeline">
+    Search for the corresponding call activity in the activity timeline
+  </Step>
+
+  <Step title="Open Edit Mode">
+    Click the **Edit icon** on the right side of the activity, or click the **three-dot menu** and select **"Edit Activity"**
+  </Step>
+
+  <Step title="Modify Details">
+    The call details will open. Make your desired changes.
+  </Step>
+
+  <Step title="Save Changes">
+    Click **"Save Changes"** to complete the edit
+  </Step>
+</Steps>
+
+## Deleting a Call
+
+<Warning>
+Deleting a call permanently removes the activity from all linked records. This action cannot be undone.
+</Warning>
+
+To delete a call:
+
+<Steps>
+  <Step title="Find Call in Activity Timeline">
+    Search for the call to be deleted in the activity timeline
+  </Step>
+
+  <Step title="Open Three-Dot Menu">
+    Click the **three dots** on the right side in the activity timeline
+  </Step>
+
+  <Step title="Select Delete">
+    Select the red **"Delete Activity"** button
+  </Step>
+
+  <Step title="Confirm Deletion">
+    - Confirm the warning by clicking **"Delete Activity"**
+    - Or click **"Cancel"** if you don't want to delete the activity
+  </Step>
+</Steps>
+
+## Data Management Agent (DMAA)
+
+<Info>
+**Important:** Call notes and additional information are made available to the **Data Management Agent (DMAA)**.
+
+The DMAA analyzes the call content to determine whether a candidate, contact, or application record should be updated based on the information from the call.
+</Info>
+
+Suggested updates can be found in the **Agent Inbox** on the left side of the navigation.
+
+For more information about the Data Management Agent, see the [DMAA documentation](/activities/notes#dmaa-integration).
 
 ## Key Features
 
-- **Call Logging**: Record details of incoming and outgoing calls
-- **Call History**: Access complete call history for any contact
-- **Notes & Outcomes**: Document call notes and results
-- **Follow-ups**: Schedule follow-up calls and reminders
+### Communication History
 
-## Use Cases
+Maintain a complete history of all phone communications:
 
-Calls are essential for:
-- Candidate screening and interviews
-- Client communications
-- Follow-up conversations
-- Maintaining communication records
+- Incoming and outgoing calls
+- Call outcomes and duration
+- Detailed conversation notes
+- Timestamp for each call
+
+### Multi-Record Linking
+
+- Link calls to multiple records simultaneously
+- View calls in the activity timelines of all linked records
+- Maintain context across different entities
+
+### Phone Integrations
+
+- Link external call transcripts
+- Integrate recordings
+- Connect telephony systems via recording URLs
+
+### AI-Powered Data Management
+
+- Automatic analysis of call notes by DMAA
+- Intelligent suggestions for record updates
+- Extraction of relevant information from conversation content
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Use Speech-to-Text">
+    Use the speech-to-text feature immediately after the call to capture your thoughts fresh and in detail while the conversation content is still present.
+  </Accordion>
+
+  <Accordion title="Document Call Outcomes">
+    Always log the call outcome. This helps with follow-up and provides context for future interactions.
+  </Accordion>
+
+  <Accordion title="Link Records">
+    Link calls to all relevant records (Candidate, Contact, Account, Application) to ensure a complete communication history across all entities.
+  </Accordion>
+
+  <Accordion title="Review DMAA Suggestions">
+    Regularly check the Agent Inbox for DMAA suggestions to keep your records up to date based on call information.
+  </Accordion>
+
+  <Accordion title="Track Call Duration">
+    Log call duration to track the time you invest in communication with contacts, candidates, and accounts.
+  </Accordion>
+</AccordionGroup>
+
+## Related Documentation
+
+- [Notes](/activities/notes) - Learn more about the Speech-to-Text feature and DMAA
+- [Meetings](/activities/meetings) - Log in-person meetings
+- [Emails](/activities/emails) - Manage email communications
+- [Activity Timeline](/activities/activity-timeline) - Overview of all activities
