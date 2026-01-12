@@ -14,19 +14,14 @@
         "language": "en",
         "tabs": [
           {
-            "tab": "Home",
+            "tab": "Guides",
             "groups": [
               {
                 "group": "Getting Started",
                 "pages": [
                   "introduction"
                 ]
-              }
-            ]
-          },
-          {
-            "tab": "Guides",
-            "groups": [
+              },
               {
                 "group": "Core Concepts",
                 "pages": [
@@ -79,19 +74,14 @@
         "language": "de",
         "tabs": [
           {
-            "tab": "Start",
+            "tab": "Anleitungen",
             "groups": [
               {
                 "group": "Erste Schritte",
                 "pages": [
                   "de/introduction"
                 ]
-              }
-            ]
-          },
-          {
-            "tab": "Anleitungen",
-            "groups": [
+              },
               {
                 "group": "Kernkonzepte",
                 "pages": [
