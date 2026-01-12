@@ -12,12 +12,18 @@
     "languages": [
       {
         "language": "en",
-        "global": {
-          "pages": [
-            "introduction"
-          ]
-        },
         "tabs": [
+          {
+            "tab": "Home",
+            "groups": [
+              {
+                "group": "Getting Started",
+                "pages": [
+                  "introduction"
+                ]
+              }
+            ]
+          },
           {
             "tab": "Guides",
             "groups": [
@@ -71,12 +77,18 @@
       },
       {
         "language": "de",
-        "global": {
-          "pages": [
-            "de/introduction"
-          ]
-        },
         "tabs": [
+          {
+            "tab": "Start",
+            "groups": [
+              {
+                "group": "Erste Schritte",
+                "pages": [
+                  "de/introduction"
+                ]
+              }
+            ]
+          },
           {
             "tab": "Anleitungen",
             "groups": [
