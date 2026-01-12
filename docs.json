@@ -12,6 +12,11 @@
     "languages": [
       {
         "language": "en",
+        "global": {
+          "pages": [
+            "introduction"
+          ]
+        },
         "tabs": [
           {
             "tab": "Guides",
@@ -66,6 +71,11 @@
       },
       {
         "language": "de",
+        "global": {
+          "pages": [
+            "de/introduction"
+          ]
+        },
         "tabs": [
           {
             "tab": "Anleitungen",
