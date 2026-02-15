@@ -70,7 +70,10 @@
             ]
           },
           {
-            "tab": "Changelog"
+            "tab": "Changelog",
+            "pages": [
+              "changelog"
+            ]
           }
         ]
       },
