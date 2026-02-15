@@ -136,7 +136,10 @@
             ]
           },
           {
-            "tab": "Changelog"
+            "tab": "Changelog",
+            "pages": [
+              "de/changelog"
+            ]
           }
         ]
       }
