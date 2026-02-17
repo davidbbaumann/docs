@@ -1,0 +1,76 @@
+---
+title: "Data Retention"
+icon: "shield-check"
+---
+
+## Overview
+
+The configuration of workspace-wide deletion periods is a key element in automatically complying with data protection and compliance requirements when managing [Applications ](/core-concepts/applications)and [Candidates ](/core-concepts/candidates)and ensuring clean deletion.
+
+## Applications
+
+### Configure deletion periods for applications
+
+To configure the general deletion period/retention period for applications, proceed as follows:
+
+<Steps>
+  <Step title="Open “Settings” > “Workspace” in the left-hand navigation bar.">
+    
+  </Step>
+  <Step title="Open the “Settings” tab in the Workspace.">
+    
+  </Step>
+  <Step title="Select a period in the “Data retention period (GDPR compliance)” section.">
+    Available values are **6, 9, 12, 18, or 24 months**, with**6 months**  being the **default **value.
+  </Step>
+  <Step title="Click “Save”">
+    
+  </Step>
+</Steps>
+
+### Adjusting deletion periods for applications
+
+The general deletion period can be adjusted at any time. Follow the steps described in “Configure deletion periods for applications”
+
+<Danger>
+  **Important!**
+
+  When an administrator adjusts the workspace-wide deletion period for applications, **all application expiration dates are recalculated** to reflect the new settings (period).
+
+  **If the deletion period is shortened, applications may be lost.**
+
+  Applications in a final workflow status are not recalculated.
+</Danger>
+
+### Calculation of the expiration date
+
+When an application is created, the expiration date of the application is calculated as: “Application creation date plus workspace-specific deletion period equals new expiration date.” For example, if a deletion period of 6 months is configured and an application is created on January 15, the application will expire on July 15 of that year.
+
+### Automatic extension of the expiration date
+
+The expiration date is automatically recalculated as soon as a relevant activity takes place in the application. This includes:
+
+- Editing application details (e.g., updating the applicant's name or source)
+- Uploading or removing documents
+- Adding activity entries or notes
+
+Each of these actions resets the expiration date to the current date plus the retention period to ensure that actively managed applications are not marked for deletion prematurely.
+
+### Freezing the expiration date in the case of certain workflow statuses
+
+When an application reaches the final stage of its workflow (e.g., “Offer accepted” or “Applicant rejected”), the expiration date is frozen. From this point on, no further processing, document uploads, or activity entries will extend the expiration date. This ensures that completed applications are subject to a predictable retention period, regardless of subsequent administrative changes.
+
+If an application is moved back from a final stage to an earlier stage, the automatic recalculation of the expiration date continues as usual.
+
+<Warning>
+  In the workflow/process, the status must be marked accordingly with **End status**. See Workflows for more information.
+</Warning>
+
+### Manual adjustments to the expiration date
+
+Users can manually adjust the expiration date of an application, subject to the following restrictions:
+
+- The date must be in the future (past dates are not permitted).
+- The date may not exceed the current expiration date plus the retention period of the workspace.
+
+For example, if your workspace has a retention period of 6 months and the current expiration date is September 1, you can set a new expiration date until March 1 of the following year.
