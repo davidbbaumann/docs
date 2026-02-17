@@ -46,6 +46,12 @@
                   "activities/emails",
                   "activities/notes"
                 ]
+              },
+              {
+                "group": "Privacy & Compliance",
+                "pages": [
+                  "data-retention"
+                ]
               }
             ]
           },

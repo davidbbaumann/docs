@@ -1,0 +1,40 @@
+---
+title: "Data Retention"
+---
+
+## Application Data Retention & Expiry Dates
+
+Every application is automatically assigned an **expiry date** based on your workspace's configured data retention period. This ensures compliance with data protection regulations (e.g., GDPR) by defining how long application data is retained before it becomes eligible for deletion.
+
+### How the Expiry Date Is Calculated
+
+When an application is created, its expiry date is set to the **creation date plus the workspace retention period** (e.g., if your workspace is configured with a 6-month retention period, a new application created on January 15 will have an expiry date of July 15).
+
+### Automatic Expiry Extension
+
+The expiry date is **automatically recalculated** whenever meaningful activity occurs on the application. This includes:
+
+- Editing application details (e.g., updating the applicant name or source)
+- Uploading or removing documents
+- Adding activity entries or notes
+
+Each of these actions resets the expiry date to the **current date plus the retention period**, ensuring that actively managed applications are not prematurely marked for deletion.
+
+### Workflow-Aware Freezing
+
+If an application reaches a **final stage** in its workflow (e.g., "Offer Accepted" or "Candidate Rejected"), the expiry date is **frozen**. From that point on, no further edits, document uploads, or activity entries will extend the expiry date. This ensures that completed applications follow a predictable retention timeline regardless of any subsequent administrative changes.
+
+If an application is moved back from a final stage to an earlier stage, automatic expiry recalculation resumes as normal.
+
+### Manual Expiry Adjustments
+
+Users can manually adjust the expiry date of an application, subject to the following constraints:
+
+- The date must be **in the future** (past dates are not permitted)
+- The date cannot exceed the **current expiry date plus the workspace retention period**
+
+For example, if your workspace has a 6-month retention period and the current expiry date is September 1, you can set a new expiry date up to March 1 of the following year.
+
+### Workspace Retention Period Changes
+
+If an administrator changes the workspace data retention period, all active application expiry dates are automatically recalculated to reflect the new setting. Applications in a final workflow stage are excluded from this recalculation.

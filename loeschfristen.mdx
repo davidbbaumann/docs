@@ -7,7 +7,7 @@ description: "Konfiguration von Löschfristen und Mechanismen"
 
 Die Konfiguration workspaceweiter Löschfristen ist ein zentrales Element, um Datenschutz- und Compliance-Anforderungen bei der Verwaltung von [Bewerbungen ](/de/core-concepts/applications)und [Kandidaten ](/de/core-concepts/candidates)automatisiert einzuhalten und eine saubere Löschung sicherzustellen.
 
-## Löschfristen für Bewerbungen konfigurieren
+## Workspaceweite Löschfristen für Bewerbungen konfigurieren
 
 Um die allgemeine Löschfrist/Aufbewahrungsfrist von [Bewerbungen ](/de/core-concepts/applications)zu konfigurieren, gehen Sie wie folgt vor:
 
@@ -19,9 +19,23 @@ Um die allgemeine Löschfrist/Aufbewahrungsfrist von [Bewerbungen ](/de/core-con
     
   </Step>
   <Step title='Wählen Sie im Bereich "Datenaufbewahrungsfrist (DSGVO-Konformität)" eine Frist'>
-    Verfügbare Werte sind 6, 9, 12, 18 oder 24 Monate, wobei 6 Monate der Standardwert ist. 
+    Verfügbare Werte sind **6, 9, 12, 18 oder 24 Monate**, wobei **6 Monate der Standardwert** ist. 
   </Step>
   <Step title='Klicken Sie "Speichern"'>
     
   </Step>
 </Steps>
+
+## Workspaceweite Löschfristen für Bewerbungen anpassen
+
+Die Anpassung der allgemeinen Löschfrist kann zu jedem Zeitpunkt erfolgen. Es gelten die Schritte im Punkt "**Workspaceweite Löschfristen für Bewerbungen konfigurieren".**
+
+<Danger>
+  **Wichtig!**
+
+  Wenn ein Administrator die workspaceweite Löschfrist für Bewerbungen anpasst, findet eine **Neuberechnung aller Ablaufdaten** der Bewerbungen statt, um die neuen Einstellungen (Frist) zu berücksichtgen.
+
+  **Wenn die Löschfrist verkürzt wird, kann es zum Verlust von Bewerbungen kommen.**
+
+  Bewerbungen in einem finalen Workflow-Status werden nicht neu berechnet.
+</Danger>
