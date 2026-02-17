@@ -112,6 +112,10 @@
                   "de/activities/emails",
                   "de/activities/notes"
                 ]
+              },
+              {
+                "group": "Datenschutz & Compliance",
+                "pages": []
               }
             ]
           },
