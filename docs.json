@@ -115,7 +115,9 @@
               },
               {
                 "group": "Datenschutz & Compliance",
-                "pages": []
+                "pages": [
+                  "loeschfristen"
+                ]
               }
             ]
           },
