@@ -123,8 +123,8 @@
               {
                 "group": "Datenschutz & Compliance",
                 "pages": [
-                  "de/datenschutz-compliance/loeschfristen",
-                  "de/datenschutz-compliance/einwilligung"
+                  "de/privacy-compliance/data-retention",
+                  "de/privacy-compliance/consent"
                 ]
               }
             ]
