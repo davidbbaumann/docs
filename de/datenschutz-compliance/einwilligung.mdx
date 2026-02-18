@@ -1,0 +1,77 @@
+---
+title: "Einwilligung"
+description: "Verwalten der datenschutzrechtlichen Einwilligungen von Bewerbungen und KandidatInnen"
+icon: "shield-check"
+---
+
+## Allgemein
+
+Die Konfiguration workspaceweiter Löschfristen ist ein zentrales Element, um Datenschutz- und Compliance-Anforderungen bei der Verwaltung von [Bewerbungen ](/de/core-concepts/applications)und [Kandidaten ](/de/core-concepts/candidates)automatisiert einzuhalten und eine saubere Löschung sicherzustellen.
+
+## Bewerbungen
+
+### Löschfristen für Bewerbungen konfigurieren
+
+Um die allgemeine Löschfrist/Aufbewahrungsfrist von [Bewerbungen ](/de/core-concepts/applications)zu konfigurieren, gehen Sie wie folgt vor:
+
+<Steps>
+  <Step title='Öffen Sie in der linken Seitennavigation "Einstellungen" > "Arbeitsbereich"'>
+    
+  </Step>
+  <Step title='Öffnen Sie im Arbeitsbereich den Reiter "Einstellungen"'>
+    
+  </Step>
+  <Step title='Wählen Sie im Bereich "Datenaufbewahrungsfrist (DSGVO-Konformität)" eine Frist'>
+    Verfügbare Werte sind **6, 9, 12, 18 oder 24 Monate**, wobei **6 Monate der Standardwert** ist. 
+  </Step>
+  <Step title='Klicken Sie "Speichern"'>
+    
+  </Step>
+</Steps>
+
+### Löschfristen für Bewerbungen anpassen
+
+Die Anpassung der allgemeinen Löschfrist kann zu jedem Zeitpunkt erfolgen. Es gelten die Schritte im Punkt "**Workspaceweite Löschfristen für Bewerbungen konfigurieren".**
+
+<Danger>
+  **Wichtig!**
+
+  Wenn ein Administrator die workspaceweite Löschfrist für Bewerbungen anpasst, findet eine **Neuberechnung aller Ablaufdaten** der Bewerbungen statt, um die neuen Einstellungen (Frist) zu berücksichtgen.
+
+  **Wenn die Löschfrist verkürzt wird, kann es zum Verlust von Bewerbungen kommen.**
+
+  Bewerbungen in einem finalen Workflow-Status werden nicht neu berechnet.
+</Danger>
+
+### Berechnung des Ablaufdatums
+
+Wenn eine Bewerbung erstellt wird, wird das Ablaufdatum der Bewerbung berechnet als: "Erstelldatum der Bewerbung plus Workspace spezifische Löschfrist gleich neues Ablaufdatum". Wenn bspw. eine Löschfrist von 6 Monaten konfiguriert ist und eine Bewerbung am 15. Januar erstellt wird, dann läuft die Bewerbung am 15. Juli des Jahres ab.
+
+### Automatische Verlängerung des Ablaufdatums
+
+Das Ablaufdatum wird automatisch neu berechnet, sobald eine relevante Aktivität in der Bewerbung stattfindet. Dazu gehören:
+
+- Bearbeiten von Bewerbungsdetails (z. B. Aktualisieren des Namens oder der Quelle des Bewerbers)
+- Hochladen oder Entfernen von Dokumenten
+- Hinzufügen von Aktivitätseinträgen oder Notizen
+
+Jede dieser Aktionen setzt das Ablaufdatum auf das aktuelle Datum plus die Aufbewahrungsfrist zurück, um sicherzustellen, dass aktiv verwaltete Bewerbungen nicht vorzeitig zum Löschen markiert werden.
+
+### Einfrieren des Ablaufdatums im Fall von bestimmten Prozessstatus
+
+Wenn eine Bewerbung eine letzte Phase ihres Workflows erreicht (z. B. „Angebot angenommen“ oder „Bewerber abgelehnt“), wird das Ablaufdatum eingefroren. Ab diesem Zeitpunkt verlängern keine weiteren Bearbeitungen, Dokumenten-Uploads oder Aktivitätseinträge das Ablaufdatum. Dadurch wird sichergestellt, dass abgeschlossene Bewerbungen unabhängig von späteren administrativen Änderungen einem vorhersehbaren Aufbewahrungszeitraum unterliegen.
+
+Wird eine Bewerbung von einer letzten Phase in eine frühere Phase zurückversetzt, wird die automatische Neuberechnung des Ablaufdatums wie gewohnt fortgesetzt.
+
+<Warning>
+  Im Workflow/Prozess muss der Status entsprechend mit "\*\*Endstatus" \*\*markiert sein. Siehe dazu Workflows
+</Warning>
+
+### Manuelle Anpassungen des Ablaufdatums
+
+Benutzer können das Ablaufdatum einer Bewerbung manuell anpassen, wobei folgende Einschränkungen gelten:
+
+- Das Datum muss in der Zukunft liegen (vergangene Daten sind nicht zulässig).
+- Das Datum darf das aktuelle Ablaufdatum zuzüglich der Aufbewahrungsfrist des Arbeitsbereichs nicht überschreiten.
+
+Wenn Ihr Arbeitsbereich beispielsweise eine Aufbewahrungsfrist von 6 Monaten hat und das aktuelle Ablaufdatum der 1. September ist, können Sie ein neues Ablaufdatum bis zum 1. März des folgenden Jahres festlegen.

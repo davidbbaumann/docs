@@ -50,7 +50,8 @@
               {
                 "group": "Privacy & Compliance",
                 "pages": [
-                  "privacy-compliance/data-retention"
+                  "privacy-compliance/data-retention",
+                  "privacy-compliance/consent"
                 ]
               }
             ]
@@ -122,7 +123,8 @@
               {
                 "group": "Datenschutz & Compliance",
                 "pages": [
-                  "de/datenschutz-compliance/loeschfristen"
+                  "de/datenschutz-compliance/loeschfristen",
+                  "de/datenschutz-compliance/einwilligung"
                 ]
               }
             ]
