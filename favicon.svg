@@ -1,12 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <text 
-    x="50%" 
-    y="50%" 
-    dominant-baseline="central" 
-    text-anchor="middle" 
-    font-family="Inter, system-ui, sans-serif" 
-    font-weight="700" 
-    font-size="48" 
+  <path
+    d="M 18 15 L 25 15 L 39 38 L 39 15 L 46 15 L 46 49 L 39 49 L 25 26 L 25 49 L 18 49 Z"
     fill="#2563EB"
-  >N</text>
+  />
 </svg>
