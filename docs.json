@@ -48,6 +48,12 @@
                 ]
               },
               {
+                "group": "Content Studio",
+                "pages": [
+                  "overview"
+                ]
+              },
+              {
                 "group": "Privacy & Compliance",
                 "pages": [
                   "privacy-compliance/data-retention",
@@ -118,6 +124,12 @@
                   "de/activities/meetings",
                   "de/activities/emails",
                   "de/activities/notes"
+                ]
+              },
+              {
+                "group": "Content Studio",
+                "pages": [
+                  "ueberblick"
                 ]
               },
               {
