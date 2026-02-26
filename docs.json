@@ -129,7 +129,9 @@
               {
                 "group": "Content Studio",
                 "pages": [
-                  "de/content-studio/overview"
+                  "de/content-studio/overview",
+                  "de/content-studio/bilder-creative-pool",
+                  "de/content-studio/activity-templates"
                 ]
               },
               {
