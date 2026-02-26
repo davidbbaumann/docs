@@ -50,7 +50,7 @@
               {
                 "group": "Content Studio",
                 "pages": [
-                  "overview"
+                  "content-studio/overview"
                 ]
               },
               {
@@ -129,7 +129,7 @@
               {
                 "group": "Content Studio",
                 "pages": [
-                  "ueberblick"
+                  "de/content-studio/overview"
                 ]
               },
               {
