@@ -1,24 +1,92 @@
 ---
-title: 'Tasks'
-description: 'Create and manage tasks in Nexus Search'
-icon: 'square-check'
+title: "Tasks"
+description: "Create and manage Tasks in Nexus Search"
+icon: "square-check"
 ---
 
 ## Overview
 
-Tasks help you organize and track your to-do items in Nexus Search. They can be associated with candidates, jobs, or other entities to ensure nothing falls through the cracks.
+Tasks help you organize and track your to-do lists in Nexus Search. They can be linked to various records, such as [Accounts](/core-concepts/accounts), [Contacts](/core-concepts/contacts), [Projects](/core-concepts/projects), or [Candidates](/core-concepts/candidates) and are part of the activity timeline of the associated records.
 
-## Key Features
+## Task Properties
 
-- **Task Management**: Create, assign, and track tasks
-- **Priorities**: Set task priorities and due dates
-- **Assignments**: Assign tasks to team members
-- **Related Entities**: Link tasks to candidates, jobs, or projects
+| Feld                  | Beschreibung                                                                                                                                               | |
+| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | --- |
+| Verbundene Datensätze | Datensätze in Nexus, die mit der Aufgabe verbunden sind. Wenn ein Datensatz verbunden ist, taucht ie Aufgabe in der Aktivitätenleiste des Datensatzes auf. | |
+| Vorlage wählen        | Wählen Sie eine Aufgaben-Vorlage aus dem Content Studio. Es werden die definierten Inhalt inkl. der Variablen geladen.                                     | |
+| Title                 | Title of the task **(Required)**                                                                                                                           | |
+| Description           | Optional description of the task                                                                                                                           | |
+| Priority              | Indicates the importance of the task. Values are: **Niedrig**, **Mittel** oder **Hoch**                                                                    | |
+| Status                | Gibt den aktuellen Stand der Aufgabe an. Werte sind: **Nicht begonnen**, **In Bearbeitung**, **Abgeschlossen**, **Abgebrochen**                            | |
+| Start Date            | Das Datum, an dem mit der Aufgabe begonnen werden soll.                                                                                                    | |
+| End Date              | Das Datum, an dem die Aufgabe abgeschlossen werden soll.                                                                                                   | |
+| Geschätzte Stunden    | Gibt an, wie viel Zeit für die Aufgabe eingeplant werden muss                                                                                              | |
 
-## Use Cases
+## Create Tasks
 
-Tasks are used for:
-- Following up with candidates
-- Coordinating recruitment activities
-- Tracking action items from meetings
-- Managing daily workflows
+<Steps>
+  <Step title="Öffnen Sie die Detailseite des Datensatzes (Unternehmen, Kontakt, etc.) an dem Sie eine Aufgabe erstellen möchten">
+    
+  </Step>
+  <Step title='Öffen Sie den Tab "Aktivitäten"'>
+    
+  </Step>
+  <Step title='Klicken Sie in der oberen rechten Ecke der Aktivitätenleiste auf den Button "Aufgabe"'>
+    Folgende Felder sind bearbeitbar:
+
+    - Verknüpfte Datensätze
+    - Aufgabentitel
+    - Beschreibung
+    - Priorität
+    - Status
+    - Startdatum
+    - Fälligkeitsdatum
+    - Geschätzte Stunden
+  </Step>
+  <Step title='Klicken Sie auf den blauen Button "Aufgabe erstellen" zur Speicherung'>
+    Klicken Sie auf Abbrechen, wenn Sie die Aufgabe nicht erstellen möchten.
+  </Step>
+</Steps>
+
+## Edit Tasks
+
+<Steps>
+  <Step title="Öffnen Sie die Detailseite des Datensatzes (Unternehmen, Kontakt, etc.) an dem Sie eine Aufgabe bearbeiten möchten">
+    
+  </Step>
+  <Step title='Öffen Sie den Tab "Aktivitäten"'>
+    
+  </Step>
+  <Step title='Klicken Sie auf der rechten Seite der relevanten Aktivität den grauen Stift "Aktivität bearbeiten"'>
+    Folgende Felder sind bearbeitbar:
+
+    - Verknüpfte Datensätze
+    - Aufgabentitel
+    - Beschreibung
+    - Priorität
+    - Status
+    - Startdatum
+    - Fälligkeitsdatum
+    - Geschätzte Stunden
+  </Step>
+  <Step title='Click the blue Button "Änderungen speichern" to save'>
+    Click Cancle if you don't want to save the changes.
+  </Step>
+</Steps>
+
+## Delete Tasks
+
+<Steps>
+  <Step title="Open the detail page of the record (Account, Contact, etc.) where you want to delete a task">
+    
+  </Step>
+  <Step title='Open the "Activities" tab'>
+    
+  </Step>
+  <Step title='Click on the red trash can icon "Delete activity" on the right side of the relevant activity'>
+    
+  </Step>
+  <Step title='Confirm the warning by clicking on "Delete activity"'>
+    
+  </Step>
+</Steps>
