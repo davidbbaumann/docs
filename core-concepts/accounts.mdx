@@ -1,7 +1,7 @@
 ---
-title: 'Accounts'
-description: 'Manage your business relationships with organizations and companies'
-icon: 'building'
+title: "Accounts"
+description: "Manage your business relationships with organizations and companies"
+icon: "building"
 ---
 
 ## Overview
@@ -43,28 +43,31 @@ To create a new account:
 ### AI-Assisted Profile Generation
 
 <Info>
-When AI-assisted profile generation is enabled, Nexus Search uses AI-powered web searches and additional data sources to automatically describe the organization or company. This includes:
+  When AI-assisted profile generation is enabled, Nexus Search uses AI-powered web searches and additional data sources to automatically describe the organization or company. This includes:
 
-- Company activities and business description
-- Locations and office information
-- Publicly known decision-makers
-- Other relevant information to better understand the company
+  - Company activities and business description
+  - Locations and office information
+  - Publicly known decision-makers
+  - Other relevant information to better understand the company
 
-Content from the company website is incorporated into the company portrait.
+  Content from the company website is incorporated into the company portrait.
 </Info>
 
 ### Required and Optional Fields
 
 **Company Name** (Required)
+
 - Enter the company name (e.g., "Mustermann AG")
 - This field is mandatory for account creation
 
 **Website/Domain** (Recommended)
+
 - Add the company website or domain
 - Used by AI to enhance the company portrait
 - Website content is analyzed and incorporated
 
 **Account Description** (Optional)
+
 - Add custom notes or observations
 - Options for adding content:
   - Copy and paste from other sources
@@ -74,6 +77,7 @@ Content from the company website is incorporated into the company portrait.
     - Transcript is inserted into the description field
 
 **Account Workflow** (Optional)
+
 - Select a workflow stage (e.g., "Prospect", "New Customer", "Existing Customer")
 - Account workflows can be configured in Settings under "Workflows"
 
@@ -123,7 +127,7 @@ Once created, you'll be directed to the account detail page where you can:
 ## Deleting an Account
 
 <Warning>
-Deleting an account will permanently remove the account and associated data. This action cannot be undone.
+  Deleting an account will permanently remove the account and associated data. This action cannot be undone.
 </Warning>
 
 To delete an account:
@@ -148,62 +152,27 @@ To delete an account:
   </Step>
 </Steps>
 
-## Key Features
+Claude description: 
 
-### Company Information
-Store comprehensive company profiles including:
-- Company name and branding
-- Industry and business sector
-- Company size and employee count
-- Headquarters and office locations
-- Website and social media links
+## 1) Deleting an Account
 
-### AI-Powered Insights
-- Automatic company research and profiling
-- Industry classification
-- Decision-maker identification
-- Business intelligence gathering
+| **What**                                   | **What Happens**                                                                                                                               | **Mechanism**                          |
+| ------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- |
+| **Account record**                         | Deleted                                                                                                                                        | Edge function step 4                   |
+| **Documents (account_files rows)**         | Deleted                                                                                                                                        | DB CASCADE on account_id FK            |
+| **Document files in account-files bucket** | Deleted                                                                                                                                        | Edge function step 1 (storage cleanup) |
+| **Activities referencing this account**    | Account ID removed from account_ids array; activity deleted if no other entity references remain                                               | Edge function step 3                   |
+| **Related Contacts**                       | **NOT deleted** — contacts are independent entities; they may reference the account via account_id but that FK is likely SET NULL or NO ACTION | DB FK behavior                         |
+| **Related Projects**                       | **NOT deleted** — projects linked via account_id remain; FK is likely SET NULL                                                                 | DB FK behavior                         |
 
-### Relationship Management
-- Track all interactions with the organization
-- Link contacts to accounts
-- Manage projects and job opportunities
-- Monitor account workflows and stages
+## (2) Other Entities
 
-### Activity Timeline
-View a complete history of all activities related to the account:
-- Notes and observations
-- Meetings and calls
-- Emails and communications
-- Tasks and follow-ups
+| **Entity**      | **Documents Cleaned**              | **Storage Cleaned**                    | **Activities Cleaned**        | **Special Handling**                                                                                 |
+| --------------- | :--------------------------------: | :------------------------------------: | :---------------------------: | ---------------------------------------------------------------------------------------------------- |
+| **Contact**     | contact_files rows via CASCADE     | contact-files bucket files removed     | contact_ids array updated     | None. Related account is NOT affected.                                                               |
+| **Candidate**   | candidate_files rows via CASCADE   | candidate-files bucket files removed   | candidate_ids array updated   | None. Applications referencing this candidate depend on DB FK behavior (likely CASCADE or SET NULL). |
+| **Project**     | project_files rows via CASCADE     | project-files bucket files removed     | project_ids array updated     | None. Related jobs/account are NOT deleted.                                                          |
+| **Job**         | job_files rows via CASCADE         | job-files bucket files removed         | job_ids array updated         | screening_questions and form_submissions manually deleted first (NO ACTION FK).                      |
+| **Application** | application_files rows via CASCADE | application-files bucket files removed | application_ids array updated | None. Related candidate/job are NOT affected.                                                        |
 
-## Best Practices
-
-<AccordionGroup>
-  <Accordion title="Use AI Profile Generation">
-    Always enable AI-assisted profile generation when creating accounts. It saves time and provides valuable context about the company.
-  </Accordion>
-
-  <Accordion title="Add Website URLs">
-    Include the company website when creating accounts. This significantly improves the quality of AI-generated profiles.
-  </Accordion>
-
-  <Accordion title="Leverage Speech-to-Text">
-    Use the speech-to-text feature to quickly capture observations and notes after calls or meetings.
-  </Accordion>
-
-  <Accordion title="Assign Account Workflows">
-    Use account workflows to track the customer journey from prospect to existing customer.
-  </Accordion>
-
-  <Accordion title="Regular Updates">
-    Keep account information current by regularly reviewing and updating details as the business relationship evolves.
-  </Accordion>
-</AccordionGroup>
-
-## Related Documentation
-
-- [Contacts](/core-concepts/contacts) - Manage individuals within accounts
-- [Projects](/core-concepts/projects) - Organize recruitment initiatives by account
-- [Jobs](/core-concepts/jobs) - Track job openings for accounts
-- [Activity Timeline](/activities/activity-timeline) - Track all account interactions
+**In all cases**: The function only deletes the single entity you target plus its direct dependents (files, activities). It does **not** walk up or sideways to delete related first-class entities (e.g. deleting a project won't delete its jobs; deleting a candidate won't delete their applications unless the DB FK is set to CASCADE).
