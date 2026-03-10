@@ -63,7 +63,8 @@
               {
                 "group": "AI-Capabilities",
                 "pages": [
-                  "ai-capabilities/speech-to-text"
+                  "ai-capabilities/speech-to-text",
+                  "ai-capabilities/content-management-agent"
                 ]
               }
             ]
