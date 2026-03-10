@@ -151,7 +151,8 @@
               {
                 "group": "KI-Fähigkeiten",
                 "pages": [
-                  "de/ai-capabilities/speech-to-text"
+                  "de/ai-capabilities/speech-to-text",
+                  "de/ai-capabilities/content-management-agent"
                 ]
               }
             ]
