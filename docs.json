@@ -59,6 +59,12 @@
                   "privacy-compliance/data-retention",
                   "privacy-compliance/consent"
                 ]
+              },
+              {
+                "group": "AI-Capabilities",
+                "pages": [
+                  "ai-capabilities/speech-to-text"
+                ]
               }
             ]
           },
@@ -140,6 +146,12 @@
                 "pages": [
                   "de/privacy-compliance/data-retention",
                   "de/privacy-compliance/consent"
+                ]
+              },
+              {
+                "group": "KI-Fähigkeiten",
+                "pages": [
+                  "de/ai-capabilities/speech-to-text"
                 ]
               }
             ]
