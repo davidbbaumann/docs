@@ -1,0 +1,100 @@
+---
+title: "Activity Templates"
+icon: "align-justify"
+---
+
+## Overview
+
+Activity templates allow you to reuse identical texts and settings for specific activities across different places in Nexus. Examples include:
+
+- Email templates for standardized rejection messages to candidates, personalized using variables.
+- Note templates that pre-fill certain points which can then be completed.
+- Meeting templates that already contain a first agenda, used repeatedly for recurring meetings.
+
+Defined templates are offered for selection in the Nexus Activity Timeline depending on the template type. For example, when creating a new task, writing a new email, or creating a note, you can choose templates with the corresponding template type to speed up the creation process.
+
+You can find templates in the **left sidebar navigation under Settings \> Content Studio \> "Templates" tab.**
+
+## Properties of All Activity Templates
+
+The following properties apply to every activity template, regardless of template type.
+
+| Field       | Description                                                                                                              |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------ |
+| Name        | Specifies the name of the template. E.g., "Interview Rejection" or "1st Interview Invitation"                            |
+| Description | Describes the template. For example, when it should be used or who it is intended for.                                   |
+| Tags        | Used for tagging/filtering templates. For example, you can tag all templates related to contacts with the "contact" tag. |
+
+## Template Types
+
+Nexus offers 4 different activity template types in total: **Email Templates**, **Note Templates**, **Task Templates**, and **Meeting Templates**. Each template type can be configured with variables.
+
+### Email Templates
+
+| Field           | Description                                                                                                                                                                                                                                           |
+| --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| To              | One or more email addresses that are recipients of the email. Use variables to set email addresses as placeholders.                                                                                                                                   |
+| CC              | One or more email addresses that should receive the email as a carbon copy. Use variables to set email addresses as placeholders.                                                                                                                     |
+| BCC             | One or more email addresses that should receive the email as a blind carbon copy. Use variables to set email addresses as placeholders.                                                                                                               |
+| Subject         | Subject line of the email. Use variables to dynamically define parts of the subject.                                                                                                                                                                  |
+| Body            | Formatted content of the email. Use variables to dynamically define parts of the message.                                                                                                                                                             |
+| Add Attachments | File attachments that are part of the template. E.g., PDFs, Word documents, or other files. Template attachments are always added by default when selecting the template in an email action and can be supplemented with additional files or removed. |
+
+### Note Templates
+
+| Field                   | Description                                                                                                                 |
+| :---------------------- | :-------------------------------------------------------------------------------------------------------------------------- |
+| Note Title              | Title of the note. Use variables to dynamically define parts of the title.                                                  |
+| Note Type               | Type of note. Can have the following values: **General Note**, **Meeting Note**, **Call Note**, **Research**, **Reminder.** |
+| Note Content            | Optional content of the note. Use variables to dynamically define parts of the content.                                     |
+| Pin note by default     | If the note is pinned, it will always be displayed at the top of the activity bar of the linked records.                    |
+| Private note by default | If the note is private, only the creator can see it.                                                                        |
+
+### Task Templates
+
+| Field           | Description                                                                                                         |
+| --------------- | ------------------------------------------------------------------------------------------------------------------- |
+| Title           | Title of the task. Use variables to dynamically define parts of the title.                                          |
+| Description     | Optional description of the task. Use variables to dynamically define parts of the description.                     |
+| Priority        | Indicates the importance of the task. Values are: **Low**, **Medium**, or **High**                                  |
+| Status          | Indicates the current state of the task. Values are: **Not Started**, **In Progress**, **Completed**, **Cancelled** |
+| Estimated Hours | Indicates how much time needs to be planned for the task.                                                           |
+
+### Meeting Templates
+
+| Field         | Description                                                                                                                                                                                                                                                |
+| ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Meeting Title | Title/subject of the meeting. Use variables to dynamically define parts of the title.                                                                                                                                                                      |
+| Agenda        | Optional agenda for the meeting. Use variables to dynamically define parts of the agenda.                                                                                                                                                                  |
+| Meeting Type  | Indicates the type of meeting. Values are: **On-site**, **Video Call**, **Phone Call**. In the case of video calls, a meeting URL (Microsoft Teams link) is automatically created when the template is used, provided users have connected their accounts. |
+| Private       | Indicates whether the meeting is marked as "Private". In this case, the meeting will also be marked as private in the calendar sync.                                                                                                                       |
+| Meeting Notes | Additional notes about the meeting that are not part of the agenda. E.g., post-meeting notes.                                                                                                                                                              |
+
+## Creating Activity Templates
+
+1. Open the **left sidebar navigation Settings \> Content Studio.**
+2. Open the **"Templates" tab.**
+3. Click the **blue "New Template" button** in the top right.
+4. Select a **template type**.
+5. Enter the **template details**. You can also complete these later.
+6. Click the **blue "New Template" button** to save the template. If you decide not to create a template, click "Cancel".
+
+## Editing Activity Templates
+
+1. Open the **left sidebar navigation Settings \> Content Studio.**
+2. Open the **"Templates" tab.**
+3. Open the template either by **clicking on the table row of the template** you want to edit, or by **clicking the pencil "Edit" button** on the far left in the **Actions column**.
+4. Edit and modify the template in the detail view.
+5. Click the **blue "Save" button** to apply the changes. Click "Cancel" to discard the changes.
+
+## Deleting Activity Templates
+
+1. Open the **left sidebar navigation Settings \> Content Studio.**
+2. Open the **"Templates" tab.**
+3. Delete the template either:
+   1. In the **list view** by clicking the **trash icon button in the Actions column** on the far right of the table. Confirm the warning by clicking the red "Delete" button.
+   2. In the **template detail view** by clicking the **red "Delete" button** in the bottom left of the detail view. Confirm the warning by clicking the red "Delete" button.
+
+<Warning>
+  Deleting a template cannot be undone.
+</Warning>

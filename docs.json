@@ -50,7 +50,8 @@
               {
                 "group": "Content Studio",
                 "pages": [
-                  "content-studio/overview"
+                  "content-studio/overview",
+                  "content-studio/activity-templates"
                 ]
               },
               {
