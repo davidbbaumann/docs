@@ -17,7 +17,7 @@ Vorlagen finden Sie in der **linken Seitennavigation unter Einstellungen \> Cont
 
 ## Eigenschaften aller Aktivitätenvorlagen
 
-Die folgenden Eingeschaften sind jeder Aktivitätenvorlage, unabhängig des Vorlagentyps.
+Die folgenden Eigenschaften sind jeder Aktivitätenvorlage, unabhängig des Vorlagentyps.
 
 | Feld         | Beschreibung                                                                                                                                        |
 | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -42,9 +42,35 @@ Insgesamt stehen in Nexus 4 verschiedene Aktivitätenvorlagen zur Verfügung. Di
 
 ### Notizvorlagen
 
+| Feld                      | Beschreibung                                                                                                                     |
+| :------------------------ | :------------------------------------------------------------------------------------------------------------------------------- |
+| Notiztitel                | Titel der Notiz. Nutzen Sie Variablen, um Teile des Titels dynamisch zu definieren.                                              |
+| Notiztyp                  | Art der Notiz. Kann folgende Werte haben: **Allgemeine Notiz**, **Meeting-Notiz**, **Anrufnotiz**, **Recherche**, **Erinnerung** |
+| Notizinhalt               | Optionale Beschreibung der Notiz. Nutzen Sie Variablen, um Teile der Beschreibung dynamisch zu definieren.                       |
+| Diese Notiz anheften      | Wenn die Notiz angeheftet wird, wird sie immer ganz oben in der Aktivitätenleiste der verbundenen Datensätze angezeigt.          |
+| Diese Notiz privat machen | Wenn die Notiz privat ist, kann nur der Ersteller die Notiz sehen.                                                               |
+
 ### Aufgabenvorlagen
 
+| Feld               | Beschreibung                                                                                                                    |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------- |
+| Titel              | Titel der Aufgabe. Nutzen Sie Variablen, um Teile des Titels dynamisch zu definieren.                                           |
+| Beschreibung       | Optionale Beschreibung der Aufgabe. Nutzen Sie Variablen, um Teile der Beschreibung dynamisch zu definieren.                    |
+| Priorität          | Gibt die Wichtigkeit der Aufgabe an. Werte sind: **Niedrig**, **Mittel** oder **Hoch**                                          |
+| Status             | Gibt den aktuellen Stand der Aufgabe an. Werte sind: **Nicht begonnen**, **In Bearbeitung**, **Abgeschlossen**, **Abgebrochen** |
+| Startdatum         | Das Datum, an dem mit der Aufgabe begonnen werden soll.                                                                         |
+| Fälligkeitsdatum   | Das Datum, an dem die Aufgabe abgeschlossen werden soll.                                                                        |
+| Geschätzte Stunden | Gibt an, wie viel Zeit für die Aufgabe eingeplant werden muss                                                                   |
+
 ### Meeting-Vorlagen
+
+| Feld            | Beschreibung                                                                                                                                                                                                                                                              |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Meeting-Titel   | Titel/Betreff des Meetings. Nutzen Sie Variablen, um Teile des Titels dynamisch zu definieren.                                                                                                                                                                            |
+| Agenda          | Optionale Agenda des Meetings. Nutzen Sie Variablen, um Teile der Agenda dynamisch zu definieren.                                                                                                                                                                         |
+| Meeting-Typ     | Gibt die Art des Meetings an. Werte sind: **Vor Ort**, **Videoanruf**, **Telefonat**. Im Fall von Videoanrufen, wird bei der Verwendung des Templates automatisch eine Meeting-URL (Microsoft-Teams Link) erstellt, wenn die BenutzerInnen ihre Accounts verbunden haben. |
+| Privat          | Gibt an, ob das Meeting als "Privat" gekennzeichnet wird. In diesem Fall wird das Meeting auch in der Kalendersynchronisation als privat gekennzeichnet. das                                                                                                              |
+| Meeting-Notizen | Weitere Notizen zum Meeting, die nicht Teil der Agenda sind. Bspw. nach dem Meeting.                                                                                                                                                                                      |
 
 ## Aktivitätenvorlagen erstellen
 
