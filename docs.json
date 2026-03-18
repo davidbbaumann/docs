@@ -107,7 +107,8 @@
               {
                 "group": "Erste Schritte",
                 "pages": [
-                  "de/introduction"
+                  "de/introduction",
+                  "de/quickstart"
                 ]
               },
               {
@@ -154,7 +155,8 @@
                 "group": "KI-Fähigkeiten",
                 "pages": [
                   "de/ai-capabilities/speech-to-text",
-                  "de/ai-capabilities/content-management-agent"
+                  "de/ai-capabilities/content-management-agent",
+                  "de/ai-capabilities/offline-in-person-meeting-transcription"
                 ]
               }
             ]
