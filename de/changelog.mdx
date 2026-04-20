@@ -6,27 +6,33 @@ description: "Produkt-Aktualisierungen und Ankündigungen"
 <Update label="KW 16 | April 2026">
   ## Verbesserungen
 
+  ### Verbesserte Kontextverarbeitung des Nexus Assistenten
+
+  HTML-Inhalte von E-Mails, wie bspw. Schriftarten oder andere Formatierungen haben keine Relevanz für den Assistenten, erschöpfen jedoch das Kontextbudget. Diese irrelevanten Inhalte werden nun herausgefiltert und der Assistent erhält nun wesentlich präzisere Informationen. 
+
   ### Bilder in E-Mail Signaturen
 
   Es besteht nun die Möglichkeit, Bilder und Grafiken in den E-Mail Signaturen in Nexus zu hinterlegen.
 
   ### Kalendereinträge
 
-  Sowohl für Nexus Meetings als auch Kalendereinträge, die aus Microsoft synchonisiert wurden, kann nun in der Kalenderübersicht eine Detailseite geöffnet werden, die dem User die Einzelheiten des Eintrags, Zeiten, Inhalte, Teilnehmer und weitere Informationen anzeigt.
+  Sowohl für Nexus Meetings als auch Kalendereinträge, die aus Microsoft synchronisiert wurden, kann nun in der Kalenderübersicht eine Detailseite geöffnet werden, die dem User die Einzelheiten des Eintrags, Zeiten, Inhalte, TeilnehmerInnen und weitere Informationen anzeigt.
 
   ### Zentrale Aufgabenverwaltung in der Kalenderansicht
 
-  In der Kalenderübersicht von Nexus werden nun als rechte Sidebar die dem Nutzer zugeordneten oder die von ihm erstellten Aufgaben gruppiert nach Status und Fälligkeitsdatum angezeigt.
+  In der Kalenderübersicht von Nexus werden nun als rechte Sidebar die dem Nutzer zugeordneten bzw. die von ihm erstellten Aufgaben gruppiert nach Status und Fälligkeitsdatum angezeigt.
 
   ### Parsing von E-Mail Anhängen
 
-  Eingehende und ausgehende E-Mail Anhänge werden den Datensätzen unter "Dokumenten" zugeordnet. Diese werden ebenfalls vom Nexus Parser ausgelesen. 
+  Eingehende und ausgehende E-Mail Anhänge werden den Datensätzen unter "Dokumenten" zugeordnet. Diese werden ebenfalls vom Nexus Parser ausgelesen.
 
   ## Fehlerbehebungen
 
   - Es wurde ein Fehler behoben, der dazu geführt hat, dass Kontakte bei der KI-gestützten Erstellung mit `<UNKNOWN>`-Werten erstellt wurden.
   - Es wurden fehlende Deutsch-/Englische-Übersetzungen ergänzt.
   - Es wurden fehlerhafte Links eingehender E-Mail-Anhänge korrigiert.
+  - Es wurde ein Fehler in E-Mail Signaturen behoben, der dazu geführt hat, dass Leerzeilen nicht dargestellt wurden.
+  - Es wurde eine fehlerhafte URL korrigiert, die dazu geführt hat, dass Dokumente nicht geöffnet werden konnten.
 </Update>
 
 <Update label="KW 15 | April 2026">
