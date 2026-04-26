@@ -156,7 +156,8 @@
                 "pages": [
                   "de/ai-capabilities/speech-to-text",
                   "de/ai-capabilities/content-management-agent",
-                  "de/ai-capabilities/offline-in-person-meeting-transcription"
+                  "de/ai-capabilities/offline-in-person-meeting-transcription",
+                  "de/ai-capabilities/custom-attributes"
                 ]
               }
             ]
