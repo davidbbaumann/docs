@@ -8,9 +8,60 @@ description: "Individuelle Eigenschaften und organisationsspezifische Informatio
 
 Nexus erlaubt es Ihnen, mit benutzerdefinierten Attributen **wichtige Eigenschaften** für **Unternehmen**, **Kontakte**, **Projekte**, **Bewerbungen** und **Kandidaten** zu erfassen. Diese können von Ihnen selbst konfiguriert werden und Sie können entscheiden, ob die Nexus-KI diese Attribute auf Basis von Informationen befüllen darf oder nicht.
 
-Benutzerdefinierte Attribute finden sind Teil der **Einstellungen** in der **linken Seitennavigation** unter **Einstellungen → Attribute**.
+Benutzerdefinierte Attribute sind Teil der **Einstellungen** in der **linken Seitennavigation** unter **Einstellungen → Attribute**.
 
-## Attribute erstellen
+## Benutzerdefinierte Attribute erstellen
+
+### Manuelle Erstellung
 
 1. Öffnen Sie in der **linken Seitennavigation** unter **Einstellungen → Attribute**.
-2. Öffnen Sie den Tab, für den Sie ein benutzerdefiniertes Attribut erstellen möchten. Attribute können für 
+2. Öffnen Sie den Tab, für den Sie ein benutzerdefiniertes Attribut erstellen möchten. Attribute können für **Unternehmen**, **Kontakte**, **Projekte**, **Bewerbungen** und **Kandidaten** erstellt werden.
+3. Klicken Sie oben rechts auf den blauen Button "Attribut erstellen" und definieren Sie das Attribut wie im Abschnitt **Eigenschaften benutzerdefinierter Attribute** beschrieben.
+
+### Erstellung mit dem Nexus KI-Assistenten
+
+1. Öffnen Sie in der **linken Seitennavigation** den Navigationspunkt **Assistenten** und starten Sie einen neuen Chat oder nutzen Sie einen bestehenden Chat.
+2. Schreiben Sie dem Assistenten, dass Sie ein Attribut erstellen möchten oder bspw. 
+
+> Wir müssen für Kandidaten das/die \[Attributname\] festhalten. Die Werte können dabei \[Beschreibung der Werte\] sein. 
+
+3. Der Nexus Assistent wird zunächst prüfen, ob ein solches Attribut bereits besteht und hilft Ihnen im Anschluss bei der Erstellung de Attributes, was den Schritt in dieser Dokumentation entspricht. 
+4. Öffnen Sie in der **linken Seitennavigation** unter **Einstellungen → Attribute** und den entsprechenden Tab, um die korrekte Erstellung des Attributes zu prüfen.
+
+## Eigenschaften benutzerdefinierter Attribute
+
+| Feld | Beschreibung |
+| --- | --- |
+| Bezeichnung | Feldname, der in der Benutzeroberfläche angezeigt wird, bspw. "Reisebereitschaft" oder "Gehaltsvorstellung". |
+| API-Name | Name, der in der API/Schnittstelle genutzt wird Dieser wird automatisch befüllt. Idealerweise wird ein klares Schema genutzt. Bspw. `expected_salary `oder `willingness_to_travel`. |
+| Typ | Art/Typ der erlaubten Werte. Verfügbar sind: Text, Zahl, Auswahl, Mehrfachauswahl, Datum, Ja/Nein |
+| Beschreibung / KI-Prompt | Beschreibung, was dieses Attribut ausmacht, was erfasst wird und welchen Regeln es unterliegt. Diese Beschreibung wird von der KI genutzt, um zu verstehen, wie ein Wert ermittelt werden soll. |
+| Mit KI befüllen | Wenn der Schalter aktiviert ist, versucht die Nexus KI auf Basis der verfügbaren Informationen und der Beschreibung im Feld "Beschreibung / KI-Prompt" einen Wert zu ermitteln. |
+| Webdaten verwenden | _Bald verfügbar_ |
+
+## Typen benutzerdefinierter Attribute
+
+| Typ | Beschreibung |
+| --- | --- |
+| Text | Reiner Textwert, der in dem Feld gesetzt wird. Bspw. |
+| Zahl | Freidefinierbare Zahlenwerte, die in dem Feld gesetzt werde sollen. Bspw. "Mindestgehalt" oder "Anzahl Jahre Berufserfahrung". |
+| Auswahl | Definierte Auswahlwerte, die in dem Feld gesetzt werden können. Bspw. für ein Attribut "Reisebereitschaft" die Werte "Hoch", "Mittel", "Niedrig". Dabei muss jeweils eine Bezeichnung und ein API-Name definiert werden. Bspw. Bezeichnung "Hoch", API-Name `high` . In dem Feld kann immer nur ein Wert gleichzeitig gesetzt sein. |
+| Mehrfachauswahl | Definierte Auswahlwerte, die in dem Feld gesetzt werden können. Bspw. für ein Attribut "Führerscheinklassen" die Werte "A", "B", "C". Dabei muss jeweils eine Bezeichnung und ein API-Name definiert werden. Bspw. Bezeichnung "A", API-Name `A` . In dem Feld können gleichzeitig mehrere Werte gesetzt sein. Bspw. "A" und "B". |
+| Datum | Datumswert, der in dem Feld gesetzt werden kann. Bspw. "Frühster Einstiegstermin". |
+
+## Benutzerdefinierte Attribute löschen
+
+1. Öffnen Sie in der **linken Seitennavigation** unter **Einstellungen → Attribute**.
+2. Öffnen Sie den Tab, für den Sie ein benutzerdefiniertes Attribut erstellen möchten.
+3. Klicken Sie in der Zeile des Attributes in der Spalte Aktion rechts auf den Mülleimer "Löschen".
+4. Bestätigen Sie die Warnung indem Sie "permanently delete" im Textfeld eingeben und klicken Sie "Attribut löschen".
+
+<Warning>
+  **Diese Aktion ist unwiderruflich.** Alle Werte für dieses Attribut über alle Datensätze werden dauerhaft gelöscht und können nicht wiederhergestellt werden.
+</Warning>
+
+## Manuelles Überschreiben benutzerdefinierter Attribute
+
+Auf den Detailseiten der Datensätze, für die Sie benutzerdefinierte Attribute angegeben haben, werden **KI-basierte Werte** in der Benutzeroberfläche **durch ein lila Sterne-Icon markiert.**
+
+Sie können zu jedem Zeitpunkt den Wert der Attribute manuell überschreiben, indem Sie in der **Detailansicht der Datensätze auf "Bearbeiten" klicken** und den Wert des Attributes ändern. Indem Sie den Wert überschrieben haben und das neue Attribut gespeichert haben, wird die manuelle **Überschreibung durch ein blaues Stift-Icon am Attribut markiert.** 
