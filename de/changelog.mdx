@@ -7,14 +7,34 @@ description: "Produkt-Aktualisierungen und Ankündigungen"
   ## Neue Funktionen
 
   ### Vorschläge des Data Management Agent automatisch akzeptieren
-  In den Arbeitsbereich Einstellungen unter KI-Funktionen kann nun aktiviert werden, ob Vorschläge des Data Management Agents, die einen bestimmten Konfidenzwert überschreiten, automatisch akzeptiert werden.
-  Dies erlaubt es beispielsweise neue E-Mail-Adressen oder andere Feldupdates, die mit hoher Wahrscheinlichkeit korrekt sind und lediglich additiven Charakter haben, automatisch anzuwenden und nicht mehr manuell freizugeben.
+
+  In den Arbeitsbereich Einstellungen unter KI-Funktionen kann nun aktiviert werden, ob Vorschläge des Data Management Agents, die einen bestimmten Konfidenzwert überschreiten, automatisch akzeptiert werden. Dies erlaubt es beispielsweise neue E-Mail-Adressen oder andere Feldupdates, die mit hoher Wahrscheinlichkeit korrekt sind und lediglich additiven Charakter haben, automatisch anzuwenden und nicht mehr manuell freizugeben.
+
+  ## Verbesserungen
+
+  ### Stellenanzeigen übernehmen den Recruiting Prozess des Projektes
+
+  Wenn wir eine Stellenanzeige im Nexus aus einem Projekt heraus erstellen, wird nun der Recruiting-Prozess des Projektes als Bewerbungsprozess der Stelle übernommen. Außerdem wird die Bewerbungsmethode automatisch auf Bewerbungsformular gesetzt. Damit werden Bewerbungen und Kandidaten nach dem gleichen Prozess verwaltet.
+
+  ### Bewerbungen in Projekt-Pipelines übernehmen Recruiting-Prozess & Status
+
+  Wenn eine Bewerbung der Pipeline eines Recruiting-Projekts Zugewiesen wird der Recruiting-Prozess auf Ebene der Bewerbung sowie die entsprechenden Prozessschritte automatisch übernommen. Eine Bewerbung kann immer nur einem Recruiting-Projekt zugewiesen sein.
+
+  ### Anordnung/Reihenfolge der benutzerdefinierten Attribute anpassen
+
+  Die Reihenfolge der benutzerdefinierten Attribute auf der Datensatzdetailseite kann nun in den Administrationseinstellungen durch das Klicken der Hoch- und Runterpfeile angepasst werden, was die Reihenfolge auf der Detailseite anpasst.
+
+  ### Sonstiges
+
+  - Der Projekttitel wird nun im Stellentitel vorgeladen, wenn eine neue Stelle aus einem Projekt heraus geladen wird.
+  - Erzeugte Dokumente werden nun direkt im Dokumenten-Tab des Datensatzes hochgeladen an dem sie erstellt wurden.
 
   ## Fehlerbehebungen
 
   - Es wurde ein Fehler behoben, der dazu geführt hat, dass benutzerdefinierte Attribute vom Typ "Datum" immer einen Wert angezeigt haben, der um einen Tag versetzt war.
   - Es wurde ein Fehler behoben, der verhindert hat, dass ein gesetztes Datum in einem benutzerdefinierten Attribut entfernt werden kann.
   - Es wurden diverse Fehler behoben, die verhindert haben, dass Vorschläge des Data Management Agent im Agenten Posteingang angenommen werden konnten.
+  - Es wurden fehlende Deutsch-/Englische-Übersetzungen ergänzt.
 </Update>
 
 <Update label="KW 17 | April 2026">
