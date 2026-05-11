@@ -2,6 +2,49 @@
 title: "Changelog"
 description: "Product updates and announcements"
 ---
+
+<Update label="CW 19 | May 2026">
+  ## New Features
+
+  ### New Custom Attribute: "Auto-Number"
+
+  A new "Auto-Number" attribute type can now be created for accounts, contacts, projects, and candidates, enabling custom sequential identification numbers — for example for candidates. Auto-numbers can be used in document templates and other templates, are searchable, and can be added as list columns. Examples include CAN-0028 as a candidate identifier or ACC-2026-002 as a account number for a company.
+
+  ## Improvements
+
+  ### Table Columns & UI
+
+  - The "Company" table column now consistently displays the company name and logo. Clicking it opens the company details in Nexus. The column is available in projects and jobs.
+  - The display of phone numbers and email addresses has been standardized.
+
+  ### Nexus Assistant Tool Usage Improved
+
+  - The Nexus Assistant now has access to custom attributes and can incorporate them into its reasoning.
+  - The Nexus Assistant now pays closer attention to the individual workflow statuses of records.
+
+  ### Audio Transcriptions
+
+  - Summary sections are now generated with the correct headings in the respective language — e.g., "Nächste Schritte" instead of "Next Steps" for German.
+
+  ## Bug Fixes
+
+  ### Custom Attributes
+
+  - Deleted custom attributes no longer appear as empty columns in list views.
+  - Fixed an issue that prevented custom attributes from being reordered.
+  - Fixed an issue that caused the AI summary to be repeatedly inserted into meeting notes even after being deleted.
+
+  ### Nexus Assistant
+
+  - Corrected incorrect time displays caused by timezone issues, for example in the context of meetings.
+
+  ### Other
+
+  - Removed duplicate success notifications when creating contacts.
+  - Unified optional fields in contact creation and editing to resolve blocking issues when subsequently editing contacts.
+  - Added missing German/English translations.
+</Update>
+
 <Update label="CW 18 | April 2026">
   ## New Features
 
