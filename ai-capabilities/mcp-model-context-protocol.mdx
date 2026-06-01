@@ -1,0 +1,125 @@
+---
+title: "MCP (Model Context Protocol)"
+description: "Connect Claude Desktop, ChatGPT, or any MCP-compatible client to your Nexus Search workspace."
+icon: "plug"
+---
+
+## Overview
+
+The Nexus MCP Server exposes your workspace data as a set of tools that external AI assistants can call. Every tool is scoped to the workspace you select during connection, and the assistant can only read or modify data that your user account already has permission to access.
+
+The server implements the Model Context Protocol (MCP) over HTTP with Streamable HTTP transport and follows the MCP Authorization specification (OAuth 2.1 \+ PKCE \+ Dynamic Client Registration).
+
+**Endpoint**
+
+```text
+https://platform.nexus-search.io/functions/v1/nexus-mcp-server
+```
+
+## How to Connect
+
+### 1. Add the connector in your MCP client
+
+In Claude Desktop, ChatGPT, or any other MCP-compatible client, add a new **Custom Connector** (or "MCP Server") and paste the endpoint URL above.
+
+### 2. Initiate OAuth authorization
+
+The client will perform dynamic client registration and then redirect you to the Nexus consent page.
+
+### 3. Sign in and select a workspace
+
+Sign in with your Nexus credentials. On the consent screen you will see:
+
+- The name of the external application requesting access.
+- A dropdown to pick the **workspace** you want to expose.
+- The redirect URI the client will return to.
+
+Click **Allow** to authorize the connection, or **Deny** to cancel.
+
+### 4. Start using the tools
+
+Once approved, the assistant can invoke any of the available tools against the selected workspace. The access token is valid for **1 hour** and refreshes automatically via a refresh token (valid for **30 days**).
+
+<Note>
+  Each user must connect individually. The assistant cannot see data from workspaces you are not a member of, and it respects the same role-based permissions as the Nexus web app.
+</Note>
+
+## Available Tools
+
+### Profile
+
+| Tool | Description |
+| --- | --- |
+| `get_user_profile` | Retrieve your own user profile (name, email, timezone, language). |
+
+### Entity Data
+
+| Tool | Description |
+| --- | --- |
+| `get_candidates` | Fetch candidates with filters for location, skills, status, tags, and custom attributes. |
+| `get_accounts` | Fetch accounts (companies/clients) with filters for location, industry, relationship type, and priority. |
+| `get_contacts` | Fetch contacts with filters for account, job title, location, and priority. |
+| `get_projects` | Fetch recruitment projects with filters for account, priority, status, and workflow step. |
+| `get_jobs` | Fetch job postings with filters for project, status, contract type, remote options, and career-page visibility. |
+| `get_activities` | Fetch CRM activities and synced calendar events (calls, emails, meetings, notes, tasks). |
+| `get_organisation_units` | Fetch the workspace organisational structure (departments, divisions, teams). |
+| `get_applications` | Fetch job applications with filters for consent status, expiry dates, source, and related candidates. |
+
+### Relationship & Enrichment
+
+| Tool | Description |
+| --- | --- |
+| `get_activity_details` | Fetch enriched activities including meeting recording summaries and resolved entity names. |
+| `traverse_relationships` | Navigate multi-hop relationship chains across the data model (e.g., account → projects → jobs → applications → candidates). Max 3 hops. |
+
+### Analytics
+
+| Tool | Description |
+| --- | --- |
+| `count_records` | Count records in any table with optional filters (e.g., "How many candidates in Munich?"). |
+| `group_by_field` | Group records by a field and return distribution counts (e.g., "candidates by city"). |
+
+### Documentation
+
+| Tool | Description |
+| --- | --- |
+| `search_documentation` | Search the Nexus Search product documentation to answer questions about features, configuration, and concepts. |
+
+### Custom Attributes
+
+| Tool | Description |
+| --- | --- |
+| `manage_custom_attributes` | List, create, or delete custom attribute definitions for candidates, contacts, accounts, projects, or applications. Create and delete actions are restricted to workspace owners. |
+
+### Geo / Routing
+
+| Tool | Description |
+| --- | --- |
+| `calculate_distance` | Calculate straight-line and routed distance/travel time between two endpoints (entities, coordinates, or addresses). |
+| `calculate_distance_matrix` | Rank multiple destinations by proximity to a single origin (up to 100 destinations). Useful for "closest candidates to a job" queries. |
+
+### Pipeline Management
+
+| Tool | Description |
+| --- | --- |
+| `manage_assignments` | Manage candidate assignments on a project's recruiting pipeline: list assignments, list workflow steps, assign candidates, move stages, or archive assignments. Write actions require explicit confirmation and are audited. |
+
+### Workflow Builder
+
+| Tool | Description |
+| --- | --- |
+| `manage_workflows` | Administer Workflow Builder pipelines: list, get, create, update, or delete workflows. Create, update, and delete are restricted to workspace owners and only work on draft workflows. |
+
+<Warning>
+  The `update_user_profile` tool is **not exposed** through the MCP server. Sensitive identity fields (email, phone, name, timezone, language) can only be changed from within the Nexus web app.
+</Warning>
+
+## Disconnect Server
+
+You can revoke an MCP connection at any time:
+
+1. Open **Settings → Extensions → MCP** in Nexus Search.
+2. Under **Connected applications**, find the client you want to disconnect.
+3. Click **Revoke** next to the connection.
+
+Revoking immediately invalidates the access token and linked refresh token. The external assistant will no longer be able to call tools against your workspace until you authorize a new connection.

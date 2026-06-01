@@ -1,0 +1,125 @@
+---
+title: "MCP (Model Context Protocol)"
+icon: "plug"
+description: "Verbinden Sie Claude Desktop, ChatGPT oder einen beliebigen MCP-kompatiblen Client mit Ihrem Nexus Search Workspace."
+---
+
+## Überblick
+
+Der Nexus MCP Server stellt Ihre Workspace-Daten als eine Reihe von Werkzeugen bereit, die externe KI-Assistenten aufrufen können. Jedes Werkzeug ist auf den Workspace beschränkt, den Sie bei der Verbindung auswählen, und der Assistent kann nur Daten lesen oder ändern, auf die Ihr Benutzerkonto bereits Zugriff hat.
+
+Der Server implementiert das Model Context Protocol (MCP) über HTTP mit Streamable HTTP Transport und folgt der MCP-Autorisierungsspezifikation (OAuth 2.1 \+ PKCE \+ Dynamic Client Registration).
+
+**Endpunkt**
+
+```text
+https://platform.nexus-search.io/functions/v1/nexus-mcp-server
+```
+
+## Verbindung herstellen
+
+### 1. Connector im MCP-Client hinzufügen
+
+Fügen Sie in Claude Desktop, ChatGPT oder einem anderen MCP-kompatiblen Client einen neuen **Custom Connector** (bzw. "MCP Server") hinzu und fügen Sie die obige Endpunkt-URL ein.
+
+### 2. OAuth-Autorisierung starten
+
+Der Client führt eine dynamische Client-Registrierung durch und leitet Sie anschließend zur Nexus-Zustimmungsseite weiter.
+
+### 3. Anmelden und Workspace auswählen
+
+Melden Sie sich mit Ihren Nexus-Zugangsdaten an. Auf dem Zustimmungsbildschirm sehen Sie:
+
+- Den Namen der externen Anwendung, die Zugriff anfordert.
+- Ein Dropdown zur Auswahl des **Workspaces**, den Sie freigeben möchten.
+- Den Redirect-URI, zu dem der Client zurückgeleitet wird.
+
+Klicken Sie auf **Erlauben**, um die Verbindung zu autorisieren, oder auf **Ablehnen**, um den Vorgang abzubrechen.
+
+### 4. Werkzeuge verwenden
+
+Nach der Genehmigung kann der Assistent alle verfügbaren Werkzeuge für den ausgewählten Workspace aufrufen. Das Access Token ist **1 Stunde** gültig und wird automatisch über ein Refresh Token erneuert (gültig für **30 Tage**).
+
+<Note>
+  Jede Person muss die Verbindung individuell herstellen. Der Assistent kann keine Daten aus Workspaces einsehen, in denen Sie kein Mitglied sind, und respektiert dieselben rollenbasierten Berechtigungen wie die Nexus Web-App.
+</Note>
+
+## Verfügbare Werkzeuge
+
+### Profil
+
+| Werkzeug | Beschreibung |
+| --- | --- |
+| `get_user_profile` | Ruft Ihr eigenes Benutzerprofil ab (Name, E-Mail, Zeitzone, Sprache). |
+
+### Entitätsdaten
+
+| Werkzeug | Beschreibung |
+| --- | --- |
+| `get_candidates` | Kandidaten abrufen mit Filtern für Standort, Fähigkeiten, Status, Tags und benutzerdefinierte Attribute. |
+| `get_accounts` | Unternehmen/Kunden abrufen mit Filtern für Standort, Branche, Beziehungstyp und Priorität. |
+| `get_contacts` | Kontakte abrufen mit Filtern für Unternehmen, Berufsbezeichnung, Standort und Priorität. |
+| `get_projects` | Recruiting-Projekte abrufen mit Filtern für Unternehmen, Priorität, Status und Workflow-Schritt. |
+| `get_jobs` | Stellenanzeigen abrufen mit Filtern für Projekt, Status, Vertragsart, Remote-Optionen und Sichtbarkeit auf der Karriereseite. |
+| `get_activities` | CRM-Aktivitäten und synchronisierte Kalendereinträge abrufen (Anrufe, E-Mails, Meetings, Notizen, Aufgaben). |
+| `get_organisation_units` | Organisationsstruktur des Workspaces abrufen (Abteilungen, Bereiche, Teams). |
+| `get_applications` | Bewerbungen abrufen mit Filtern für Einwilligungsstatus, Ablaufdaten, Quelle und verknüpfte Kandidaten. |
+
+### Beziehungen & Anreicherung
+
+| Werkzeug | Beschreibung |
+| --- | --- |
+| `get_activity_details` | Angereicherte Aktivitäten abrufen, einschließlich Meeting-Aufzeichnungszusammenfassungen und aufgelöster Entitätsnamen. |
+| `traverse_relationships` | Mehrstufige Beziehungsketten im Datenmodell navigieren (z. B. Unternehmen → Projekte → Stellen → Bewerbungen → Kandidaten). Maximal 3 Ebenen. |
+
+### Analysen
+
+| Werkzeug | Beschreibung |
+| --- | --- |
+| `count_records` | Datensätze in einer beliebigen Tabelle zählen mit optionalen Filtern (z. B. „Wie viele Kandidaten in München?"). |
+| `group_by_field` | Datensätze nach einem Feld gruppieren und Häufigkeitsverteilungen ausgeben (z. B. „Kandidaten nach Stadt"). |
+
+### Dokumentation
+
+| Werkzeug | Beschreibung |
+| --- | --- |
+| `search_documentation` | Die Nexus Search Produktdokumentation durchsuchen, um Fragen zu Funktionen, Konfiguration und Konzepten zu beantworten. |
+
+### Benutzerdefinierte Attribute
+
+| Werkzeug | Beschreibung |
+| --- | --- |
+| `manage_custom_attributes` | Benutzerdefinierte Attributdefinitionen für Kandidaten, Kontakte, Unternehmen, Projekte oder Bewerbungen auflisten, erstellen oder löschen. Erstell- und Löschaktionen sind auf Workspace-Inhaber beschränkt. |
+
+### Geo / Routing
+
+| Werkzeug | Beschreibung |
+| --- | --- |
+| `calculate_distance` | Luftlinien- und Routenentfernung sowie Reisezeit zwischen zwei Punkten berechnen (Entitäten, Koordinaten oder Adressen). |
+| `calculate_distance_matrix` | Mehrere Ziele nach Nähe zu einem einzelnen Ausgangspunkt sortieren (bis zu 100 Ziele). Nützlich für Abfragen wie „nächstgelegene Kandidaten zu einer Stelle". |
+
+### Pipeline-Verwaltung
+
+| Werkzeug | Beschreibung |
+| --- | --- |
+| `manage_assignments` | Kandidatenzuweisungen in der Recruiting-Pipeline eines Projekts verwalten: Zuweisungen auflisten, Workflow-Schritte anzeigen, Kandidaten zuweisen, Phasen wechseln oder Zuweisungen archivieren. Schreibaktionen erfordern eine explizite Bestätigung und werden protokolliert. |
+
+### Workflow-Builder
+
+| Werkzeug | Beschreibung |
+| --- | --- |
+| `manage_workflows` | Workflow-Builder-Pipelines verwalten: auflisten, abrufen, erstellen, aktualisieren oder löschen. Erstellen, Aktualisieren und Löschen sind auf Workspace-Inhaber beschränkt und funktionieren nur für Entwurfs-Workflows. |
+
+<Warning>
+  Das Werkzeug `update_user_profile` ist über den MCP Server **nicht verfügbar**. Sensible Identitätsfelder (E-Mail, Telefon, Name, Zeitzone, Sprache) können ausschließlich über die Nexus Web-App geändert werden.
+</Warning>
+
+## Verbindung trennen
+
+Sie können eine MCP-Verbindung jederzeit widerrufen:
+
+1. Öffnen Sie **Einstellungen → Erweiterungen → MCP** in Nexus Search.
+2. Suchen Sie unter **Verbundene Anwendungen** den Client, den Sie trennen möchten.
+3. Klicken Sie neben der Verbindung auf **Widerrufen**.
+
+Durch den Widerruf werden das Access Token und das zugehörige Refresh Token sofort ungültig. Der externe Assistent kann keine Werkzeuge mehr für Ihren Workspace aufrufen, bis Sie eine neue Verbindung autorisieren.

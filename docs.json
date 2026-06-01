@@ -65,7 +65,8 @@
                 "group": "AI-Capabilities",
                 "pages": [
                   "ai-capabilities/speech-to-text",
-                  "ai-capabilities/content-management-agent"
+                  "ai-capabilities/content-management-agent",
+                  "ai-capabilities/mcp-model-context-protocol"
                 ]
               }
             ]
@@ -157,7 +158,8 @@
                   "de/ai-capabilities/speech-to-text",
                   "de/ai-capabilities/content-management-agent",
                   "de/ai-capabilities/offline-in-person-meeting-transcription",
-                  "de/ai-capabilities/custom-attributes"
+                  "de/ai-capabilities/custom-attributes",
+                  "de/ai-capabilities/mcp-model-context-protocol"
                 ]
               }
             ]
