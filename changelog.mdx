@@ -4,11 +4,26 @@ description: "Product updates and announcements"
 ---
 
 <Update label="CW 23 | June 2026">
-  ## New Features
+  <Update label="CW 23 | June 2026">
+    ## New Features
 
-  ### MCP Server: Connect Claude & ChatGPT to Your Workspace
+    ### Nexus MCP Server: Connect Claude & ChatGPT to Your Workspace
 
-  You can now connect external AI assistants such as Claude Desktop and ChatGPT directly to your Nexus Search workspace via the Model Context Protocol (MCP). Go to **Settings → Extensions → MCP**, copy the connector URL, and paste it into your assistant's custom connector settings. After signing in and selecting a workspace, the assistant can query your candidates, contacts, jobs, projects, and more — always scoped to your personal permissions and workspace data. Access can be revoked at any time from the same Extensions page.
+    You can now connect external AI assistants such as Claude Desktop and ChatGPT directly to your Nexus Search workspace via the Model Context Protocol (MCP). Go to **Settings → Extensions → MCP**, copy the connector URL, and paste it into your assistant's custom connector settings. After signing in and selecting a workspace, the assistant can query your candidates, contacts, jobs, projects, and more — always scoped to your personal permissions and workspace data. Access can be revoked at any time from the same Extensions page.
+
+    ### Excel & CSV Import
+
+    You can now easily import accounts, contacts, candidates, projects, jobs, and applications from Excel (.xlsx, .xls) or CSV files into your workspace. Go to **Settings → Imports → New Import**, select the target entity, and upload your file (up to 5 MB and 5,000 rows). The Nexus AI analyzes the column headers and sample values and automatically suggests a suitable mapping to standard fields as well as your custom attributes. You can review, adjust, or skip individual columns before starting the import. During processing, you can follow the live progress with success and error counts; once complete, a detailed error report is available for download. All imports are logged in the history and can be reopened, resumed, or cancelled at any time.
+
+    ### Reply, Reply All & Forward Microsoft Emails in Nexus
+
+    It is now possible to reply to, reply all, and forward emails linked to a record directly from the Nexus activity bar. This feature is only available when the current user is among the actual recipients of the email.
+
+    ## Improvements
+
+    - **Briefings** have been **refined**, as the Nexus Assistant now takes process definitions for projects, candidates, etc. into account, enabling it to follow briefing descriptions more precisely.
+    - **Project requirements** can now be marked as **"must-have"**. This is also taken into consideration during AI-assisted project creation.
+  </Update>
 </Update>
 
 <Update label="CW 22 | May 2026">
