@@ -1,4 +1,204 @@
 ---
 title: "(Template-)Variablen"
 icon: "brackets-curly"
+description: "Übersicht aller Variablen, die in Vorlagen, bspw. für E-Mails, Aufgaben, Notizen, Dokumente oder KI-Prompt,s in Nexus verwendet werden können."
 ---
+
+Variablen sind Platzhalter, die bei der Nutzung von Vorlagen oder beim Ausführen eines KI-Prompts automatisch durch echte Werte aus Datensätzen ersetzt werden. Sie folgen immer dem Muster `{{namespace.feld}}` und können optional mit einem Fallback versehen werden: `{{candidate.first_name|"Kandidat:in"}}`.
+
+<Tip>
+  Über den Button **„Variablen"** im Editor (E-Mail, Dokumentenvorlage, Prompt) können alle verfügbaren Variablen per Klick eingefügt werden – inklusive Ihrer benutzerdefinierten Attribute.
+</Tip>
+
+## Syntax
+
+| Beispiel | Beschreibung |
+| --- | --- |
+| `{{candidate.first_name}}` | Standard-Platzhalter |
+| `{{candidate.first_name|"Kandidat:in"}}` | Fallback, falls das Feld leer ist |
+| `{{application.emails}}` | Listenfeld – Werte werden mit Komma verkettet |
+
+---
+
+## Bewerbung
+
+Daten aus einer eingegangenen Bewerbung.
+
+| Variable | Referenz | Beschreibung |
+| --- | --- | --- |
+| Bewerbungs-ID | `{{application.id}}` | Eindeutige Kennung der Bewerbung |
+| Vorname | `{{application.first_name}}` | Vorname der bewerbenden Person |
+| Nachname | `{{application.last_name}}` | Nachname der bewerbenden Person |
+| Vollständiger Name | `{{application.full_name}}` | Vor- und Nachname |
+| E-Mail-Adresse(n) | `{{application.emails}}` | E-Mail-Adressen der bewerbenden Person |
+| Telefonnummer(n) | `{{application.phones}}` | Telefonnummern der bewerbenden Person |
+| Quelle | `{{application.source}}` | Herkunft der Bewerbung (z. B. LinkedIn) |
+| Bewerbungsdatum | `{{application.created_at}}` | Eingangsdatum der Bewerbung |
+| Bewerbungsstatus | `{{application.workflow_step_name}}` | Aktueller Workflow-Schritt |
+| Consent-URL | `{{application.consent_url}}` | Persönlicher Link zur Verwaltung der Einwilligung |
+
+## Kandidat:in
+
+Daten aus dem Kandidat:innen-Profil.
+
+| Variable | Referenz | Beschreibung |
+| --- | --- | --- |
+| Kandidat:innen-ID | `{{candidate.id}}` | Eindeutige Kennung |
+| Vorname | `{{candidate.first_name}}` | Vorname |
+| Nachname | `{{candidate.last_name}}` | Nachname |
+| Vollständiger Name | `{{candidate.full_name}}` | Vor- und Nachname |
+| E-Mail-Adresse(n) | `{{candidate.emails}}` | E-Mail-Adressen |
+| Telefonnummer(n) | `{{candidate.phones}}` | Telefonnummern |
+| Aktuelle Position | `{{candidate.current_job_title}}` | Aktuelle Berufsbezeichnung |
+| Aktuelles Unternehmen | `{{candidate.current_company}}` | Aktueller Arbeitgeber |
+| LinkedIn-Profil | `{{candidate.linkedin_profile}}` | URL zum LinkedIn-Profil |
+| Consent-URL | `{{candidate.consent_url}}` | Persönlicher Link zur Verwaltung der Einwilligung |
+
+## Stelle
+
+Daten aus der Stellenanzeige.
+
+| Variable | Referenz | Beschreibung |
+| --- | --- | --- |
+| Stellen-ID | `{{job.id}}` | Eindeutige Kennung |
+| Titel | `{{job.title}}` | Titel der Position |
+| Untertitel | `{{job.subtitle}}` | Untertitel oder Abteilung |
+| Standort(e) | `{{job.locations}}` | Standort der Stelle |
+| Gehaltsspanne | `{{job.salary_range}}` | Gehaltsbereich |
+| Bewerbungs-E-Mail | `{{job.apply_email}}` | E-Mail für eingehende Bewerbungen |
+| Status | `{{job.status}}` | Aktueller Status der Anzeige |
+
+## Projekt
+
+Daten aus dem Projekt / Mandat.
+
+| Variable | Referenz | Beschreibung |
+| --- | --- | --- |
+| Projekt-ID | `{{project.id}}` | Eindeutige Kennung |
+| Name | `{{project.name}}` | Projektname |
+| Beschreibung | `{{project.description}}` | Projektbeschreibung |
+| Status | `{{project.workflow_step_name}}` | Aktueller Workflow-Schritt |
+| Startdatum | `{{project.start_date}}` | Projektbeginn |
+| Enddatum | `{{project.end_date}}` | Projektende |
+| Kunde / Unternehmen | `{{project.account_name}}` | Zugeordneter Kunde |
+
+## Kontakt
+
+Daten aus einem Kontaktprofil (z. B. Ansprechpartner:in auf Kundenseite).
+
+| Variable | Referenz | Beschreibung |
+| --- | --- | --- |
+| Kontakt-ID | `{{contact.id}}` | Eindeutige Kennung |
+| Vorname | `{{contact.first_name}}` | Vorname |
+| Nachname | `{{contact.last_name}}` | Nachname |
+| Vollständiger Name | `{{contact.full_name}}` | Vor- und Nachname |
+| E-Mail-Adresse(n) | `{{contact.email_addresses}}` | E-Mail-Adressen |
+| Telefonnummer(n) | `{{contact.phone_numbers}}` | Telefonnummern |
+| Position | `{{contact.job_title}}` | Berufsbezeichnung |
+| LinkedIn-Profil | `{{contact.linkedin_profile}}` | URL zum LinkedIn-Profil |
+
+## Unternehmen (Account)
+
+Daten aus dem Unternehmens-/Kundendatensatz.
+
+| Variable | Referenz | Beschreibung |
+| --- | --- | --- |
+| Account-ID | `{{account.id}}` | Eindeutige Kennung |
+| Name | `{{account.name}}` | Name des Unternehmens |
+| Beschreibung | `{{account.description}}` | Beschreibung des Unternehmens |
+| Branche | `{{account.industry}}` | Branche |
+| Unternehmensgröße | `{{account.company_size}}` | Größe des Unternehmens |
+| Hauptsitz | `{{account.headquarters_location}}` | Standort des Hauptsitzes |
+| Straße | `{{account.street}}` | Straße und Hausnummer |
+| Postleitzahl | `{{account.postal_code}}` | Postleitzahl |
+| Stadt | `{{account.city}}` | Stadt |
+| Region / Bundesland | `{{account.region}}` | Region oder Bundesland |
+| Land | `{{account.country}}` | Land |
+| Ländercode | `{{account.country_code}}` | ISO 3166-1 alpha-2 (z. B. `DE`) |
+| Breitengrad | `{{account.latitude}}` | Geografischer Breitengrad |
+| Längengrad | `{{account.longitude}}` | Geografischer Längengrad |
+| Vollständige Adresse | `{{account.full_address}}` | Einzeilige Adresse (Straße, PLZ Ort, Region, Land) |
+| E-Mail-Adresse(n) | `{{account.emails}}` | E-Mail-Adressen |
+| Telefonnummer(n) | `{{account.phones}}` | Telefonnummern |
+
+## Aktueller Benutzer
+
+Daten der angemeldeten Person – ideal für Signaturen und Absender-Angaben.
+
+| Variable | Referenz | Beschreibung |
+| --- | --- | --- |
+| Benutzer-ID | `{{current_user.id}}` | Eindeutige Kennung |
+| Vorname | `{{current_user.first_name}}` | Ihr Vorname |
+| Nachname | `{{current_user.last_name}}` | Ihr Nachname |
+| Vollständiger Name | `{{current_user.full_name}}` | Ihr vollständiger Name |
+| E-Mail | `{{current_user.email}}` | Ihre E-Mail-Adresse |
+
+## Arbeitsbereich
+
+Daten zum Workspace / Unternehmen, unter dem Sie angemeldet sind.
+
+| Variable | Referenz | Beschreibung |
+| --- | --- | --- |
+| Workspace-ID | `{{workspace.id}}` | Eindeutige Kennung |
+| Firmenname | `{{workspace.name}}` | Name Ihres Unternehmens / Workspaces |
+
+---
+
+## Benutzerdefinierte Attribute als Variablen
+
+Alle **benutzerdefinierten Attribute** (Custom Attributes), die Sie unter **Einstellungen → Attribute** anlegen, stehen automatisch als Variablen zur Verfügung. Es ist keine zusätzliche Konfiguration notwendig.
+
+### Aufbau der Referenz
+
+Die Referenz setzt sich aus dem Entitätstyp (Namespace) und dem **API-Namen** des Attributs zusammen:
+
+```text
+{{<namespace>.<api_name>}}
+```
+
+Unterstützte Namespaces für Custom Attributes:
+
+| Entität | Namespace |
+| --- | --- |
+| Bewerbung | `application` |
+| Kandidat:in | `candidate` |
+| Kontakt | `contact` |
+| Unternehmen | `account` |
+| Projekt | `project` |
+
+### Beispiel
+
+Sie haben für Kandidat:innen ein Custom Attribute mit dem Label **„Gewünschtes Gehalt"** und dem API-Namen `desired_salary` definiert. Die Variable lautet dann:
+
+```text
+{{candidate.desired_salary}}
+```
+
+<Tip>
+  Den exakten API-Namen finden Sie in **Einstellungen → Attribute** unterhalb des Labels. Der API-Name wird beim Anlegen automatisch aus dem Label generiert (z. B. Label „Gewünschtes Gehalt" → API-Name `desired_salary`).
+</Tip>
+
+### Verhalten pro Attributtyp
+
+| Attributtyp | Ausgabeverhalten |
+| --- | --- |
+| Text | Wert wird als Text eingefügt |
+| Zahl | Wert wird als Zahl eingefügt |
+| Datum | Wird gemäß Spracheinstellung formatiert |
+| Ja/Nein | Wird zu „Ja" / „Nein" aufgelöst |
+| Auswahl (Select) | Das **Label** der ausgewählten Option wird eingefügt (nicht der interne API-Name) |
+| Mehrfachauswahl (Multiselect) | Alle ausgewählten Labels werden per Komma verkettet |
+
+### Fallback verwenden
+
+Auch bei Custom Attributes können Sie einen Fallback definieren, falls das Feld leer ist:
+
+```text
+{{candidate.desired_salary|"nicht angegeben"}}
+```
+
+---
+
+<Note>
+  Fehlen die Daten zum Zeitpunkt der Auflösung (z. B. weil ein Kandidat noch keine Telefonnummer hinterlegt hat), wird – falls definiert – der Fallback verwendet, ansonsten bleibt das Feld leer.
+</Note>

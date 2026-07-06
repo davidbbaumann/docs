@@ -1,4 +1,204 @@
 ---
-title: "(Template-)Variables"
+title: "(Template) Variables"
 icon: "brackets-curly"
+description: "Overview of all variables that can be used in templates — e.g. for emails, tasks, notes, documents, or AI prompts — in Nexus."
 ---
+
+Variables are placeholders that are automatically replaced with real values from records when using templates or executing an AI prompt. They always follow the pattern `{{namespace.field}}` and can optionally include a fallback value: `{{candidate.first_name\|"Candidate"}}`.
+
+<Tip>
+  Use the **"Variables"** button in the editor (email, document template, prompt) to insert any available variable with a single click — including your custom attributes.
+</Tip>
+
+## Syntax
+
+| Example | Description |
+| --- | --- |
+| `{{candidate.first_name}}` | Standard placeholder |
+| `{{candidate.first_name|"Candidate"}}` | Fallback if the field is empty |
+| `{{application.emails}}` | List field — values are joined with a comma |
+
+---
+
+## Application
+
+Data from a received application.
+
+| Variable | Reference | Description |
+| --- | --- | --- |
+| Application ID | `{{application.id}}` | Unique identifier of the application |
+| First Name | `{{application.first_name}}` | First name of the applicant |
+| Last Name | `{{application.last_name}}` | Last name of the applicant |
+| Full Name | `{{application.full_name}}` | First and last name |
+| Email Address(es) | `{{application.emails}}` | Email addresses of the applicant |
+| Phone Number(s) | `{{application.phones}}` | Phone numbers of the applicant |
+| Source | `{{application.source}}` | Origin of the application (e.g. LinkedIn) |
+| Application Date | `{{application.created_at}}` | Date the application was received |
+| Application Status | `{{application.workflow_step_name}}` | Current workflow step |
+| Consent URL | `{{application.consent_url}}` | Personal link for managing consent |
+
+## Candidate
+
+Data from the candidate profile.
+
+| Variable | Reference | Description |
+| --- | --- | --- |
+| Candidate ID | `{{candidate.id}}` | Unique identifier |
+| First Name | `{{candidate.first_name}}` | First name |
+| Last Name | `{{candidate.last_name}}` | Last name |
+| Full Name | `{{candidate.full_name}}` | First and last name |
+| Email Address(es) | `{{candidate.emails}}` | Email addresses |
+| Phone Number(s) | `{{candidate.phones}}` | Phone numbers |
+| Current Position | `{{candidate.current_job_title}}` | Current job title |
+| Current Company | `{{candidate.current_company}}` | Current employer |
+| LinkedIn Profile | `{{candidate.linkedin_profile}}` | URL to the LinkedIn profile |
+| Consent URL | `{{candidate.consent_url}}` | Personal link for managing consent |
+
+## Job
+
+Data from the job listing.
+
+| Variable | Reference | Description |
+| --- | --- | --- |
+| Job ID | `{{job.id}}` | Unique identifier |
+| Title | `{{job.title}}` | Title of the position |
+| Subtitle | `{{job.subtitle}}` | Subtitle or department |
+| Location(s) | `{{job.locations}}` | Location of the job |
+| Salary Range | `{{job.salary_range}}` | Salary range |
+| Application Email | `{{job.apply_email}}` | Email address for incoming applications |
+| Status | `{{job.status}}` | Current status of the listing |
+
+## Project
+
+Data from the project / mandate.
+
+| Variable | Reference | Description |
+| --- | --- | --- |
+| Project ID | `{{project.id}}` | Unique identifier |
+| Name | `{{project.name}}` | Project name |
+| Description | `{{project.description}}` | Project description |
+| Status | `{{project.workflow_step_name}}` | Current workflow step |
+| Start Date | `{{project.start_date}}` | Project start date |
+| End Date | `{{project.end_date}}` | Project end date |
+| Client / Company | `{{project.account_name}}` | Assigned client |
+
+## Contact
+
+Data from a contact profile (e.g. a client-side point of contact).
+
+| Variable | Reference | Description |
+| --- | --- | --- |
+| Contact ID | `{{contact.id}}` | Unique identifier |
+| First Name | `{{contact.first_name}}` | First name |
+| Last Name | `{{contact.last_name}}` | Last name |
+| Full Name | `{{contact.full_name}}` | First and last name |
+| Email Address(es) | `{{contact.email_addresses}}` | Email addresses |
+| Phone Number(s) | `{{contact.phone_numbers}}` | Phone numbers |
+| Position | `{{contact.job_title}}` | Job title |
+| LinkedIn Profile | `{{contact.linkedin_profile}}` | URL to the LinkedIn profile |
+
+## Company (Account)
+
+Data from the company / client record.
+
+| Variable | Reference | Description |
+| --- | --- | --- |
+| Account ID | `{{account.id}}` | Unique identifier |
+| Name | `{{account.name}}` | Company name |
+| Description | `{{account.description}}` | Company description |
+| Industry | `{{account.industry}}` | Industry |
+| Company Size | `{{account.company_size}}` | Size of the company |
+| Headquarters | `{{account.headquarters_location}}` | Location of the headquarters |
+| Street | `{{account.street}}` | Street and house number |
+| Postal Code | `{{account.postal_code}}` | Postal code |
+| City | `{{account.city}}` | City |
+| Region / State | `{{account.region}}` | Region or state |
+| Country | `{{account.country}}` | Country |
+| Country Code | `{{account.country_code}}` | ISO 3166-1 alpha-2 (e.g. `DE`) |
+| Latitude | `{{account.latitude}}` | Geographic latitude |
+| Longitude | `{{account.longitude}}` | Geographic longitude |
+| Full Address | `{{account.full_address}}` | Single-line address (street, postal code, city, region, country) |
+| Email Address(es) | `{{account.emails}}` | Email addresses |
+| Phone Number(s) | `{{account.phones}}` | Phone numbers |
+
+## Current User
+
+Data of the logged-in user — ideal for signatures and sender information.
+
+| Variable | Reference | Description |
+| --- | --- | --- |
+| User ID | `{{current_user.id}}` | Unique identifier |
+| First Name | `{{current_user.first_name}}` | Your first name |
+| Last Name | `{{current_user.last_name}}` | Your last name |
+| Full Name | `{{current_user.full_name}}` | Your full name |
+| Email | `{{current_user.email}}` | Your email address |
+
+## Workspace
+
+Data about the workspace / company you are signed in under.
+
+| Variable | Reference | Description |
+| --- | --- | --- |
+| Workspace ID | `{{workspace.id}}` | Unique identifier |
+| Company Name | `{{workspace.name}}` | Name of your company / workspace |
+
+---
+
+## Custom Attributes as Variables
+
+All **custom attributes** you create under **Settings → Attributes** are automatically available as variables. No additional configuration is required.
+
+### Reference Structure
+
+The reference consists of the entity type (namespace) and the **API name** of the attribute:
+
+```text
+{{<namespace>.<api_name>}}
+```
+
+Supported namespaces for custom attributes:
+
+| Entity | Namespace |
+| --- | --- |
+| Application | `application` |
+| Candidate | `candidate` |
+| Contact | `contact` |
+| Company | `account` |
+| Project | `project` |
+
+### Example
+
+You have defined a custom attribute for candidates with the label **"Desired Salary"** and the API name `desired_salary`. The variable is then:
+
+```text
+{{candidate.desired_salary}}
+```
+
+<Tip>
+  You can find the exact API name in **Settings → Attributes** below the label. The API name is automatically generated from the label when the attribute is created (e.g. label "Desired Salary" → API name `desired_salary`).
+</Tip>
+
+### Output Behavior by Attribute Type
+
+| Attribute Type | Output Behavior |
+| --- | --- |
+| Text | Value is inserted as text |
+| Number | Value is inserted as a number |
+| Date | Formatted according to the language setting |
+| Yes/No | Resolved to "Yes" / "No" |
+| Select | The **label** of the selected option is inserted (not the internal API name) |
+| Multi-select | All selected labels are joined with a comma |
+
+### Using a Fallback
+
+You can also define a fallback for custom attributes in case the field is empty:
+
+```text
+{{candidate.desired_salary|"not specified"}}
+```
+
+---
+
+<Note>
+  If data is missing at the time of resolution (e.g. because a candidate has not yet provided a phone number), the fallback will be used if defined — otherwise the field will be left blank.
+</Note>
