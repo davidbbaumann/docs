@@ -68,6 +68,12 @@
                   "ai-capabilities/content-management-agent",
                   "ai-capabilities/mcp-model-context-protocol"
                 ]
+              },
+              {
+                "group": "Untitled Group",
+                "pages": [
+                  "miscellaneous/template-variables"
+                ]
               }
             ]
           },
@@ -160,6 +166,12 @@
                   "de/ai-capabilities/offline-in-person-meeting-transcription",
                   "de/ai-capabilities/custom-attributes",
                   "de/ai-capabilities/mcp-model-context-protocol"
+                ]
+              },
+              {
+                "group": "Sonstiges",
+                "pages": [
+                  "de/miscellaneous/template-variables"
                 ]
               }
             ]
