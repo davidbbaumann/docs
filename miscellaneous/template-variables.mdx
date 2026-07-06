@@ -4,8 +4,6 @@ icon: "brackets-curly"
 description: "Overview of all variables that can be used in templates — e.g. for emails, tasks, notes, documents, or AI prompts — in Nexus."
 ---
 
-Variables are placeholders that are automatically replaced with real values from records when using templates or executing an AI prompt. They always follow the pattern `{{namespace.field}}` and can optionally include a fallback value: `{{candidate.first_name\|"Candidate"}}`.
-
 <Tip>
   Use the **"Variables"** button in the editor (email, document template, prompt) to insert any available variable with a single click — including your custom attributes.
 </Tip>
@@ -14,9 +12,9 @@ Variables are placeholders that are automatically replaced with real values from
 
 | Example | Description |
 | --- | --- |
-| `{{candidate.first_name}}` | Standard placeholder |
-| `{{candidate.first_name|"Candidate"}}` | Fallback if the field is empty |
-| `{{application.emails}}` | List field — values are joined with a comma |
+|  | Standard placeholder |
+|  | Fallback if the field is empty |
+|  | List field — values are joined with a comma |
 
 ---
 
