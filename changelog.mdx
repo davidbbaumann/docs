@@ -3,6 +3,43 @@ title: "Changelog"
 description: "Product updates and announcements"
 ---
 
+<Update label="CW 27 | July 2026">
+  ## New Features
+
+  ### Additional Write and Update Tools for the Nexus Assistant and MCP
+
+  The **Nexus Assistant** and the **MCP Server** have been extended with additional tools for creating and updating records.
+
+  - `manage_jobs`: Allows the Nexus Assistant to create and update job listings, as well as publish or unpublish them on career pages.
+  - `manage_applications`: Allows the Nexus Assistant to create applications and update the information of an existing application.
+  - `manage_candidates`: Allows the Nexus Assistant to create candidates and update the information of a candidate profile.
+  - `manage_activities`: Allows the Nexus Assistant to create, update, and mark tasks as completed.
+  - `manage_projects`: Allows the Nexus Assistant to create and update projects.
+  - `manage_project_requirements`: Allows the Nexus Assistant to create, update, and delete project requirements (individually or in bulk).
+
+  ### New Lookup Tools
+
+  Complementing the write tools, the Nexus Assistant can now reliably resolve the correct reference IDs before creating or updating a record.
+
+  - `get_forms`: Finds forms (e.g. for linking as an application form in a job listing).
+  - `get_career_pages`: Finds career pages (e.g. to publish or unpublish a job listing on a specific page).
+  - `get_users`: Finds users in the workspace by name, email, or phone number (e.g. for assigning tasks or adding participants to appointments).
+
+  ## Improvements
+
+  ### Workflows & Matching
+
+  For statuses in recruiting and candidate processes, **"Exclude from Matching"** can now be set. This allows successfully placed or hired candidates, for example, to be excluded from future matching with other projects.
+
+  ### Tasks
+
+  Activities of the type "Task" can now be explicitly assigned to users in the workspace. Tasks can therefore be created for yourself or assigned to colleagues who are responsible for completing them.
+
+  ## Bug Fixes
+
+  - The matching progress is now displayed correctly and the UI closes properly once matching is complete.
+</Update>
+
 <Update label="CW 26 | June 2026">
   ## New Features
 
