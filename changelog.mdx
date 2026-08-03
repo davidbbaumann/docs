@@ -3,6 +3,44 @@ title: "Changelog"
 description: "Product updates and announcements"
 ---
 
+<Update label="CW 31 | August 2026">
+  ## New Features
+
+  ### Skills: Custom Work Instructions for the Nexus Assistant
+
+  Under **Settings → Agents & Skills**, you can now create **Skills** — reusable, Markdown-documented work instructions (e.g. a custom matching workflow or creating a job listing in corporate wording). The **Nexus Assistant** and the **MCP Server** recognize from the description when a skill should be applied and load it on demand.
+
+  - **Skill Editor**: Name, description, tags, slash command, Markdown instructions, and active status on a dedicated page — including a preview of the instructions.
+  - **Allowed Tools**: Optionally define which tools the assistant is permitted to use during a skill. The selection can only restrict existing permissions, never expand them.
+  - **Files**: Reference documents, scripts, schemas, and assets can be attached to each skill, which the assistant only opens when needed.
+
+  ### Slash Commands in Chat
+
+  Typing `/` in the Nexus Assistant message field opens a searchable list of the workspace's active skills. Selecting a skill invokes it directly, rather than copying the text into the message. Unknown `/` inputs continue to be treated as regular text.
+
+  ### Nexus Skills
+
+  In addition to your own skills, **Nexus-maintained skills** are now available. They are accessible in all workspaces, marked with the **NEXUS** badge, and are read-only. In the Skills overview, a toggle separates **Own** and **Nexus** skills. A custom skill with the same slash command always takes precedence.
+
+  - `list_skills`: Shows the Nexus Assistant and MCP Server the catalog of available skills, including their origin (own or Nexus).
+  - `load_skill`: Loads the full instructions of a skill along with the directory of attached files.
+  - `load_skill_file`: Reads a single attached file from a skill — paginated if needed.
+
+  ## Improvements
+
+  ### LLM Cache Optimization
+
+  To permanently reduce LLM costs, the caching behavior of the Nexus Assistant has been optimized.
+
+  ### Address Fields in Template Variables
+
+  The individual **elements of an address** — such as **street**, **city**, **postal code**, **country**, etc. — are now available as **variables** in **templates and documents** for candidates and contacts.
+
+  ## Bug Fixes
+
+  - Fixed an issue that caused workflow names and status names to be displayed as IDs rather than readable labels in certain cases.
+</Update>
+
 <Update label="CW 30 | July 2026">
   ## New Features
 

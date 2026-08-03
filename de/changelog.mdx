@@ -3,6 +3,44 @@ title: "Changelog"
 description: "Produkt-Aktualisierungen und Ankündigungen"
 ---
 
+<Update label="KW 31 | August 2026">
+  ## Neue Funktionen
+
+  ### Skills: Eigene Arbeitsanweisungen für den Nexus Assistant
+
+  Unter **Einstellungen → Agents & Skills** lassen sich jetzt **Skills** anlegen — wiederverwendbare, in Markdown dokumentierte Arbeitsanweisungen (z. B. ein eigener Matching-Ablauf oder das Erstellen einer Stellenanzeige im Corporate Wording). Der **Nexus Assistant** und der **MCP Server** erkennen anhand der Beschreibung, wann ein Skill anzuwenden ist, und laden ihn bei Bedarf nach.
+
+  - **Skill-Editor**: Name, Beschreibung, Tags, Slash-Befehl, Markdown-Anleitung und Aktiv-Status auf einer eigenen Seite — inklusive Vorschau der Anleitung.
+  - **Erlaubte Tools**: Optional lässt sich festlegen, welche Tools der Assistant während eines Skills verwenden darf. Die Auswahl kann bestehende Berechtigungen nur einschränken, niemals erweitern.
+  - **Dateien**: Zu jedem Skill können Referenzen, Skripte, Schemata und Assets hinterlegt werden, die der Assistant erst bei Bedarf öffnet.
+
+  ### Slash-Befehle im Chat
+
+  Ein `/` im Nachrichtenfeld des Nexus Assistant öffnet eine durchsuchbare Liste der aktiven Skills des Workspace. Mit der Auswahl wird der Skill gezielt aufgerufen, statt den Text in die Nachricht zu kopieren. Unbekannte `/`-Eingaben werden weiterhin als normaler Text behandelt.
+
+  ### Nexus Skills
+
+  Neben den eigenen Skills stehen jetzt **von Nexus gepflegte Skills** bereit. Sie sind in allen Workspaces verfügbar, mit dem Kennzeichen **NEXUS** markiert und schreibgeschützt. In der Skills-Übersicht trennt eine Umschaltung zwischen **Eigene** und **Nexus**. Ein eigener Skill mit gleichem Slash-Befehl hat immer Vorrang.
+
+  - `list_skills`: Zeigt dem Nexus Assistant und dem MCP Server den Katalog der verfügbaren Skills inklusive Herkunft (eigen oder Nexus).
+  - `load_skill`: Lädt die vollständige Anleitung eines Skills sowie das Verzeichnis der hinterlegten Dateien.
+  - `load_skill_file`: Liest eine einzelne hinterlegte Datei eines Skills — bei Bedarf seitenweise.
+
+  ## Verbesserungen
+
+  ### Optimierung des LLM-Cache
+
+  Zur dauerhaften Optimierung der LLM-Kosten wurde das Cache-Verhalten des Nexus Assistenten optimiert.
+
+  ### Adresse in Template-Variablen
+
+  Die einzelnen **Elemente einer Adresse**, wie **Straße**, **Stadt**, **PLZ**, **Land** usw., sind nun für Kanddaten und Kontakte als **Variablen** in **Vorlagen und Dokumenten** verfügbar.
+
+  ## Fehlerbehebungen
+
+  - Es wurde ein Fehler behoben, der in bestimmten Fällen Workflow-Namen und Status-Namen als ID und nicht als lesbares Label dargestellt hat.
+</Update>
+
 <Update label="KW 30 | Juli 2026">
   ## Neue Funktionen
 
