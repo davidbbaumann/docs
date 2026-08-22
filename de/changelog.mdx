@@ -3,10 +3,42 @@ title: "Changelog"
 description: "Produkt-Aktualisierungen und Ankündigungen"
 ---
 
-<Update label="KW 32 | August 2026">
+<Update label="KW 33 | August 2026">
   ## Verbesserungen
 
-  - Angleich der Projekt
+  - Einstellungen und Entitätsberechtigungen werden nun konsistent im Nexus Assistenten und im MCP Server durchgesetzt.
+
+  ## Fehlerbehebungen
+
+  - Es wurde ein Fehler behoben, der dazu geführt hat, dass der Nexus Assistent Organisationsdaten des Workspaces erfunden hat, anstatt den tatsächlichen Datensatz auszulesen.
+  - Es wurde ein Fehler behoben, der dazu geführt hat, dass der ChatGPT MCP-Connector seine Verbindung verloren hat oder diese aufgrund von RBAC-Berechtigungsladen und OAuth-Refresh-Token-Rotation nicht erneuern konnte.
+  - Es wurde ein kritischer Fehler behoben, der das Versenden von Microsoft 365 E-Mails aufgrund eines fehlerhaften esm.sh CDN-Builds verhindert hat.
+</Update>
+
+<Update label="KW 32 | August 2026">
+  ## Neue Funktionen
+
+  ### „@“-Referenzen im Nexus Assistenten
+
+  Im Nexus Assistenten können ab sofort Datensätze direkt per `@` referenziert werden — etwa `@Heurich GmbH`, `@Max Mustermann` oder `@Projekt Process Engineer`. Der Assistent löst die Referenz in den Hintergrund auf und arbeitet mit der korrekten Datensatz-ID, anstatt den Namen erneut suchen zu müssen. Unterstützt werden Unternehmen, Kontakte, Kandidaten, Projekte, Jobs und Bewerbungen. Aufgelöste Referenzen werden auch im Chat-Verlauf als klickbare Chips dargestellt.
+
+  ## Verbesserungen
+
+  ### Startseite des Assistenten überarbeitet
+
+  Die bisherige Startseite des Nexus Assistenten — eine voreingestellte Begrüßungsnachricht — wurde durch einen Launchpad ersetzt. Beim Öffnen des Assistenten sieht der Nutzer nun eine zentrierte, tageszeitabhängige Begrüßung, ein großes Eingabefeld und vorgeschlagene Einstiegspunkte. Darunter werden je nach Verfügbarkeit kontextuelle Karten angezeigt: beispielsweise der heutige Kalender, offene Aufgaben oder kürzliche Unterhaltungen. Erst mit der ersten Nutzereingabe wechselt die Ansicht in den gewohnten Chat-Verlauf.
+
+  ### Einheitlicher Dialog für die Projekterstellung
+
+  Der Dialog zur Erstellung eines neuen Projekts wurde an die bekannten Muster aus Kandidaten- und Kontakt-Modals angeglichen:
+
+  - Dokumentenupload befindet sich jetzt direkt im oberen Bereich des Dialogs.
+  - Ein neuer Schalter erlaubt es, die KI-gestützte Analyse beim Anlegen zu aktivieren oder zu überspringen.
+  - Die Auswahl des Unternehmens ist nicht mehr zwingend erforderlich — ein Projektname genügt, um den Dialog absenden zu können.
+
+  ## Fehlerbehebungen
+
+  - Es wurde ein Fehler behoben, der verhindert hat, dass bei `@`-Referenzen im Assistenten Unternehmen ausgewählt werden konnten. Die Auswahl von Unternehmen über das „@“-Menü funktioniert nun wie bei allen anderen Entitäten.
 </Update>
 
 <Update label="KW 31 | August 2026">

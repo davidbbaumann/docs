@@ -3,6 +3,44 @@ title: "Changelog"
 description: "Product updates and announcements"
 ---
 
+<Update label="CW 33 | August 2026">
+  ## Improvements
+
+  - Settings and entity permissions are now consistently enforced in the Nexus Assistant and the MCP Server.
+
+  ## Bug Fixes
+
+  - Fixed an issue that caused the Nexus Assistant to invent workspace organization data instead of reading the actual record.
+  - Fixed an issue that caused the ChatGPT MCP connector to lose its connection or fail to renew due to RBAC permission loading and OAuth refresh-token rotation.
+  - Fixed a critical issue that prevented Microsoft 365 emails from being sent due to a broken esm.sh CDN build.
+</Update>
+
+<Update label="CW 32 | August 2026">
+  ## New Features
+
+  ### "@" References in the Nexus Assistant
+
+  The Nexus Assistant now supports direct record references using `@` — for example `@Heurich GmbH`, `@Max Mustermann`, or `@Project Process Engineer`. The assistant resolves the reference in the background and works with the correct record ID, rather than having to search for the name again. Supported entity types include companies, contacts, candidates, projects, jobs, and applications. Resolved references are also displayed as clickable chips in the chat history.
+
+  ## Improvements
+
+  ### Redesigned Assistant Start Page
+
+  The previous Nexus Assistant start page — a preset greeting message — has been replaced with a launchpad. When opening the assistant, users now see a centered, time-of-day-aware greeting, a large input field, and suggested entry points. Below that, contextual cards are displayed based on availability — for example, today's calendar, open tasks, or recent conversations. The view only switches to the familiar chat history once the user submits their first message.
+
+  ### Unified Project Creation Dialog
+
+  The dialog for creating a new project has been aligned with the familiar patterns from the candidate and contact modals:
+
+  - Document upload is now located directly in the upper area of the dialog.
+  - A new toggle allows AI-assisted analysis to be enabled or skipped during creation.
+  - Selecting a company is no longer required — a project name is sufficient to submit the dialog.
+
+  ## Bug Fixes
+
+  - Fixed an issue that prevented companies from being selected via `@` references in the assistant. Selecting companies through the "@" menu now works the same as all other entity types.
+</Update>
+
 <Update label="CW 31 | August 2026">
   ## New Features
 
