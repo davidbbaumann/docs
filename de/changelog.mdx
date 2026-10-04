@@ -3,6 +3,36 @@ title: "Changelog"
 description: "Produkt-Aktualisierungen und Ankündigungen"
 ---
 
+<Update label="KW 40 | September 2026">
+  ## Neue Funktionen
+
+  ### (Teil-)Autonome Agenten in Nexus
+
+  Innerhalb von Nexus können Agenten definiert werden, welche auf Basis einer Rollenbeschreibung und entsprechenden Tool-Berechtigungen Aufgaben innerhalb von Nexus autonom erledigen können. Aktuell sind Agenten nur zeitbasiert auslösbar. Dabei haben Agenten drei Autonomie-Level:
+
+  1. Reine Benachrichtigungen, nur lesen
+  2. Auf Freigabe warten, der Mensch gibt Änderungen frei.
+  3. Volle Autonomie: Datensätze können auch direkt vom Agenten geändert werden.
+
+  ### Dateien per MCP in Nexus hinterlegen
+
+  Wenn die MCP-Schnittstelle genutzt wird, können KIs nun Dateien, die beispielsweise woanders erstellt wurden, per MCP an entsprechenden Datensätzen hochladen. Beispielsweise kann ein per KI erstelltes Projektexposé entsprechend an dem hinterlegten Nexus-Projekt hochgeladen werden. Dabei werden auch die Inhalte des Dokuments extrahiert.
+
+  ### Dokumente und Dokumententeninhalte für Assistenten, Agenten und MCP
+
+  Hochgeladene und analysierte Dokumente sowie deren Inhalt stehen nun dem Nexus-Assistenten, den Agenten sowie über MCP zur Verfügung. Dies erlaubt Anwendungsfälle, die darauf basieren, dass die Details, die in einem Dokument stehen, betrachtet werden. Beispiel: "Erstelle aus der Kommunikationshistorie und den bekannten Dokumenten des Kandidaten einen Vorschlag für ein Kurzporträt."
+
+  ## Fehlerbehebungen
+
+  Es wurde ein Fehler behoben, der falschen Spaltenzuweisungen bei „Daten importen“ verursacht hat.
+</Update>
+
+<Update label="KW 39 | September 2026">
+  ## Fehlerbehebungen
+
+  Es wurde ein Fehler behoben, bei dem der Nexus Assistent nicht die weiteren/nächsten Datensätze abegrufen hat, obwohl es noch weitere gegeben hätte.
+</Update>
+
 <Update label="KW 38 | September 2026">
   ## Verbesserungen
 

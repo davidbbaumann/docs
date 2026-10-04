@@ -3,6 +3,36 @@ title: "Changelog"
 description: "Product updates and announcements"
 ---
 
+<Update label="CW 40 | September 2026">
+  ## New Features
+
+  ### (Semi-)Autonomous Agents in Nexus
+
+  Agents can now be defined within Nexus that autonomously complete tasks based on a role description and corresponding tool permissions. Currently, agents can only be triggered on a time-based schedule. Agents operate at three autonomy levels:
+
+  1. Notifications only — read-only access.
+  2. Await approval — a human reviews and approves changes before they are applied.
+  3. Full autonomy — records can be modified directly by the agent.
+
+  ### Upload Files to Nexus via MCP
+
+  When using the MCP interface, AI assistants can now upload files created elsewhere directly to the corresponding records in Nexus. For example, an AI-generated project exposé can be uploaded and attached to the relevant Nexus project. The contents of the uploaded document are also extracted and indexed.
+
+  ### Documents and Document Contents for Assistants, Agents, and MCP
+
+  Uploaded and analyzed documents and their contents are now accessible to the Nexus Assistant, agents, and via MCP. This enables use cases that rely on reading the details contained in a document. Example: "Based on the communication history and known documents of this candidate, draft a short profile."
+
+  ## Bug Fixes
+
+  - Fixed an issue that caused incorrect column assignments during data imports.
+</Update>
+
+<Update label="CW 39 | September 2026">
+  ## Bug Fixes
+
+  - Fixed an issue where the Nexus Assistant did not fetch additional records even when more were available.
+</Update>
+
 <Update label="CW 38 | September 2026">
   ## Improvements
 
