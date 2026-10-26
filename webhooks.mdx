@@ -1,5 +1,71 @@
 ---
-title: "Overview"
+title: "Webhooks Overview"
 icon: "webhook"
-description: "Receive real-time notifications from Nexus in case of particular events"
+description: "Receive real-time, event-driven HTTP notifications from Nexus Search."
+sidebarTitle: "Overview"
 ---
+
+Webhooks notify your systems whenever key activities happen in Nexus Search — the inverse of polling our REST API. Rather than repeatedly querying for updates, your endpoints receive cryptographically signed HTTP `POST` requests within milliseconds of an event occurring.
+
+Nexus outbound webhooks follow the open [Standard Webhooks](https://standardwebhooks.com) specification, ensuring replay protection, signature verification, and predictable retry policies.
+
+<CardGroup cols={2}>
+  <Card title="Event Catalog" icon="rectangle-list" href="/webhooks/events">
+    Browse all 21 available event types across candidates, jobs, applications, and workflows.
+  </Card>
+
+  <Card title="Security & Signatures" icon="shield-halved" href="#verifying-signatures">
+    Verify HMAC-SHA256 signatures with official Standard Webhooks libraries.
+  </Card>
+</CardGroup>
+
+---
+
+## Quickstart
+
+Configure your first webhook endpoint directly in the Nexus Search web app:
+
+<Steps>
+  <Step title="Navigate to Webhooks">
+    Go to **Extensions → Webhooks** in your workspace navigation. _(Requires `Workspace Administrator` role or `webhooks:manage` permission)._
+  </Step>
+  <Step title="Create Endpoint">
+    Click **Add Endpoint**, enter your public `https://` target URL, and choose which events you want to subscribe to.
+  </Step>
+  <Step title="Save and Copy Secret">
+    Save the endpoint. Nexus displays your private signing secret (prefixed with `whsec_`) **once**. Store this securely in your application's secrets manager.
+  </Step>
+  <Step title="Send a Test Event">
+    Select **Send test event** from the endpoint actions. Inspect the incoming request headers and body on your server or testing tool.
+  </Step>
+</Steps>
+
+<Info>
+  All target URLs must use secure `https://` on port 443. Private IP ranges, `localhost`, internal hostnames, and HTTP redirects are automatically blocked to prevent SSRF vulnerabilities.
+</Info>
+
+---
+
+## Payload Structure
+
+Nexus follows a **privacy-first, thin-payload architecture** adhering to GDPR data minimization principles. Payloads carry stable identifiers rather than sensitive candidate or client PII. When your service receives an event, it can query the Nexus API using the provided entity ID if full record details are required.
+
+### Envelope Schema
+
+```json
+{
+  "id": "evt_0285acf6-91b4-4b59-994f-4d6411f32a68",
+  "event": "candidate.updated",
+  "timestamp": "2026-10-26T13:55:08.866Z",
+  "workspace_id": "06479da7-9b24-40b1-a7f5-1e948ca57403",
+  "actor": {
+    "type": "user",
+    "id": "84b5a877-b4b8-49e4-9710-d647e212d85b",
+    "channel": "ui"
+  },
+  "data": {
+    "id": "3ca8c964-69fb-4e5c-940b-b95d80cb12ec",
+    "entity_type": "candidate"
+  }
+}
+```
