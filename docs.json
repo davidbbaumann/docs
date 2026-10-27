@@ -111,7 +111,9 @@
                   },
                   {
                     "group": "Candidates",
-                    "pages": []
+                    "pages": [
+                      "webhooks/events/candidate-created"
+                    ]
                   },
                   {
                     "group": "Applications",
@@ -262,7 +264,9 @@
                   },
                   {
                     "group": "Kandidaten",
-                    "pages": []
+                    "pages": [
+                      "de/webhooks/events/candidate-created"
+                    ]
                   },
                   {
                     "group": "Bewerbungen",
