@@ -75,7 +75,8 @@
                   "miscellaneous/template-variables"
                 ]
               }
-            ]
+            ],
+            "icon": "tools"
           },
           {
             "tab": "Webhooks",
@@ -165,7 +166,8 @@
             "tab": "Changelog",
             "pages": [
               "changelog"
-            ]
+            ],
+            "icon": "megaphone"
           }
         ]
       },
@@ -238,7 +240,8 @@
                   "de/miscellaneous/template-variables"
                 ]
               }
-            ]
+            ],
+            "icon": "tools"
           },
           {
             "tab": "Webhooks",
@@ -328,7 +331,8 @@
             "tab": "Changelog",
             "pages": [
               "de/changelog"
-            ]
+            ],
+            "icon": "megaphone"
           }
         ]
       }
