@@ -97,7 +97,52 @@
           {
             "tab": "Webhooks",
             "pages": [
-              "webhooks"
+              "webhooks",
+              {
+                "group": "Webhook events",
+                "pages": [
+                  {
+                    "group": "Accounts",
+                    "pages": []
+                  },
+                  {
+                    "group": "Contacts",
+                    "pages": []
+                  },
+                  {
+                    "group": "Candidates",
+                    "pages": []
+                  },
+                  {
+                    "group": "Applications",
+                    "pages": []
+                  },
+                  {
+                    "group": "Projects",
+                    "pages": []
+                  },
+                  {
+                    "group": "Jobs",
+                    "pages": []
+                  },
+                  {
+                    "group": "Assignments",
+                    "pages": []
+                  },
+                  {
+                    "group": "Forms",
+                    "pages": []
+                  },
+                  {
+                    "group": "Agents",
+                    "pages": []
+                  },
+                  {
+                    "group": "Test",
+                    "pages": []
+                  }
+                ]
+              }
             ],
             "icon": "webhook"
           },
@@ -203,7 +248,52 @@
           {
             "tab": "Webhooks",
             "pages": [
-              "de/webhooks"
+              "de/webhooks",
+              {
+                "group": "Webhook-Ereignisse",
+                "pages": [
+                  {
+                    "group": "Unternehmen",
+                    "pages": []
+                  },
+                  {
+                    "group": "Kontakte",
+                    "pages": []
+                  },
+                  {
+                    "group": "Kandidaten",
+                    "pages": []
+                  },
+                  {
+                    "group": "Bewerbungen",
+                    "pages": []
+                  },
+                  {
+                    "group": "Projekte",
+                    "pages": []
+                  },
+                  {
+                    "group": "Stellen",
+                    "pages": []
+                  },
+                  {
+                    "group": "Zuordnungen",
+                    "pages": []
+                  },
+                  {
+                    "group": "Formulare",
+                    "pages": []
+                  },
+                  {
+                    "group": "Agenten",
+                    "pages": []
+                  },
+                  {
+                    "group": "Test",
+                    "pages": []
+                  }
+                ]
+              }
             ],
             "icon": "webhook"
           },
