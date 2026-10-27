@@ -98,7 +98,8 @@
             "tab": "Webhooks",
             "pages": [
               "webhooks"
-            ]
+            ],
+            "icon": "webhook"
           },
           {
             "tab": "Changelog",
