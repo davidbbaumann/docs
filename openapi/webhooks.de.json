@@ -1,0 +1,2856 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Nexus-Webhooks",
+    "version": "1.0.0",
+    "description": "Ereignisse, die Nexus an Ihren HTTPS-Endpunkt sendet. Die Nachrichten sind bewusst schlank und enthalten nur Kennungen."
+  },
+  "paths": {},
+  "webhooks": {
+    "account.created": {
+      "post": {
+        "summary": "Unternehmen angelegt",
+        "description": "Ein Unternehmen wird angelegt.\n\nDie Nachrichten enthalten nur Kennungen. Den aktuellen Datensatz laden Sie über die Nexus-API oder MCP.",
+        "tags": [
+          "Unternehmen"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "event",
+                  "timestamp",
+                  "workspace_id",
+                  "actor",
+                  "data"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Eindeutige Ereignis-ID (`evt_...`). Identisch mit dem Header `webhook-id`. Zur Erkennung von Duplikaten."
+                  },
+                  "event": {
+                    "type": "string",
+                    "enum": [
+                      "account.created"
+                    ],
+                    "description": "Ereignistyp."
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Zeitpunkt des Ereignisses (ISO 8601, UTC)."
+                  },
+                  "workspace_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "UUID des Nexus-Workspace."
+                  },
+                  "actor": {
+                    "type": "object",
+                    "description": "Auslöser des Ereignisses.",
+                    "required": [
+                      "type",
+                      "id",
+                      "channel"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "user",
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`user`, `agent` oder `system`."
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "format": "uuid",
+                        "description": "UUID des Benutzers oder Agenten, sofern bekannt."
+                      },
+                      "channel": {
+                        "type": "string",
+                        "enum": [
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`agent`, wenn ein KI-Agent die Änderung vorgenommen hat, sonst `system`."
+                      }
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Kennungen des betroffenen Datensatzes.",
+                    "required": [
+                      "entity_type",
+                      "id"
+                    ],
+                    "properties": {
+                      "entity_type": {
+                        "type": "string",
+                        "enum": [
+                          "account"
+                        ],
+                        "description": "Art des betroffenen Datensatzes."
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID des Unternehmens."
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "id": "evt_44444444-4444-4444-8444-444444444444",
+                "event": "account.created",
+                "timestamp": "2026-10-25T12:00:00.000Z",
+                "workspace_id": "55555555-5555-4555-8555-555555555555",
+                "actor": {
+                  "type": "user",
+                  "id": "66666666-6666-4666-8666-666666666666",
+                  "channel": "system"
+                },
+                "data": {
+                  "entity_type": "account",
+                  "id": "11111111-1111-4111-8111-111111111111"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Antworten Sie innerhalb von 5 Sekunden mit einem `2xx`-Status, um den Empfang zu bestätigen."
+          }
+        }
+      }
+    },
+    "account.updated": {
+      "post": {
+        "summary": "Unternehmen geändert",
+        "description": "Ein Unternehmen wird geändert. Rein technische Änderungen, etwa an Suchindex oder Embeddings, senden kein Ereignis.\n\nDie Nachrichten enthalten nur Kennungen. Den aktuellen Datensatz laden Sie über die Nexus-API oder MCP.",
+        "tags": [
+          "Unternehmen"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "event",
+                  "timestamp",
+                  "workspace_id",
+                  "actor",
+                  "data"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Eindeutige Ereignis-ID (`evt_...`). Identisch mit dem Header `webhook-id`. Zur Erkennung von Duplikaten."
+                  },
+                  "event": {
+                    "type": "string",
+                    "enum": [
+                      "account.updated"
+                    ],
+                    "description": "Ereignistyp."
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Zeitpunkt des Ereignisses (ISO 8601, UTC)."
+                  },
+                  "workspace_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "UUID des Nexus-Workspace."
+                  },
+                  "actor": {
+                    "type": "object",
+                    "description": "Auslöser des Ereignisses.",
+                    "required": [
+                      "type",
+                      "id",
+                      "channel"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "user",
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`user`, `agent` oder `system`."
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "format": "uuid",
+                        "description": "UUID des Benutzers oder Agenten, sofern bekannt."
+                      },
+                      "channel": {
+                        "type": "string",
+                        "enum": [
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`agent`, wenn ein KI-Agent die Änderung vorgenommen hat, sonst `system`."
+                      }
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Kennungen des betroffenen Datensatzes.",
+                    "required": [
+                      "entity_type",
+                      "id"
+                    ],
+                    "properties": {
+                      "entity_type": {
+                        "type": "string",
+                        "enum": [
+                          "account"
+                        ],
+                        "description": "Art des betroffenen Datensatzes."
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID des Unternehmens."
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "id": "evt_44444444-4444-4444-8444-444444444444",
+                "event": "account.updated",
+                "timestamp": "2026-10-25T12:00:00.000Z",
+                "workspace_id": "55555555-5555-4555-8555-555555555555",
+                "actor": {
+                  "type": "user",
+                  "id": "66666666-6666-4666-8666-666666666666",
+                  "channel": "system"
+                },
+                "data": {
+                  "entity_type": "account",
+                  "id": "11111111-1111-4111-8111-111111111111"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Antworten Sie innerhalb von 5 Sekunden mit einem `2xx`-Status, um den Empfang zu bestätigen."
+          }
+        }
+      }
+    },
+    "account.deleted": {
+      "post": {
+        "summary": "Unternehmen gelöscht",
+        "description": "Ein Unternehmen wird gelöscht. Die Nachricht enthält nur die ID des gelöschten Datensatzes. Werden verknüpfte Datensätze mitgelöscht, kann jeder davon ein eigenes Ereignis senden.\n\nDie Nachrichten enthalten nur Kennungen. Den aktuellen Datensatz laden Sie über die Nexus-API oder MCP.",
+        "tags": [
+          "Unternehmen"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "event",
+                  "timestamp",
+                  "workspace_id",
+                  "actor",
+                  "data"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Eindeutige Ereignis-ID (`evt_...`). Identisch mit dem Header `webhook-id`. Zur Erkennung von Duplikaten."
+                  },
+                  "event": {
+                    "type": "string",
+                    "enum": [
+                      "account.deleted"
+                    ],
+                    "description": "Ereignistyp."
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Zeitpunkt des Ereignisses (ISO 8601, UTC)."
+                  },
+                  "workspace_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "UUID des Nexus-Workspace."
+                  },
+                  "actor": {
+                    "type": "object",
+                    "description": "Auslöser des Ereignisses.",
+                    "required": [
+                      "type",
+                      "id",
+                      "channel"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "user",
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`user`, `agent` oder `system`."
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "format": "uuid",
+                        "description": "UUID des Benutzers oder Agenten, sofern bekannt."
+                      },
+                      "channel": {
+                        "type": "string",
+                        "enum": [
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`agent`, wenn ein KI-Agent die Änderung vorgenommen hat, sonst `system`."
+                      }
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Kennungen des betroffenen Datensatzes.",
+                    "required": [
+                      "entity_type",
+                      "id"
+                    ],
+                    "properties": {
+                      "entity_type": {
+                        "type": "string",
+                        "enum": [
+                          "account"
+                        ],
+                        "description": "Art des betroffenen Datensatzes."
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID des gelöschten Unternehmens."
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "id": "evt_44444444-4444-4444-8444-444444444444",
+                "event": "account.deleted",
+                "timestamp": "2026-10-25T12:00:00.000Z",
+                "workspace_id": "55555555-5555-4555-8555-555555555555",
+                "actor": {
+                  "type": "user",
+                  "id": "66666666-6666-4666-8666-666666666666",
+                  "channel": "system"
+                },
+                "data": {
+                  "entity_type": "account",
+                  "id": "11111111-1111-4111-8111-111111111111"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Antworten Sie innerhalb von 5 Sekunden mit einem `2xx`-Status, um den Empfang zu bestätigen."
+          }
+        }
+      }
+    },
+    "contact.created": {
+      "post": {
+        "summary": "Kontakt angelegt",
+        "description": "Ein Kontakt wird angelegt.\n\nDie Nachrichten enthalten nur Kennungen. Den aktuellen Datensatz laden Sie über die Nexus-API oder MCP.",
+        "tags": [
+          "Kontakte"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "event",
+                  "timestamp",
+                  "workspace_id",
+                  "actor",
+                  "data"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Eindeutige Ereignis-ID (`evt_...`). Identisch mit dem Header `webhook-id`. Zur Erkennung von Duplikaten."
+                  },
+                  "event": {
+                    "type": "string",
+                    "enum": [
+                      "contact.created"
+                    ],
+                    "description": "Ereignistyp."
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Zeitpunkt des Ereignisses (ISO 8601, UTC)."
+                  },
+                  "workspace_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "UUID des Nexus-Workspace."
+                  },
+                  "actor": {
+                    "type": "object",
+                    "description": "Auslöser des Ereignisses.",
+                    "required": [
+                      "type",
+                      "id",
+                      "channel"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "user",
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`user`, `agent` oder `system`."
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "format": "uuid",
+                        "description": "UUID des Benutzers oder Agenten, sofern bekannt."
+                      },
+                      "channel": {
+                        "type": "string",
+                        "enum": [
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`agent`, wenn ein KI-Agent die Änderung vorgenommen hat, sonst `system`."
+                      }
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Kennungen des betroffenen Datensatzes.",
+                    "required": [
+                      "entity_type",
+                      "id"
+                    ],
+                    "properties": {
+                      "entity_type": {
+                        "type": "string",
+                        "enum": [
+                          "contact"
+                        ],
+                        "description": "Art des betroffenen Datensatzes."
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID des Kontakts."
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "id": "evt_44444444-4444-4444-8444-444444444444",
+                "event": "contact.created",
+                "timestamp": "2026-10-25T12:00:00.000Z",
+                "workspace_id": "55555555-5555-4555-8555-555555555555",
+                "actor": {
+                  "type": "user",
+                  "id": "66666666-6666-4666-8666-666666666666",
+                  "channel": "system"
+                },
+                "data": {
+                  "entity_type": "contact",
+                  "id": "11111111-1111-4111-8111-111111111111"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Antworten Sie innerhalb von 5 Sekunden mit einem `2xx`-Status, um den Empfang zu bestätigen."
+          }
+        }
+      }
+    },
+    "contact.updated": {
+      "post": {
+        "summary": "Kontakt geändert",
+        "description": "Ein Kontakt wird geändert. Rein technische Änderungen, etwa an Suchindex oder Embeddings, senden kein Ereignis.\n\nDie Nachrichten enthalten nur Kennungen. Den aktuellen Datensatz laden Sie über die Nexus-API oder MCP.",
+        "tags": [
+          "Kontakte"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "event",
+                  "timestamp",
+                  "workspace_id",
+                  "actor",
+                  "data"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Eindeutige Ereignis-ID (`evt_...`). Identisch mit dem Header `webhook-id`. Zur Erkennung von Duplikaten."
+                  },
+                  "event": {
+                    "type": "string",
+                    "enum": [
+                      "contact.updated"
+                    ],
+                    "description": "Ereignistyp."
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Zeitpunkt des Ereignisses (ISO 8601, UTC)."
+                  },
+                  "workspace_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "UUID des Nexus-Workspace."
+                  },
+                  "actor": {
+                    "type": "object",
+                    "description": "Auslöser des Ereignisses.",
+                    "required": [
+                      "type",
+                      "id",
+                      "channel"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "user",
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`user`, `agent` oder `system`."
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "format": "uuid",
+                        "description": "UUID des Benutzers oder Agenten, sofern bekannt."
+                      },
+                      "channel": {
+                        "type": "string",
+                        "enum": [
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`agent`, wenn ein KI-Agent die Änderung vorgenommen hat, sonst `system`."
+                      }
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Kennungen des betroffenen Datensatzes.",
+                    "required": [
+                      "entity_type",
+                      "id"
+                    ],
+                    "properties": {
+                      "entity_type": {
+                        "type": "string",
+                        "enum": [
+                          "contact"
+                        ],
+                        "description": "Art des betroffenen Datensatzes."
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID des Kontakts."
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "id": "evt_44444444-4444-4444-8444-444444444444",
+                "event": "contact.updated",
+                "timestamp": "2026-10-25T12:00:00.000Z",
+                "workspace_id": "55555555-5555-4555-8555-555555555555",
+                "actor": {
+                  "type": "user",
+                  "id": "66666666-6666-4666-8666-666666666666",
+                  "channel": "system"
+                },
+                "data": {
+                  "entity_type": "contact",
+                  "id": "11111111-1111-4111-8111-111111111111"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Antworten Sie innerhalb von 5 Sekunden mit einem `2xx`-Status, um den Empfang zu bestätigen."
+          }
+        }
+      }
+    },
+    "contact.deleted": {
+      "post": {
+        "summary": "Kontakt gelöscht",
+        "description": "Ein Kontakt wird gelöscht. Die Nachricht enthält nur die ID des gelöschten Datensatzes. Werden verknüpfte Datensätze mitgelöscht, kann jeder davon ein eigenes Ereignis senden.\n\nDie Nachrichten enthalten nur Kennungen. Den aktuellen Datensatz laden Sie über die Nexus-API oder MCP.",
+        "tags": [
+          "Kontakte"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "event",
+                  "timestamp",
+                  "workspace_id",
+                  "actor",
+                  "data"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Eindeutige Ereignis-ID (`evt_...`). Identisch mit dem Header `webhook-id`. Zur Erkennung von Duplikaten."
+                  },
+                  "event": {
+                    "type": "string",
+                    "enum": [
+                      "contact.deleted"
+                    ],
+                    "description": "Ereignistyp."
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Zeitpunkt des Ereignisses (ISO 8601, UTC)."
+                  },
+                  "workspace_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "UUID des Nexus-Workspace."
+                  },
+                  "actor": {
+                    "type": "object",
+                    "description": "Auslöser des Ereignisses.",
+                    "required": [
+                      "type",
+                      "id",
+                      "channel"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "user",
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`user`, `agent` oder `system`."
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "format": "uuid",
+                        "description": "UUID des Benutzers oder Agenten, sofern bekannt."
+                      },
+                      "channel": {
+                        "type": "string",
+                        "enum": [
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`agent`, wenn ein KI-Agent die Änderung vorgenommen hat, sonst `system`."
+                      }
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Kennungen des betroffenen Datensatzes.",
+                    "required": [
+                      "entity_type",
+                      "id"
+                    ],
+                    "properties": {
+                      "entity_type": {
+                        "type": "string",
+                        "enum": [
+                          "contact"
+                        ],
+                        "description": "Art des betroffenen Datensatzes."
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID des gelöschten Kontakts."
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "id": "evt_44444444-4444-4444-8444-444444444444",
+                "event": "contact.deleted",
+                "timestamp": "2026-10-25T12:00:00.000Z",
+                "workspace_id": "55555555-5555-4555-8555-555555555555",
+                "actor": {
+                  "type": "user",
+                  "id": "66666666-6666-4666-8666-666666666666",
+                  "channel": "system"
+                },
+                "data": {
+                  "entity_type": "contact",
+                  "id": "11111111-1111-4111-8111-111111111111"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Antworten Sie innerhalb von 5 Sekunden mit einem `2xx`-Status, um den Empfang zu bestätigen."
+          }
+        }
+      }
+    },
+    "candidate.created": {
+      "post": {
+        "summary": "Kandidat angelegt",
+        "description": "Ein Kandidat wird angelegt.\n\nDie Nachrichten enthalten nur Kennungen. Den aktuellen Datensatz laden Sie über die Nexus-API oder MCP.",
+        "tags": [
+          "Kandidaten"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "event",
+                  "timestamp",
+                  "workspace_id",
+                  "actor",
+                  "data"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Eindeutige Ereignis-ID (`evt_...`). Identisch mit dem Header `webhook-id`. Zur Erkennung von Duplikaten."
+                  },
+                  "event": {
+                    "type": "string",
+                    "enum": [
+                      "candidate.created"
+                    ],
+                    "description": "Ereignistyp."
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Zeitpunkt des Ereignisses (ISO 8601, UTC)."
+                  },
+                  "workspace_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "UUID des Nexus-Workspace."
+                  },
+                  "actor": {
+                    "type": "object",
+                    "description": "Auslöser des Ereignisses.",
+                    "required": [
+                      "type",
+                      "id",
+                      "channel"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "user",
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`user`, `agent` oder `system`."
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "format": "uuid",
+                        "description": "UUID des Benutzers oder Agenten, sofern bekannt."
+                      },
+                      "channel": {
+                        "type": "string",
+                        "enum": [
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`agent`, wenn ein KI-Agent die Änderung vorgenommen hat, sonst `system`."
+                      }
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Kennungen des betroffenen Datensatzes.",
+                    "required": [
+                      "entity_type",
+                      "id"
+                    ],
+                    "properties": {
+                      "entity_type": {
+                        "type": "string",
+                        "enum": [
+                          "candidate"
+                        ],
+                        "description": "Art des betroffenen Datensatzes."
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID des Kandidaten."
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "id": "evt_44444444-4444-4444-8444-444444444444",
+                "event": "candidate.created",
+                "timestamp": "2026-10-25T12:00:00.000Z",
+                "workspace_id": "55555555-5555-4555-8555-555555555555",
+                "actor": {
+                  "type": "user",
+                  "id": "66666666-6666-4666-8666-666666666666",
+                  "channel": "system"
+                },
+                "data": {
+                  "entity_type": "candidate",
+                  "id": "11111111-1111-4111-8111-111111111111"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Antworten Sie innerhalb von 5 Sekunden mit einem `2xx`-Status, um den Empfang zu bestätigen."
+          }
+        }
+      }
+    },
+    "candidate.updated": {
+      "post": {
+        "summary": "Kandidat geändert",
+        "description": "Ein Kandidat wird geändert. Rein technische Änderungen, etwa an Suchindex oder Embeddings, senden kein Ereignis.\n\nDie Nachrichten enthalten nur Kennungen. Den aktuellen Datensatz laden Sie über die Nexus-API oder MCP.",
+        "tags": [
+          "Kandidaten"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "event",
+                  "timestamp",
+                  "workspace_id",
+                  "actor",
+                  "data"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Eindeutige Ereignis-ID (`evt_...`). Identisch mit dem Header `webhook-id`. Zur Erkennung von Duplikaten."
+                  },
+                  "event": {
+                    "type": "string",
+                    "enum": [
+                      "candidate.updated"
+                    ],
+                    "description": "Ereignistyp."
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Zeitpunkt des Ereignisses (ISO 8601, UTC)."
+                  },
+                  "workspace_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "UUID des Nexus-Workspace."
+                  },
+                  "actor": {
+                    "type": "object",
+                    "description": "Auslöser des Ereignisses.",
+                    "required": [
+                      "type",
+                      "id",
+                      "channel"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "user",
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`user`, `agent` oder `system`."
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "format": "uuid",
+                        "description": "UUID des Benutzers oder Agenten, sofern bekannt."
+                      },
+                      "channel": {
+                        "type": "string",
+                        "enum": [
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`agent`, wenn ein KI-Agent die Änderung vorgenommen hat, sonst `system`."
+                      }
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Kennungen des betroffenen Datensatzes.",
+                    "required": [
+                      "entity_type",
+                      "id"
+                    ],
+                    "properties": {
+                      "entity_type": {
+                        "type": "string",
+                        "enum": [
+                          "candidate"
+                        ],
+                        "description": "Art des betroffenen Datensatzes."
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID des Kandidaten."
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "id": "evt_44444444-4444-4444-8444-444444444444",
+                "event": "candidate.updated",
+                "timestamp": "2026-10-25T12:00:00.000Z",
+                "workspace_id": "55555555-5555-4555-8555-555555555555",
+                "actor": {
+                  "type": "user",
+                  "id": "66666666-6666-4666-8666-666666666666",
+                  "channel": "system"
+                },
+                "data": {
+                  "entity_type": "candidate",
+                  "id": "11111111-1111-4111-8111-111111111111"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Antworten Sie innerhalb von 5 Sekunden mit einem `2xx`-Status, um den Empfang zu bestätigen."
+          }
+        }
+      }
+    },
+    "candidate.deleted": {
+      "post": {
+        "summary": "Kandidat gelöscht",
+        "description": "Ein Kandidat wird gelöscht. Die Nachricht enthält nur die ID des gelöschten Datensatzes. Werden verknüpfte Datensätze mitgelöscht, kann jeder davon ein eigenes Ereignis senden.\n\nDie Nachrichten enthalten nur Kennungen. Den aktuellen Datensatz laden Sie über die Nexus-API oder MCP.",
+        "tags": [
+          "Kandidaten"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "event",
+                  "timestamp",
+                  "workspace_id",
+                  "actor",
+                  "data"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Eindeutige Ereignis-ID (`evt_...`). Identisch mit dem Header `webhook-id`. Zur Erkennung von Duplikaten."
+                  },
+                  "event": {
+                    "type": "string",
+                    "enum": [
+                      "candidate.deleted"
+                    ],
+                    "description": "Ereignistyp."
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Zeitpunkt des Ereignisses (ISO 8601, UTC)."
+                  },
+                  "workspace_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "UUID des Nexus-Workspace."
+                  },
+                  "actor": {
+                    "type": "object",
+                    "description": "Auslöser des Ereignisses.",
+                    "required": [
+                      "type",
+                      "id",
+                      "channel"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "user",
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`user`, `agent` oder `system`."
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "format": "uuid",
+                        "description": "UUID des Benutzers oder Agenten, sofern bekannt."
+                      },
+                      "channel": {
+                        "type": "string",
+                        "enum": [
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`agent`, wenn ein KI-Agent die Änderung vorgenommen hat, sonst `system`."
+                      }
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Kennungen des betroffenen Datensatzes.",
+                    "required": [
+                      "entity_type",
+                      "id"
+                    ],
+                    "properties": {
+                      "entity_type": {
+                        "type": "string",
+                        "enum": [
+                          "candidate"
+                        ],
+                        "description": "Art des betroffenen Datensatzes."
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID des gelöschten Kandidaten."
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "id": "evt_44444444-4444-4444-8444-444444444444",
+                "event": "candidate.deleted",
+                "timestamp": "2026-10-25T12:00:00.000Z",
+                "workspace_id": "55555555-5555-4555-8555-555555555555",
+                "actor": {
+                  "type": "user",
+                  "id": "66666666-6666-4666-8666-666666666666",
+                  "channel": "system"
+                },
+                "data": {
+                  "entity_type": "candidate",
+                  "id": "11111111-1111-4111-8111-111111111111"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Antworten Sie innerhalb von 5 Sekunden mit einem `2xx`-Status, um den Empfang zu bestätigen."
+          }
+        }
+      }
+    },
+    "application.created": {
+      "post": {
+        "summary": "Bewerbung angelegt",
+        "description": "Eine Bewerbung wird angelegt.\n\nDie Nachrichten enthalten nur Kennungen. Den aktuellen Datensatz laden Sie über die Nexus-API oder MCP.",
+        "tags": [
+          "Bewerbungen"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "event",
+                  "timestamp",
+                  "workspace_id",
+                  "actor",
+                  "data"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Eindeutige Ereignis-ID (`evt_...`). Identisch mit dem Header `webhook-id`. Zur Erkennung von Duplikaten."
+                  },
+                  "event": {
+                    "type": "string",
+                    "enum": [
+                      "application.created"
+                    ],
+                    "description": "Ereignistyp."
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Zeitpunkt des Ereignisses (ISO 8601, UTC)."
+                  },
+                  "workspace_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "UUID des Nexus-Workspace."
+                  },
+                  "actor": {
+                    "type": "object",
+                    "description": "Auslöser des Ereignisses.",
+                    "required": [
+                      "type",
+                      "id",
+                      "channel"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "user",
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`user`, `agent` oder `system`."
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "format": "uuid",
+                        "description": "UUID des Benutzers oder Agenten, sofern bekannt."
+                      },
+                      "channel": {
+                        "type": "string",
+                        "enum": [
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`agent`, wenn ein KI-Agent die Änderung vorgenommen hat, sonst `system`."
+                      }
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Kennungen des betroffenen Datensatzes.",
+                    "required": [
+                      "entity_type",
+                      "id"
+                    ],
+                    "properties": {
+                      "entity_type": {
+                        "type": "string",
+                        "enum": [
+                          "application"
+                        ],
+                        "description": "Art des betroffenen Datensatzes."
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID der Bewerbung."
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "id": "evt_44444444-4444-4444-8444-444444444444",
+                "event": "application.created",
+                "timestamp": "2026-10-25T12:00:00.000Z",
+                "workspace_id": "55555555-5555-4555-8555-555555555555",
+                "actor": {
+                  "type": "user",
+                  "id": "66666666-6666-4666-8666-666666666666",
+                  "channel": "system"
+                },
+                "data": {
+                  "entity_type": "application",
+                  "id": "11111111-1111-4111-8111-111111111111"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Antworten Sie innerhalb von 5 Sekunden mit einem `2xx`-Status, um den Empfang zu bestätigen."
+          }
+        }
+      }
+    },
+    "application.updated": {
+      "post": {
+        "summary": "Bewerbung geändert",
+        "description": "Eine Bewerbung wird geändert. Rein technische Änderungen, etwa an Suchindex oder Embeddings, senden kein Ereignis.\n\nDie Nachrichten enthalten nur Kennungen. Den aktuellen Datensatz laden Sie über die Nexus-API oder MCP.",
+        "tags": [
+          "Bewerbungen"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "event",
+                  "timestamp",
+                  "workspace_id",
+                  "actor",
+                  "data"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Eindeutige Ereignis-ID (`evt_...`). Identisch mit dem Header `webhook-id`. Zur Erkennung von Duplikaten."
+                  },
+                  "event": {
+                    "type": "string",
+                    "enum": [
+                      "application.updated"
+                    ],
+                    "description": "Ereignistyp."
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Zeitpunkt des Ereignisses (ISO 8601, UTC)."
+                  },
+                  "workspace_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "UUID des Nexus-Workspace."
+                  },
+                  "actor": {
+                    "type": "object",
+                    "description": "Auslöser des Ereignisses.",
+                    "required": [
+                      "type",
+                      "id",
+                      "channel"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "user",
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`user`, `agent` oder `system`."
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "format": "uuid",
+                        "description": "UUID des Benutzers oder Agenten, sofern bekannt."
+                      },
+                      "channel": {
+                        "type": "string",
+                        "enum": [
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`agent`, wenn ein KI-Agent die Änderung vorgenommen hat, sonst `system`."
+                      }
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Kennungen des betroffenen Datensatzes.",
+                    "required": [
+                      "entity_type",
+                      "id"
+                    ],
+                    "properties": {
+                      "entity_type": {
+                        "type": "string",
+                        "enum": [
+                          "application"
+                        ],
+                        "description": "Art des betroffenen Datensatzes."
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID der Bewerbung."
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "id": "evt_44444444-4444-4444-8444-444444444444",
+                "event": "application.updated",
+                "timestamp": "2026-10-25T12:00:00.000Z",
+                "workspace_id": "55555555-5555-4555-8555-555555555555",
+                "actor": {
+                  "type": "user",
+                  "id": "66666666-6666-4666-8666-666666666666",
+                  "channel": "system"
+                },
+                "data": {
+                  "entity_type": "application",
+                  "id": "11111111-1111-4111-8111-111111111111"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Antworten Sie innerhalb von 5 Sekunden mit einem `2xx`-Status, um den Empfang zu bestätigen."
+          }
+        }
+      }
+    },
+    "application.deleted": {
+      "post": {
+        "summary": "Bewerbung gelöscht",
+        "description": "Eine Bewerbung wird gelöscht. Die Nachricht enthält nur die ID des gelöschten Datensatzes. Werden verknüpfte Datensätze mitgelöscht, kann jeder davon ein eigenes Ereignis senden.\n\nDie Nachrichten enthalten nur Kennungen. Den aktuellen Datensatz laden Sie über die Nexus-API oder MCP.",
+        "tags": [
+          "Bewerbungen"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "event",
+                  "timestamp",
+                  "workspace_id",
+                  "actor",
+                  "data"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Eindeutige Ereignis-ID (`evt_...`). Identisch mit dem Header `webhook-id`. Zur Erkennung von Duplikaten."
+                  },
+                  "event": {
+                    "type": "string",
+                    "enum": [
+                      "application.deleted"
+                    ],
+                    "description": "Ereignistyp."
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Zeitpunkt des Ereignisses (ISO 8601, UTC)."
+                  },
+                  "workspace_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "UUID des Nexus-Workspace."
+                  },
+                  "actor": {
+                    "type": "object",
+                    "description": "Auslöser des Ereignisses.",
+                    "required": [
+                      "type",
+                      "id",
+                      "channel"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "user",
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`user`, `agent` oder `system`."
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "format": "uuid",
+                        "description": "UUID des Benutzers oder Agenten, sofern bekannt."
+                      },
+                      "channel": {
+                        "type": "string",
+                        "enum": [
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`agent`, wenn ein KI-Agent die Änderung vorgenommen hat, sonst `system`."
+                      }
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Kennungen des betroffenen Datensatzes.",
+                    "required": [
+                      "entity_type",
+                      "id"
+                    ],
+                    "properties": {
+                      "entity_type": {
+                        "type": "string",
+                        "enum": [
+                          "application"
+                        ],
+                        "description": "Art des betroffenen Datensatzes."
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID der gelöschten Bewerbung."
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "id": "evt_44444444-4444-4444-8444-444444444444",
+                "event": "application.deleted",
+                "timestamp": "2026-10-25T12:00:00.000Z",
+                "workspace_id": "55555555-5555-4555-8555-555555555555",
+                "actor": {
+                  "type": "user",
+                  "id": "66666666-6666-4666-8666-666666666666",
+                  "channel": "system"
+                },
+                "data": {
+                  "entity_type": "application",
+                  "id": "11111111-1111-4111-8111-111111111111"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Antworten Sie innerhalb von 5 Sekunden mit einem `2xx`-Status, um den Empfang zu bestätigen."
+          }
+        }
+      }
+    },
+    "project.created": {
+      "post": {
+        "summary": "Projekt angelegt",
+        "description": "Ein Projekt wird angelegt.\n\nDie Nachrichten enthalten nur Kennungen. Den aktuellen Datensatz laden Sie über die Nexus-API oder MCP.",
+        "tags": [
+          "Projekte"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "event",
+                  "timestamp",
+                  "workspace_id",
+                  "actor",
+                  "data"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Eindeutige Ereignis-ID (`evt_...`). Identisch mit dem Header `webhook-id`. Zur Erkennung von Duplikaten."
+                  },
+                  "event": {
+                    "type": "string",
+                    "enum": [
+                      "project.created"
+                    ],
+                    "description": "Ereignistyp."
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Zeitpunkt des Ereignisses (ISO 8601, UTC)."
+                  },
+                  "workspace_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "UUID des Nexus-Workspace."
+                  },
+                  "actor": {
+                    "type": "object",
+                    "description": "Auslöser des Ereignisses.",
+                    "required": [
+                      "type",
+                      "id",
+                      "channel"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "user",
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`user`, `agent` oder `system`."
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "format": "uuid",
+                        "description": "UUID des Benutzers oder Agenten, sofern bekannt."
+                      },
+                      "channel": {
+                        "type": "string",
+                        "enum": [
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`agent`, wenn ein KI-Agent die Änderung vorgenommen hat, sonst `system`."
+                      }
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Kennungen des betroffenen Datensatzes.",
+                    "required": [
+                      "entity_type",
+                      "id"
+                    ],
+                    "properties": {
+                      "entity_type": {
+                        "type": "string",
+                        "enum": [
+                          "project"
+                        ],
+                        "description": "Art des betroffenen Datensatzes."
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID des Projekts."
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "id": "evt_44444444-4444-4444-8444-444444444444",
+                "event": "project.created",
+                "timestamp": "2026-10-25T12:00:00.000Z",
+                "workspace_id": "55555555-5555-4555-8555-555555555555",
+                "actor": {
+                  "type": "user",
+                  "id": "66666666-6666-4666-8666-666666666666",
+                  "channel": "system"
+                },
+                "data": {
+                  "entity_type": "project",
+                  "id": "11111111-1111-4111-8111-111111111111"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Antworten Sie innerhalb von 5 Sekunden mit einem `2xx`-Status, um den Empfang zu bestätigen."
+          }
+        }
+      }
+    },
+    "project.updated": {
+      "post": {
+        "summary": "Projekt geändert",
+        "description": "Ein Projekt wird geändert. Rein technische Änderungen, etwa an Suchindex oder Embeddings, senden kein Ereignis.\n\nDie Nachrichten enthalten nur Kennungen. Den aktuellen Datensatz laden Sie über die Nexus-API oder MCP.",
+        "tags": [
+          "Projekte"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "event",
+                  "timestamp",
+                  "workspace_id",
+                  "actor",
+                  "data"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Eindeutige Ereignis-ID (`evt_...`). Identisch mit dem Header `webhook-id`. Zur Erkennung von Duplikaten."
+                  },
+                  "event": {
+                    "type": "string",
+                    "enum": [
+                      "project.updated"
+                    ],
+                    "description": "Ereignistyp."
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Zeitpunkt des Ereignisses (ISO 8601, UTC)."
+                  },
+                  "workspace_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "UUID des Nexus-Workspace."
+                  },
+                  "actor": {
+                    "type": "object",
+                    "description": "Auslöser des Ereignisses.",
+                    "required": [
+                      "type",
+                      "id",
+                      "channel"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "user",
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`user`, `agent` oder `system`."
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "format": "uuid",
+                        "description": "UUID des Benutzers oder Agenten, sofern bekannt."
+                      },
+                      "channel": {
+                        "type": "string",
+                        "enum": [
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`agent`, wenn ein KI-Agent die Änderung vorgenommen hat, sonst `system`."
+                      }
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Kennungen des betroffenen Datensatzes.",
+                    "required": [
+                      "entity_type",
+                      "id"
+                    ],
+                    "properties": {
+                      "entity_type": {
+                        "type": "string",
+                        "enum": [
+                          "project"
+                        ],
+                        "description": "Art des betroffenen Datensatzes."
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID des Projekts."
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "id": "evt_44444444-4444-4444-8444-444444444444",
+                "event": "project.updated",
+                "timestamp": "2026-10-25T12:00:00.000Z",
+                "workspace_id": "55555555-5555-4555-8555-555555555555",
+                "actor": {
+                  "type": "user",
+                  "id": "66666666-6666-4666-8666-666666666666",
+                  "channel": "system"
+                },
+                "data": {
+                  "entity_type": "project",
+                  "id": "11111111-1111-4111-8111-111111111111"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Antworten Sie innerhalb von 5 Sekunden mit einem `2xx`-Status, um den Empfang zu bestätigen."
+          }
+        }
+      }
+    },
+    "project.deleted": {
+      "post": {
+        "summary": "Projekt gelöscht",
+        "description": "Ein Projekt wird gelöscht. Die Nachricht enthält nur die ID des gelöschten Datensatzes. Werden verknüpfte Datensätze mitgelöscht, kann jeder davon ein eigenes Ereignis senden.\n\nDie Nachrichten enthalten nur Kennungen. Den aktuellen Datensatz laden Sie über die Nexus-API oder MCP.",
+        "tags": [
+          "Projekte"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "event",
+                  "timestamp",
+                  "workspace_id",
+                  "actor",
+                  "data"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Eindeutige Ereignis-ID (`evt_...`). Identisch mit dem Header `webhook-id`. Zur Erkennung von Duplikaten."
+                  },
+                  "event": {
+                    "type": "string",
+                    "enum": [
+                      "project.deleted"
+                    ],
+                    "description": "Ereignistyp."
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Zeitpunkt des Ereignisses (ISO 8601, UTC)."
+                  },
+                  "workspace_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "UUID des Nexus-Workspace."
+                  },
+                  "actor": {
+                    "type": "object",
+                    "description": "Auslöser des Ereignisses.",
+                    "required": [
+                      "type",
+                      "id",
+                      "channel"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "user",
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`user`, `agent` oder `system`."
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "format": "uuid",
+                        "description": "UUID des Benutzers oder Agenten, sofern bekannt."
+                      },
+                      "channel": {
+                        "type": "string",
+                        "enum": [
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`agent`, wenn ein KI-Agent die Änderung vorgenommen hat, sonst `system`."
+                      }
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Kennungen des betroffenen Datensatzes.",
+                    "required": [
+                      "entity_type",
+                      "id"
+                    ],
+                    "properties": {
+                      "entity_type": {
+                        "type": "string",
+                        "enum": [
+                          "project"
+                        ],
+                        "description": "Art des betroffenen Datensatzes."
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID des gelöschten Projekts."
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "id": "evt_44444444-4444-4444-8444-444444444444",
+                "event": "project.deleted",
+                "timestamp": "2026-10-25T12:00:00.000Z",
+                "workspace_id": "55555555-5555-4555-8555-555555555555",
+                "actor": {
+                  "type": "user",
+                  "id": "66666666-6666-4666-8666-666666666666",
+                  "channel": "system"
+                },
+                "data": {
+                  "entity_type": "project",
+                  "id": "11111111-1111-4111-8111-111111111111"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Antworten Sie innerhalb von 5 Sekunden mit einem `2xx`-Status, um den Empfang zu bestätigen."
+          }
+        }
+      }
+    },
+    "job.created": {
+      "post": {
+        "summary": "Stelle angelegt",
+        "description": "Eine Stelle wird angelegt.\n\nDie Nachrichten enthalten nur Kennungen. Den aktuellen Datensatz laden Sie über die Nexus-API oder MCP.",
+        "tags": [
+          "Stellen"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "event",
+                  "timestamp",
+                  "workspace_id",
+                  "actor",
+                  "data"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Eindeutige Ereignis-ID (`evt_...`). Identisch mit dem Header `webhook-id`. Zur Erkennung von Duplikaten."
+                  },
+                  "event": {
+                    "type": "string",
+                    "enum": [
+                      "job.created"
+                    ],
+                    "description": "Ereignistyp."
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Zeitpunkt des Ereignisses (ISO 8601, UTC)."
+                  },
+                  "workspace_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "UUID des Nexus-Workspace."
+                  },
+                  "actor": {
+                    "type": "object",
+                    "description": "Auslöser des Ereignisses.",
+                    "required": [
+                      "type",
+                      "id",
+                      "channel"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "user",
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`user`, `agent` oder `system`."
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "format": "uuid",
+                        "description": "UUID des Benutzers oder Agenten, sofern bekannt."
+                      },
+                      "channel": {
+                        "type": "string",
+                        "enum": [
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`agent`, wenn ein KI-Agent die Änderung vorgenommen hat, sonst `system`."
+                      }
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Kennungen des betroffenen Datensatzes.",
+                    "required": [
+                      "entity_type",
+                      "id"
+                    ],
+                    "properties": {
+                      "entity_type": {
+                        "type": "string",
+                        "enum": [
+                          "job"
+                        ],
+                        "description": "Art des betroffenen Datensatzes."
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID der Stelle."
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "id": "evt_44444444-4444-4444-8444-444444444444",
+                "event": "job.created",
+                "timestamp": "2026-10-25T12:00:00.000Z",
+                "workspace_id": "55555555-5555-4555-8555-555555555555",
+                "actor": {
+                  "type": "user",
+                  "id": "66666666-6666-4666-8666-666666666666",
+                  "channel": "system"
+                },
+                "data": {
+                  "entity_type": "job",
+                  "id": "11111111-1111-4111-8111-111111111111"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Antworten Sie innerhalb von 5 Sekunden mit einem `2xx`-Status, um den Empfang zu bestätigen."
+          }
+        }
+      }
+    },
+    "job.updated": {
+      "post": {
+        "summary": "Stelle geändert",
+        "description": "Eine Stelle wird geändert. Rein technische Änderungen, etwa an Suchindex oder Embeddings, senden kein Ereignis.\n\nDie Nachrichten enthalten nur Kennungen. Den aktuellen Datensatz laden Sie über die Nexus-API oder MCP.",
+        "tags": [
+          "Stellen"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "event",
+                  "timestamp",
+                  "workspace_id",
+                  "actor",
+                  "data"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Eindeutige Ereignis-ID (`evt_...`). Identisch mit dem Header `webhook-id`. Zur Erkennung von Duplikaten."
+                  },
+                  "event": {
+                    "type": "string",
+                    "enum": [
+                      "job.updated"
+                    ],
+                    "description": "Ereignistyp."
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Zeitpunkt des Ereignisses (ISO 8601, UTC)."
+                  },
+                  "workspace_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "UUID des Nexus-Workspace."
+                  },
+                  "actor": {
+                    "type": "object",
+                    "description": "Auslöser des Ereignisses.",
+                    "required": [
+                      "type",
+                      "id",
+                      "channel"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "user",
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`user`, `agent` oder `system`."
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "format": "uuid",
+                        "description": "UUID des Benutzers oder Agenten, sofern bekannt."
+                      },
+                      "channel": {
+                        "type": "string",
+                        "enum": [
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`agent`, wenn ein KI-Agent die Änderung vorgenommen hat, sonst `system`."
+                      }
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Kennungen des betroffenen Datensatzes.",
+                    "required": [
+                      "entity_type",
+                      "id"
+                    ],
+                    "properties": {
+                      "entity_type": {
+                        "type": "string",
+                        "enum": [
+                          "job"
+                        ],
+                        "description": "Art des betroffenen Datensatzes."
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID der Stelle."
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "id": "evt_44444444-4444-4444-8444-444444444444",
+                "event": "job.updated",
+                "timestamp": "2026-10-25T12:00:00.000Z",
+                "workspace_id": "55555555-5555-4555-8555-555555555555",
+                "actor": {
+                  "type": "user",
+                  "id": "66666666-6666-4666-8666-666666666666",
+                  "channel": "system"
+                },
+                "data": {
+                  "entity_type": "job",
+                  "id": "11111111-1111-4111-8111-111111111111"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Antworten Sie innerhalb von 5 Sekunden mit einem `2xx`-Status, um den Empfang zu bestätigen."
+          }
+        }
+      }
+    },
+    "job.deleted": {
+      "post": {
+        "summary": "Stelle gelöscht",
+        "description": "Eine Stelle wird gelöscht. Die Nachricht enthält nur die ID des gelöschten Datensatzes. Werden verknüpfte Datensätze mitgelöscht, kann jeder davon ein eigenes Ereignis senden.\n\nDie Nachrichten enthalten nur Kennungen. Den aktuellen Datensatz laden Sie über die Nexus-API oder MCP.",
+        "tags": [
+          "Stellen"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "event",
+                  "timestamp",
+                  "workspace_id",
+                  "actor",
+                  "data"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Eindeutige Ereignis-ID (`evt_...`). Identisch mit dem Header `webhook-id`. Zur Erkennung von Duplikaten."
+                  },
+                  "event": {
+                    "type": "string",
+                    "enum": [
+                      "job.deleted"
+                    ],
+                    "description": "Ereignistyp."
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Zeitpunkt des Ereignisses (ISO 8601, UTC)."
+                  },
+                  "workspace_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "UUID des Nexus-Workspace."
+                  },
+                  "actor": {
+                    "type": "object",
+                    "description": "Auslöser des Ereignisses.",
+                    "required": [
+                      "type",
+                      "id",
+                      "channel"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "user",
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`user`, `agent` oder `system`."
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "format": "uuid",
+                        "description": "UUID des Benutzers oder Agenten, sofern bekannt."
+                      },
+                      "channel": {
+                        "type": "string",
+                        "enum": [
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`agent`, wenn ein KI-Agent die Änderung vorgenommen hat, sonst `system`."
+                      }
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Kennungen des betroffenen Datensatzes.",
+                    "required": [
+                      "entity_type",
+                      "id"
+                    ],
+                    "properties": {
+                      "entity_type": {
+                        "type": "string",
+                        "enum": [
+                          "job"
+                        ],
+                        "description": "Art des betroffenen Datensatzes."
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID der gelöschten Stelle."
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "id": "evt_44444444-4444-4444-8444-444444444444",
+                "event": "job.deleted",
+                "timestamp": "2026-10-25T12:00:00.000Z",
+                "workspace_id": "55555555-5555-4555-8555-555555555555",
+                "actor": {
+                  "type": "user",
+                  "id": "66666666-6666-4666-8666-666666666666",
+                  "channel": "system"
+                },
+                "data": {
+                  "entity_type": "job",
+                  "id": "11111111-1111-4111-8111-111111111111"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Antworten Sie innerhalb von 5 Sekunden mit einem `2xx`-Status, um den Empfang zu bestätigen."
+          }
+        }
+      }
+    },
+    "assignment.stage_changed": {
+      "post": {
+        "summary": "Phase gewechselt",
+        "description": "Ein Kandidat wechselt in einem Projekt die Phase. Die Nachricht enthält nur die neue Phase, nicht die bisherige.\n\nDie Nachrichten enthalten nur Kennungen. Den aktuellen Datensatz laden Sie über die Nexus-API oder MCP.",
+        "tags": [
+          "Zuordnungen"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "event",
+                  "timestamp",
+                  "workspace_id",
+                  "actor",
+                  "data"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Eindeutige Ereignis-ID (`evt_...`). Identisch mit dem Header `webhook-id`. Zur Erkennung von Duplikaten."
+                  },
+                  "event": {
+                    "type": "string",
+                    "enum": [
+                      "assignment.stage_changed"
+                    ],
+                    "description": "Ereignistyp."
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Zeitpunkt des Ereignisses (ISO 8601, UTC)."
+                  },
+                  "workspace_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "UUID des Nexus-Workspace."
+                  },
+                  "actor": {
+                    "type": "object",
+                    "description": "Auslöser des Ereignisses.",
+                    "required": [
+                      "type",
+                      "id",
+                      "channel"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "user",
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`user`, `agent` oder `system`."
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "format": "uuid",
+                        "description": "UUID des Benutzers oder Agenten, sofern bekannt."
+                      },
+                      "channel": {
+                        "type": "string",
+                        "enum": [
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`agent`, wenn ein KI-Agent die Änderung vorgenommen hat, sonst `system`."
+                      }
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Kennungen des betroffenen Datensatzes.",
+                    "required": [
+                      "entity_type",
+                      "id",
+                      "project_id",
+                      "new_stage_id"
+                    ],
+                    "properties": {
+                      "entity_type": {
+                        "type": "string",
+                        "enum": [
+                          "assignment"
+                        ],
+                        "description": "Art des betroffenen Datensatzes."
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID der Zuordnung (Kandidat im Projekt)."
+                      },
+                      "project_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID des Projekts."
+                      },
+                      "new_stage_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID der Phase, in die der Kandidat gewechselt ist."
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "id": "evt_44444444-4444-4444-8444-444444444444",
+                "event": "assignment.stage_changed",
+                "timestamp": "2026-10-25T12:00:00.000Z",
+                "workspace_id": "55555555-5555-4555-8555-555555555555",
+                "actor": {
+                  "type": "user",
+                  "id": "66666666-6666-4666-8666-666666666666",
+                  "channel": "system"
+                },
+                "data": {
+                  "entity_type": "assignment",
+                  "id": "11111111-1111-4111-8111-111111111111",
+                  "project_id": "22222222-2222-4222-8222-222222222222",
+                  "new_stage_id": "33333333-3333-4333-8333-333333333333"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Antworten Sie innerhalb von 5 Sekunden mit einem `2xx`-Status, um den Empfang zu bestätigen."
+          }
+        }
+      }
+    },
+    "form.submitted": {
+      "post": {
+        "summary": "Formular abgeschickt",
+        "description": "Ein Formular wird abgeschickt. `actor.id` ist `null`, wenn kein Benutzer bekannt ist.\n\nDie Nachrichten enthalten nur Kennungen. Den aktuellen Datensatz laden Sie über die Nexus-API oder MCP.",
+        "tags": [
+          "Formulare"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "event",
+                  "timestamp",
+                  "workspace_id",
+                  "actor",
+                  "data"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Eindeutige Ereignis-ID (`evt_...`). Identisch mit dem Header `webhook-id`. Zur Erkennung von Duplikaten."
+                  },
+                  "event": {
+                    "type": "string",
+                    "enum": [
+                      "form.submitted"
+                    ],
+                    "description": "Ereignistyp."
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Zeitpunkt des Ereignisses (ISO 8601, UTC)."
+                  },
+                  "workspace_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "UUID des Nexus-Workspace."
+                  },
+                  "actor": {
+                    "type": "object",
+                    "description": "Auslöser des Ereignisses.",
+                    "required": [
+                      "type",
+                      "id",
+                      "channel"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "user",
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`user`, `agent` oder `system`."
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "format": "uuid",
+                        "description": "UUID des Benutzers oder Agenten, sofern bekannt."
+                      },
+                      "channel": {
+                        "type": "string",
+                        "enum": [
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`agent`, wenn ein KI-Agent die Änderung vorgenommen hat, sonst `system`."
+                      }
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Kennungen des betroffenen Datensatzes.",
+                    "required": [
+                      "entity_type",
+                      "id",
+                      "form_id"
+                    ],
+                    "properties": {
+                      "entity_type": {
+                        "type": "string",
+                        "enum": [
+                          "form_submission"
+                        ],
+                        "description": "Art des betroffenen Datensatzes."
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID der Formularübermittlung."
+                      },
+                      "form_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID des abgeschickten Formulars."
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "id": "evt_44444444-4444-4444-8444-444444444444",
+                "event": "form.submitted",
+                "timestamp": "2026-10-25T12:00:00.000Z",
+                "workspace_id": "55555555-5555-4555-8555-555555555555",
+                "actor": {
+                  "type": "user",
+                  "id": "66666666-6666-4666-8666-666666666666",
+                  "channel": "system"
+                },
+                "data": {
+                  "entity_type": "form_submission",
+                  "id": "11111111-1111-4111-8111-111111111111",
+                  "form_id": "22222222-2222-4222-8222-222222222222"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Antworten Sie innerhalb von 5 Sekunden mit einem `2xx`-Status, um den Empfang zu bestätigen."
+          }
+        }
+      }
+    },
+    "agent_run.completed": {
+      "post": {
+        "summary": "Agentenlauf abgeschlossen",
+        "description": "Ein KI-Agentenlauf ist abgeschlossen. Das Ereignis wird einmal gesendet, wenn der Status des Laufs auf `completed` wechselt.\n\nDie Nachrichten enthalten nur Kennungen. Den aktuellen Datensatz laden Sie über die Nexus-API oder MCP.",
+        "tags": [
+          "Agenten"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "event",
+                  "timestamp",
+                  "workspace_id",
+                  "actor",
+                  "data"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Eindeutige Ereignis-ID (`evt_...`). Identisch mit dem Header `webhook-id`. Zur Erkennung von Duplikaten."
+                  },
+                  "event": {
+                    "type": "string",
+                    "enum": [
+                      "agent_run.completed"
+                    ],
+                    "description": "Ereignistyp."
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Zeitpunkt des Ereignisses (ISO 8601, UTC)."
+                  },
+                  "workspace_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "UUID des Nexus-Workspace."
+                  },
+                  "actor": {
+                    "type": "object",
+                    "description": "Auslöser des Ereignisses.",
+                    "required": [
+                      "type",
+                      "id",
+                      "channel"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "user",
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`user`, `agent` oder `system`."
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "format": "uuid",
+                        "description": "UUID des Benutzers oder Agenten, sofern bekannt."
+                      },
+                      "channel": {
+                        "type": "string",
+                        "enum": [
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`agent`, wenn ein KI-Agent die Änderung vorgenommen hat, sonst `system`."
+                      }
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Kennungen des betroffenen Datensatzes.",
+                    "required": [
+                      "entity_type",
+                      "id",
+                      "agent_id",
+                      "run_id",
+                      "status"
+                    ],
+                    "properties": {
+                      "entity_type": {
+                        "type": "string",
+                        "enum": [
+                          "agent_run"
+                        ],
+                        "description": "Art des betroffenen Datensatzes."
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID des Agentenlaufs."
+                      },
+                      "agent_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID des Agenten."
+                      },
+                      "run_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID des Agentenlaufs. Identisch mit `data.id`."
+                      },
+                      "status": {
+                        "type": "string",
+                        "enum": [
+                          "completed"
+                        ],
+                        "description": "Immer `completed`."
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "id": "evt_44444444-4444-4444-8444-444444444444",
+                "event": "agent_run.completed",
+                "timestamp": "2026-10-25T12:00:00.000Z",
+                "workspace_id": "55555555-5555-4555-8555-555555555555",
+                "actor": {
+                  "type": "agent",
+                  "id": "22222222-2222-4222-8222-222222222222",
+                  "channel": "agent"
+                },
+                "data": {
+                  "entity_type": "agent_run",
+                  "id": "11111111-1111-4111-8111-111111111111",
+                  "agent_id": "22222222-2222-4222-8222-222222222222",
+                  "run_id": "11111111-1111-4111-8111-111111111111",
+                  "status": "completed"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Antworten Sie innerhalb von 5 Sekunden mit einem `2xx`-Status, um den Empfang zu bestätigen."
+          }
+        }
+      }
+    },
+    "webhook.test": {
+      "post": {
+        "summary": "Testereignis",
+        "description": "Ein Verwalter klickt bei einem Endpunkt auf **Testereignis senden**. Testereignisse beeinflussen den Zustand des Endpunkts nie.\n\nDie Nachrichten enthalten nur Kennungen. Den aktuellen Datensatz laden Sie über die Nexus-API oder MCP.",
+        "tags": [
+          "Test"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "event",
+                  "timestamp",
+                  "workspace_id",
+                  "actor",
+                  "data"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Eindeutige Ereignis-ID (`evt_...`). Identisch mit dem Header `webhook-id`. Zur Erkennung von Duplikaten."
+                  },
+                  "event": {
+                    "type": "string",
+                    "enum": [
+                      "webhook.test"
+                    ],
+                    "description": "Ereignistyp."
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Zeitpunkt des Ereignisses (ISO 8601, UTC)."
+                  },
+                  "workspace_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "UUID des Nexus-Workspace."
+                  },
+                  "actor": {
+                    "type": "object",
+                    "description": "Auslöser des Ereignisses.",
+                    "required": [
+                      "type",
+                      "id",
+                      "channel"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "user"
+                        ],
+                        "description": "`user`, `agent` oder `system`."
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID des Benutzers, der das Testereignis gesendet hat."
+                      },
+                      "channel": {
+                        "type": "string",
+                        "enum": [
+                          "ui"
+                        ],
+                        "description": "Bei Testereignissen immer `ui`."
+                      }
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Kennungen des betroffenen Datensatzes.",
+                    "required": [
+                      "endpoint_id"
+                    ],
+                    "properties": {
+                      "endpoint_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID des Endpunkts, an den das Testereignis gesendet wurde."
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "id": "evt_44444444-4444-4444-8444-444444444444",
+                "event": "webhook.test",
+                "timestamp": "2026-10-25T12:00:00.000Z",
+                "workspace_id": "55555555-5555-4555-8555-555555555555",
+                "actor": {
+                  "type": "user",
+                  "id": "66666666-6666-4666-8666-666666666666",
+                  "channel": "ui"
+                },
+                "data": {
+                  "endpoint_id": "22222222-2222-4222-8222-222222222222"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Antworten Sie innerhalb von 5 Sekunden mit einem `2xx`-Status, um den Empfang zu bestätigen."
+          }
+        }
+      }
+    }
+  }
+}

@@ -78,26 +78,86 @@
             ]
           },
           {
-            "tab": "API reference",
-            "groups": [
-              {
-                "group": "API documentation",
-                "pages": []
-              },
-              {
-                "group": "Endpoint examples",
-                "pages": [
-                  "api-reference/endpoint/get",
-                  "api-reference/endpoint/delete",
-                  "api-reference/endpoint/webhook"
-                ]
-              }
-            ]
-          },
-          {
             "tab": "Webhooks",
             "pages": [
-              "webhooks"
+              "webhooks",
+              {
+                "group": "Webhook events",
+                "pages": [
+                  {
+                    "group": "Accounts",
+                    "pages": [
+                      "webhooks/events/account-created",
+                      "webhooks/events/account-updated",
+                      "webhooks/events/account-deleted"
+                    ]
+                  },
+                  {
+                    "group": "Contacts",
+                    "pages": [
+                      "webhooks/events/contact-created",
+                      "webhooks/events/contact-updated",
+                      "webhooks/events/contact-deleted"
+                    ]
+                  },
+                  {
+                    "group": "Candidates",
+                    "pages": [
+                      "webhooks/events/candidate-created",
+                      "webhooks/events/candidate-updated",
+                      "webhooks/events/candidate-deleted"
+                    ]
+                  },
+                  {
+                    "group": "Applications",
+                    "pages": [
+                      "webhooks/events/application-created",
+                      "webhooks/events/application-updated",
+                      "webhooks/events/application-deleted"
+                    ]
+                  },
+                  {
+                    "group": "Projects",
+                    "pages": [
+                      "webhooks/events/project-created",
+                      "webhooks/events/project-updated",
+                      "webhooks/events/project-deleted"
+                    ]
+                  },
+                  {
+                    "group": "Jobs",
+                    "pages": [
+                      "webhooks/events/job-created",
+                      "webhooks/events/job-updated",
+                      "webhooks/events/job-deleted"
+                    ]
+                  },
+                  {
+                    "group": "Assignments",
+                    "pages": [
+                      "webhooks/events/assignment-stage-changed"
+                    ]
+                  },
+                  {
+                    "group": "Forms",
+                    "pages": [
+                      "webhooks/events/form-submitted"
+                    ]
+                  },
+                  {
+                    "group": "Agents",
+                    "pages": [
+                      "webhooks/events/agent-run-completed"
+                    ]
+                  },
+                  {
+                    "group": "Test",
+                    "pages": [
+                      "webhooks/events/webhook-test"
+                    ]
+                  }
+                ]
+              }
             ],
             "icon": "webhook"
           },
@@ -181,29 +241,86 @@
             ]
           },
           {
-            "tab": "API Referenz",
-            "groups": [
-              {
-                "group": "API Dokumentation",
-                "pages": [
-                  "api-reference/introduction"
-                ]
-              },
-              {
-                "group": "Endpoint Beispiele",
-                "pages": [
-                  "api-reference/endpoint/get",
-                  "api-reference/endpoint/create",
-                  "api-reference/endpoint/delete",
-                  "api-reference/endpoint/webhook"
-                ]
-              }
-            ]
-          },
-          {
             "tab": "Webhooks",
             "pages": [
-              "de/webhooks"
+              "de/webhooks",
+              {
+                "group": "Webhook-Ereignisse",
+                "pages": [
+                  {
+                    "group": "Unternehmen",
+                    "pages": [
+                      "de/webhooks/events/account-created",
+                      "de/webhooks/events/account-updated",
+                      "de/webhooks/events/account-deleted"
+                    ]
+                  },
+                  {
+                    "group": "Kontakte",
+                    "pages": [
+                      "de/webhooks/events/contact-created",
+                      "de/webhooks/events/contact-updated",
+                      "de/webhooks/events/contact-deleted"
+                    ]
+                  },
+                  {
+                    "group": "Kandidaten",
+                    "pages": [
+                      "de/webhooks/events/candidate-created",
+                      "de/webhooks/events/candidate-updated",
+                      "de/webhooks/events/candidate-deleted"
+                    ]
+                  },
+                  {
+                    "group": "Bewerbungen",
+                    "pages": [
+                      "de/webhooks/events/application-created",
+                      "de/webhooks/events/application-updated",
+                      "de/webhooks/events/application-deleted"
+                    ]
+                  },
+                  {
+                    "group": "Projekte",
+                    "pages": [
+                      "de/webhooks/events/project-created",
+                      "de/webhooks/events/project-updated",
+                      "de/webhooks/events/project-deleted"
+                    ]
+                  },
+                  {
+                    "group": "Stellen",
+                    "pages": [
+                      "de/webhooks/events/job-created",
+                      "de/webhooks/events/job-updated",
+                      "de/webhooks/events/job-deleted"
+                    ]
+                  },
+                  {
+                    "group": "Zuordnungen",
+                    "pages": [
+                      "de/webhooks/events/assignment-stage-changed"
+                    ]
+                  },
+                  {
+                    "group": "Formulare",
+                    "pages": [
+                      "de/webhooks/events/form-submitted"
+                    ]
+                  },
+                  {
+                    "group": "Agenten",
+                    "pages": [
+                      "de/webhooks/events/agent-run-completed"
+                    ]
+                  },
+                  {
+                    "group": "Test",
+                    "pages": [
+                      "de/webhooks/events/webhook-test"
+                    ]
+                  }
+                ]
+              }
             ],
             "icon": "webhook"
           },
