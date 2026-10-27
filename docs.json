@@ -78,23 +78,6 @@
             ]
           },
           {
-            "tab": "API reference",
-            "groups": [
-              {
-                "group": "API documentation",
-                "pages": []
-              },
-              {
-                "group": "Endpoint examples",
-                "pages": [
-                  "api-reference/endpoint/get",
-                  "api-reference/endpoint/delete",
-                  "api-reference/endpoint/webhook"
-                ]
-              }
-            ]
-          },
-          {
             "tab": "Webhooks",
             "pages": [
               "webhooks",
@@ -253,26 +236,6 @@
                 "group": "Sonstiges",
                 "pages": [
                   "de/miscellaneous/template-variables"
-                ]
-              }
-            ]
-          },
-          {
-            "tab": "API Referenz",
-            "groups": [
-              {
-                "group": "API Dokumentation",
-                "pages": [
-                  "api-reference/introduction"
-                ]
-              },
-              {
-                "group": "Endpoint Beispiele",
-                "pages": [
-                  "api-reference/endpoint/get",
-                  "api-reference/endpoint/create",
-                  "api-reference/endpoint/delete",
-                  "api-reference/endpoint/webhook"
                 ]
               }
             ]
