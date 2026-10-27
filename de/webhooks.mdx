@@ -3,3 +3,231 @@ title: "Überblick"
 icon: "webhook"
 description: "Erhalten Sie aktiv und in Echtzeit Benachrichtigungen von Nexus für bestimmte Ereignisse."
 ---
+
+Mit Webhooks benachrichtigt Nexus Ihre Systeme, sobald in Ihrem Workspace etwas passiert – etwa wenn ein Kandidat angelegt wird, eine Bewerbung in eine neue Phase wechselt oder ein Formular abgeschickt wird. Statt die Nexus-API regelmäßig abzufragen, registrieren Sie einen HTTPS-Endpunkt, an den Nexus für jedes abonnierte Ereignis eine signierte `POST`-Anfrage sendet.
+
+<Note>
+  Webhooks stehen derzeit Pilotkunden zur Verfügung. Wenden Sie sich an Ihren Nexus-Ansprechpartner, um die Zustellung für Ihren Workspace freizuschalten.
+</Note>
+
+# So funktioniert es
+
+<Steps>
+  <Step title="Webhooks-Erweiterung aktivieren">
+    Ein Benutzer mit der Berechtigung **Erweiterungen verwalten** schaltet Webhooks unter **Einstellungen → Erweiterungen → Webhooks** ein.
+  </Step>
+  <Step title="Endpunkt anlegen">
+    Ein Benutzer mit der Berechtigung **Webhooks verwalten** hinterlegt eine HTTPS-URL, wählt die Ereignisse aus und aktiviert den Endpunkt.
+  </Step>
+  <Step title="Signaturschlüssel sichern">
+    Nexus zeigt den Signaturschlüssel (`whsec_...`) **nur einmal** an. Bewahren Sie ihn sicher auf – Sie benötigen ihn zur Prüfung jeder Anfrage.
+  </Step>
+  <Step title="Ereignisse empfangen und prüfen">
+    Nexus sendet eine signierte JSON-Nachricht an Ihren Endpunkt. Prüfen Sie die Signatur, antworten Sie mit einem `2xx`-Status und verarbeiten Sie das Ereignis asynchron.
+  </Step>
+</Steps>
+
+## Berechtigungen
+
+Der Zugriff wird über Berechtigungen gesteuert, die unter **Einstellungen → Rollen** jeder Rolle zugewiesen werden können.
+
+| Berechtigung | Erlaubt |
+| --- | --- |
+| `extensions:manage` | Webhooks-Erweiterung für den Workspace ein- oder ausschalten |
+| `webhooks:view` | Endpunkte (ohne vollständige URL und Schlüssel), Ereigniskatalog, aufgezeichnete Ereignisse und Zustellungen ansehen |
+| `webhooks:manage` | Endpunkte anlegen, bearbeiten, aktivieren, deaktivieren und löschen; Schlüssel erneuern; Testereignisse senden; Zustellungen erneut senden; pausierte Endpunkte reaktivieren |
+
+`webhooks:manage` schließt `webhooks:view` ein. Standardmäßig besitzt nur die Rolle **Workspace-Administrator** beide Berechtigungen.
+
+<Warning>
+  Wird Webhooks ausgeschaltet, werden alle aktiven Endpunkte deaktiviert. Beim erneuten Einschalten werden sie **nicht** automatisch wieder aktiviert.
+</Warning>
+
+## Aufbau eines Ereignisses
+
+Jede Anfrage verwendet denselben Aufbau. Die Nachrichten sind bewusst **schlank**: Sie enthalten nur Kennungen, niemals Namen, E-Mail-Adressen oder andere personenbezogene Daten. Den aktuellen Stand eines Datensatzes laden Sie über die Nexus-API oder MCP.
+
+```json
+{
+  "id": "evt_0285acf6-91b4-4b59-994f-4d6411f32a68",
+  "event": "candidate.updated",
+  "timestamp": "2026-10-26T13:55:08.866Z",
+  "workspace_id": "06479da7-9b24-40b1-a7f5-1e948ca57403",
+  "actor": {
+    "type": "user",
+    "id": "84b5a877-b4b8-49e4-9710-d647e212d85b",
+    "channel": "ui"
+  },
+  "data": {
+    "id": "3ca8c964-69fb-4e5c-940b-b95d80cb12ec",
+    "entity_type": "candidate"
+  }
+}
+```
+
+### Felder der obersten Ebene
+
+| Feld | Typ | Beschreibung |
+| --- | --- | --- |
+| `id` | string | Eindeutige Ereignis-ID (`evt_...`). Identisch mit dem Header `webhook-id`. Zur Erkennung von Duplikaten. |
+| `event` | string | Ereignistyp, z. B. `candidate.created`. |
+| `timestamp` | string | Zeitpunkt des Ereignisses (ISO 8601, UTC). |
+| `workspace_id` | string | UUID des Nexus-Workspace. |
+| `actor` | object | Auslöser des Ereignisses. |
+| `data` | object | Kennungen der betroffenen Datensätze. |
+
+### Auslöser (actor)
+
+| Feld | Typ | Beschreibung |
+| --- | --- | --- |
+| `type` | string | `user` oder `system`. |
+| `id` | string \| null | UUID des Benutzers, sofern bekannt. |
+| `channel` | string | Herkunft der Änderung, z. B. `ui` oder `system`. |
+
+<Info>
+  Die Zuordnung des Kanals wird derzeit erweitert. Aktuell werden viele Änderungen als `system` gemeldet, auch wenn ein Benutzer sie vorgenommen hat. Bauen Sie noch keine Geschäftslogik auf `channel` auf.
+</Info>
+
+## Ereignistypen
+
+| Ereignis | Ausgelöst, wenn |
+| --- | --- |
+| `account.created` / `.updated` / `.deleted` | ein Unternehmen angelegt, geändert oder gelöscht wird |
+| `contact.created` / `.updated` / `.deleted` | ein Kontakt angelegt, geändert oder gelöscht wird |
+| `candidate.created` / `.updated` / `.deleted` | ein Kandidat angelegt, geändert oder gelöscht wird |
+| `application.created` / `.updated` / `.deleted` | eine Bewerbung angelegt, geändert oder gelöscht wird |
+| `project.created` / `.updated` / `.deleted` | ein Projekt angelegt, geändert oder gelöscht wird |
+| `job.created` / `.updated` / `.deleted` | eine Stelle angelegt, geändert oder gelöscht wird |
+| `assignment.stage_changed` | ein Kandidat in einem Projekt die Phase wechselt |
+| `form.submitted` | ein Formular abgeschickt wird |
+| `agent_run.completed` | ein KI-Agentenlauf abgeschlossen ist |
+| `webhook.test` | ein Verwalter auf **Testereignis senden** klickt |
+
+Lösch-Ereignisse enthalten nur die ID des gelöschten Datensatzes. Werden verknüpfte Datensätze mitgelöscht, kann jeder davon ein eigenes Ereignis erzeugen.
+
+## HTTP-Anfrage
+
+Nexus sendet eine `POST`-Anfrage mit `Content-Type: application/json` und folgenden Headern gemäß der [Standard-Webhooks](https://www.standardwebhooks.com)-Spezifikation:
+
+| Header | Beschreibung |
+| --- | --- |
+| `webhook-id` | Eindeutige Ereignis-ID, identisch mit `id` im Body |
+| `webhook-timestamp` | Unix-Zeitstempel (Sekunden) des Zustellversuchs |
+| `webhook-signature` | Eine oder mehrere durch Leerzeichen getrennte Signaturen im Format `v1,<base64>` |
+
+## Signaturen prüfen
+
+Die Signatur ist ein HMAC-SHA256 über `{webhook-id}.{webhook-timestamp}.{roher Body}`. Als Schlüssel dient der base64-decodierte Teil Ihres Schlüssels nach `whsec_`. Prüfen Sie immer gegen den **unveränderten** Request-Body und lehnen Sie Zeitstempel ab, die älter als 5 Minuten sind.
+
+<CodeGroup>
+
+```javascript Node.js
+import { Webhook } from "standardwebhooks";
+
+const wh = new Webhook(process.env.NEXUS_WEBHOOK_SECRET.replace("whsec_", ""));
+
+app.post("/webhooks/nexus", express.raw({ type: "application/json" }), (req, res) => {
+  try {
+    const event = wh.verify(req.body, req.headers);
+    queue.add(event);          // asynchron verarbeiten
+    res.sendStatus(200);
+  } catch {
+    res.sendStatus(401);
+  }
+});
+```
+
+```python Python
+from standardwebhooks.webhooks import Webhook
+
+wh = Webhook(os.environ["NEXUS_WEBHOOK_SECRET"].removeprefix("whsec_"))
+
+@app.post("/webhooks/nexus")
+def nexus_webhook(request):
+    try:
+        event = wh.verify(request.body, dict(request.headers))
+    except Exception:
+        return Response(status=401)
+    enqueue(event)
+    return Response(status=200)
+```
+
+```javascript Manuell (Node.js)
+import crypto from "node:crypto";
+
+function verify(rawBody, headers, secret) {
+  const id = headers["webhook-id"];
+  const ts = headers["webhook-timestamp"];
+  if (Math.abs(Date.now() / 1000 - Number(ts)) > 300) return false;
+
+  const key = Buffer.from(secret.replace("whsec_", ""), "base64");
+  const expected = crypto
+    .createHmac("sha256", key)
+    .update(`${id}.${ts}.${rawBody}`)
+    .digest("base64");
+
+  return headers["webhook-signature"].split(" ").some((sig) => {
+    const value = sig.split(",")[1] ?? "";
+    return value.length === expected.length &&
+      crypto.timingSafeEqual(Buffer.from(value), Buffer.from(expected));
+  });
+}
+```
+
+</CodeGroup>
+
+## Schlüssel erneuern
+
+Wenn Sie einen neuen Schlüssel erzeugen, bleibt der bisherige **24 Stunden** gültig. In dieser Zeit trägt jede Anfrage zwei Signaturen, sodass Sie den neuen Schlüssel ohne Ausfall einspielen können. Ein Verwalter kann die Übergangszeit vorzeitig beenden.
+
+## Antworten und Wiederholungen
+
+- Antworten Sie innerhalb von **5 Sekunden** mit einem `2xx`-Status. Aufwendige Verarbeitung gehört in einen Hintergrundjob.
+- Weiterleitungen werden nicht verfolgt und gelten als Fehler.
+- Zeitüberschreitungen, Netzwerkfehler, nicht auflösbare Hosts sowie `408`, `429` und `5xx` werden nach **1 Min., 5 Min., 30 Min., 2 Std. und 6 Std.** wiederholt (insgesamt 6 Versuche). Danach gilt die Zustellung als **endgültig fehlgeschlagen**.
+- Andere `4xx`-Antworten schlagen sofort ohne Wiederholung fehl.
+- Ereignisse können mehrfach und in anderer Reihenfolge eintreffen. Erkennen Sie Duplikate anhand von `webhook-id` und sortieren Sie nach `timestamp`.
+
+## Zustand von Endpunkten und Warnungen
+
+| Zustand | Bedingung |
+| --- | --- |
+| Fehlerfrei | Zustellungen gelingen |
+| Gestört | 10 fehlgeschlagene Zustellungen in Folge |
+| Pausiert | 50 Fehler in Folge oder 10 Fehler ohne erfolgreiche Zustellung in 24 Stunden |
+
+Wechselt ein Endpunkt auf **Gestört**, erhält jeder Webhooks-Verwalter des Workspace eine E-Mail in seiner Profilsprache (höchstens einmal pro Endpunkt innerhalb von 24 Stunden). **Pausierte** Endpunkte erhalten keine neuen Zustellungen, bis ein Verwalter auf **Reaktivieren** klickt. Testereignisse beeinflussen den Zustand nie.
+
+## Protokolle und erneutes Senden
+
+Unter **Einstellungen → Erweiterungen → Webhooks** finden Sie:
+
+- **Ereigniskatalog** – alle Ereignistypen mit Beispielnachrichten.
+- **Aufgezeichnete Ereignisse** – alle Ereignisse Ihres Workspace mit Ansicht der Nachricht.
+- **Zustellungen** – jeder Versuch mit Status, Antwortcode, Dauer und Anzahl der Versuche. Verwalter können abgeschlossene Zustellungen erneut senden.
+
+## Anforderungen an Endpunkte
+
+- HTTPS auf Port 443 mit gültigem Zertifikat.
+- Öffentlich erreichbar; private, Loopback- und interne Adressen werden abgelehnt.
+- Nur aktive Endpunkte erhalten Ereignisse – und nur, solange die Webhooks-Erweiterung eingeschaltet ist.
+
+## Empfehlungen
+
+<CardGroup cols={2}>
+  <Card title="Jede Anfrage prüfen" icon="shield-check">
+    Lehnen Sie Anfragen mit ungültiger Signatur oder veraltetem Zeitstempel ab.
+  </Card>
+
+  <Card title="Schnell antworten" icon="bolt">
+    Sofort mit `2xx` bestätigen und in einer Warteschlange verarbeiten.
+  </Card>
+
+  <Card title="Idempotent verarbeiten" icon="repeat">
+    Verarbeitete `webhook-id`s speichern und Duplikate überspringen.
+  </Card>
+
+  <Card title="Aktuelle Daten laden" icon="arrows-rotate">
+    Nachrichten enthalten nur IDs. Laden Sie den aktuellen Datensatz über die API.
+  </Card>
+</CardGroup>

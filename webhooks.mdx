@@ -1,56 +1,51 @@
 ---
-title: "Webhooks Overview"
+title: "Webhooks"
 icon: "webhook"
-description: "Receive real-time, event-driven HTTP notifications from Nexus Search."
-sidebarTitle: "Overview"
+description: "Receive real-time notifications when records change in your Nexus workspace."
 ---
 
-Webhooks notify your systems whenever key activities happen in Nexus Search — the inverse of polling our REST API. Rather than repeatedly querying for updates, your endpoints receive cryptographically signed HTTP `POST` requests within milliseconds of an event occurring.
+Webhooks let Nexus notify your systems the moment something happens in your workspace — a candidate is created, an application moves to a new stage, or a form is submitted. Instead of polling the Nexus API, you register an HTTPS endpoint and Nexus sends a signed `POST` request to it for every subscribed event.
 
-Nexus outbound webhooks follow the open [Standard Webhooks](https://standardwebhooks.com) specification, ensuring replay protection, signature verification, and predictable retry policies.
+<Note>
+  Webhooks are currently available to pilot customers. Contact your Nexus account manager to enable delivery for your workspace.
+</Note>
 
-<CardGroup cols={2}>
-  <Card title="Event Catalog" icon="rectangle-list" href="/webhooks/events">
-    Browse all 21 available event types across candidates, jobs, applications, and workflows.
-  </Card>
-
-  <Card title="Security & Signatures" icon="shield-halved" href="#verifying-signatures">
-    Verify HMAC-SHA256 signatures with official Standard Webhooks libraries.
-  </Card>
-</CardGroup>
-
----
-
-## Quickstart
-
-Configure your first webhook endpoint directly in the Nexus Search web app:
+## How it works
 
 <Steps>
-  <Step title="Navigate to Webhooks">
-    Go to **Extensions → Webhooks** in your workspace navigation. _(Requires `Workspace Administrator` role or `webhooks:manage` permission)._
+  <Step title="Enable the Webhooks extension">
+    A user with the **Extensions Manage** permission switches on Webhooks under **Settings → Extensions → Webhooks**.
   </Step>
-  <Step title="Create Endpoint">
-    Click **Add Endpoint**, enter your public `https://` target URL, and choose which events you want to subscribe to.
+  <Step title="Create an endpoint">
+    A user with the **Webhooks Manage** permission adds an HTTPS URL, selects the events to subscribe to, and activates the endpoint.
   </Step>
-  <Step title="Save and Copy Secret">
-    Save the endpoint. Nexus displays your private signing secret (prefixed with `whsec_`) **once**. Store this securely in your application's secrets manager.
+  <Step title="Store the signing secret">
+    Nexus shows the signing secret (`whsec_...`) **once**. Store it securely — you need it to verify every request.
   </Step>
-  <Step title="Send a Test Event">
-    Select **Send test event** from the endpoint actions. Inspect the incoming request headers and body on your server or testing tool.
+  <Step title="Receive and verify events">
+    Nexus sends a signed JSON payload to your endpoint. Verify the signature, respond with a `2xx` status, and process the event asynchronously.
   </Step>
 </Steps>
 
-<Info>
-  All target URLs must use secure `https://` on port 443. Private IP ranges, `localhost`, internal hostnames, and HTTP redirects are automatically blocked to prevent SSRF vulnerabilities.
-</Info>
+## Permissions
 
----
+Access is controlled by permissions that can be added to any role under **Settings → Roles**.
 
-## Payload Structure
+| Permission | Allows |
+| --- | --- |
+| `extensions:manage` | Switch the Webhooks extension on or off for the workspace |
+| `webhooks:view` | View endpoints (without full URL or secret), the event catalog, recorded events and deliveries |
+| `webhooks:manage` | Create, edit, activate, deactivate and delete endpoints; rotate secrets; send test events; replay deliveries; reactivate paused endpoints |
 
-Nexus follows a **privacy-first, thin-payload architecture** adhering to GDPR data minimization principles. Payloads carry stable identifiers rather than sensitive candidate or client PII. When your service receives an event, it can query the Nexus API using the provided entity ID if full record details are required.
+`webhooks:manage` includes `webhooks:view`. By default, only the **Workspace Admin** role has both.
 
-### Envelope Schema
+<Warning>
+  When Webhooks is switched off, all active endpoints are deactivated. Switching it back on does **not** reactivate them automatically.
+</Warning>
+
+## Event payload
+
+Every request body uses the same envelope. Payloads are intentionally **thin**: they contain identifiers only, never names, emails or other personal data. Use the Nexus API or MCP to fetch the current state of the record.
 
 ```json
 {
@@ -69,3 +64,170 @@ Nexus follows a **privacy-first, thin-payload architecture** adhering to GDPR da
   }
 }
 ```
+
+### Top-level fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `id` | string | Unique event ID (`evt_...`). Identical to the `webhook-id` header. Use it for deduplication. |
+| `event` | string | Event type, e.g. `candidate.created`. |
+| `timestamp` | string | ISO 8601 UTC time when the event occurred. |
+| `workspace_id` | string | UUID of the Nexus workspace. |
+| `actor` | object | Who triggered the event. |
+| `data` | object | Identifiers of the affected record(s). |
+
+### Actor
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `type` | string | `user` or `system`. |
+| `id` | string \| null | UUID of the user, if known. |
+| `channel` | string | Where the change came from, e.g. `ui` or `system`. |
+
+<Info>
+  Channel attribution is being expanded. Today many changes are reported as `system` even when a user made them. Do not build business logic on `channel` yet.
+</Info>
+
+## Event types
+
+| Event | Triggered when |
+| --- | --- |
+| `account.created` / `.updated` / `.deleted` | An account is created, changed or deleted |
+| `contact.created` / `.updated` / `.deleted` | A contact is created, changed or deleted |
+| `candidate.created` / `.updated` / `.deleted` | A candidate is created, changed or deleted |
+| `application.created` / `.updated` / `.deleted` | An application is created, changed or deleted |
+| `project.created` / `.updated` / `.deleted` | A project is created, changed or deleted |
+| `job.created` / `.updated` / `.deleted` | A job is created, changed or deleted |
+| `assignment.stage_changed` | A candidate moves to another stage in a project |
+| `form.submitted` | A form is submitted |
+| `agent_run.completed` | An AI agent run finishes |
+| `webhook.test` | A manager clicks **Send test event** |
+
+Deleted events contain only the ID of the deleted record. When a record is deleted together with related records, each related record may produce its own event.
+
+## HTTP request
+
+Nexus sends a `POST` request with `Content-Type: application/json` and these headers, following the [Standard Webhooks](https://www.standardwebhooks.com) specification:
+
+| Header | Description |
+| --- | --- |
+| `webhook-id` | Unique event ID, same as `id` in the body |
+| `webhook-timestamp` | Unix timestamp (seconds) of the send attempt |
+| `webhook-signature` | One or more space-separated signatures, each `v1,<base64>` |
+
+## Verifying signatures
+
+The signature is an HMAC-SHA256 over `{webhook-id}.{webhook-timestamp}.{raw body}`, keyed with the base64-decoded part of your secret after `whsec_`. Always verify against the **raw** request body and reject timestamps older than 5 minutes.
+
+<CodeGroup>
+
+```javascript Node.js
+import { Webhook } from "standardwebhooks";
+
+const wh = new Webhook(process.env.NEXUS_WEBHOOK_SECRET.replace("whsec_", ""));
+
+app.post("/webhooks/nexus", express.raw({ type: "application/json" }), (req, res) => {
+  try {
+    const event = wh.verify(req.body, req.headers);
+    queue.add(event);          // process asynchronously
+    res.sendStatus(200);
+  } catch {
+    res.sendStatus(401);
+  }
+});
+```
+
+```python Python
+from standardwebhooks.webhooks import Webhook
+
+wh = Webhook(os.environ["NEXUS_WEBHOOK_SECRET"].removeprefix("whsec_"))
+
+@app.post("/webhooks/nexus")
+def nexus_webhook(request):
+    try:
+        event = wh.verify(request.body, dict(request.headers))
+    except Exception:
+        return Response(status=401)
+    enqueue(event)
+    return Response(status=200)
+```
+
+```javascript Manual (Node.js)
+import crypto from "node:crypto";
+
+function verify(rawBody, headers, secret) {
+  const id = headers["webhook-id"];
+  const ts = headers["webhook-timestamp"];
+  if (Math.abs(Date.now() / 1000 - Number(ts)) > 300) return false;
+
+  const key = Buffer.from(secret.replace("whsec_", ""), "base64");
+  const expected = crypto
+    .createHmac("sha256", key)
+    .update(`${id}.${ts}.${rawBody}`)
+    .digest("base64");
+
+  return headers["webhook-signature"].split(" ").some((sig) => {
+    const value = sig.split(",")[1] ?? "";
+    return value.length === expected.length &&
+      crypto.timingSafeEqual(Buffer.from(value), Buffer.from(expected));
+  });
+}
+```
+
+</CodeGroup>
+
+## Secret rotation
+
+When you generate a new secret, the previous one stays valid for **24 hours**. During that window each request carries two signatures, so you can deploy the new secret without downtime. A manager can end the overlap early.
+
+## Responding and retries
+
+- Respond with a `2xx` status within **5 seconds**. Do heavy processing in a background job.
+- Redirects are not followed and count as failures.
+- Timeouts, network errors, unresolvable hosts, `408`, `429` and `5xx` responses are retried after **1 min, 5 min, 30 min, 2 h and 6 h** (6 attempts in total). After that the delivery is marked **dead**.
+- Other `4xx` responses fail immediately without retry.
+- Events can arrive more than once and out of order. Deduplicate by `webhook-id` and use `timestamp` for ordering.
+
+## Endpoint health and alerts
+
+| Status | Condition |
+| --- | --- |
+| Healthy | Deliveries succeed |
+| Failing | 10 consecutive failed deliveries |
+| Paused | 50 consecutive failures, or 10 failures with no success in 24 hours |
+
+When an endpoint becomes **Failing**, every Webhooks manager in the workspace receives an email in their profile language (at most once per endpoint per 24 hours). **Paused** endpoints receive no new deliveries until a manager clicks **Reactivate**. Test events never affect endpoint health.
+
+## Logs and replay
+
+Under **Settings → Extensions → Webhooks** you find:
+
+- **Event catalog** — all event types with example payloads.
+- **Recorded events** — every event recorded for your workspace, with payload inspection.
+- **Deliveries** — every attempt with status, response code, duration and attempts. Managers can replay finished deliveries.
+
+## Endpoint requirements
+
+- HTTPS on port 443 with a valid certificate.
+- Publicly reachable; private, loopback and internal addresses are rejected.
+- Only active endpoints receive events, and only while the Webhooks extension is on.
+
+## Best practices
+
+<CardGroup cols={2}>
+  <Card title="Verify every request" icon="shield-check">
+    Reject requests with invalid signatures or stale timestamps.
+  </Card>
+
+  <Card title="Respond fast" icon="bolt">
+    Acknowledge with `2xx` immediately and process in a queue.
+  </Card>
+
+  <Card title="Be idempotent" icon="repeat">
+    Store processed `webhook-id`s and skip duplicates.
+  </Card>
+
+  <Card title="Fetch fresh data" icon="arrows-rotate">
+    Payloads contain IDs only. Load the current record via the API.
+  </Card>
+</CardGroup>
