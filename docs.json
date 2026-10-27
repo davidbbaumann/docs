@@ -204,7 +204,8 @@
             "tab": "Webhooks",
             "pages": [
               "de/webhooks"
-            ]
+            ],
+            "icon": "webhook"
           },
           {
             "tab": "Changelog",
