@@ -3,6 +3,40 @@ title: "Changelog"
 description: "Product updates and announcements"
 ---
 
+<Update label="CW 43 | October 2026">
+  ## New Features
+
+  ### Outbound Webhooks (Pilot Release)
+
+  Nexus now supports outbound webhooks, enabling external systems, custom backends, and workflow automation platforms (such as Zapier, Make, and n8n) to receive real-time updates whenever records are created, updated, or deleted.
+
+  - **Endpoint Management:** Configure webhook endpoints under **Settings → Extensions → Webhooks**. Endpoints can subscribe to specific events or all events, with one-click activation and deactivation.
+  - **Standard Webhooks Security:** Every delivery includes standard signature headers (`webhook-id`, `webhook-timestamp`, `webhook-signature`) signed via HMAC-SHA256 using endpoint secrets.
+  - **Dual-Secret Rotation:** Rotate endpoint signing secrets with a 24-hour overlap window so receiver applications can transition keys without downtime.
+  - **Event Catalog & Inspection:** An interactive catalog lists all 22 supported event types across companies, contacts, candidates, applications, jobs, projects, assignments, and form submissions with thin, privacy-focused ID payloads and copyable examples.
+  - **Delivery Logs & Manual Replay:** Inspect historical event deliveries with HTTP status codes, durations, and request attempts. Finished deliveries can be manually replayed directly from the logs.
+  - **Resilient Retry Schedule & Health Alerts:** Failed deliveries are retried up to six times with exponential backoff. Endpoints that fail consistently transition to a failing or paused state and automatically trigger localized email notifications to workspace administrators.
+
+  ## Improvements
+
+  ### Granular Webhooks Permissions
+
+  Added dedicated `webhooks:view` and `webhooks:manage` permissions to the workspace Roles & Permissions matrix:
+
+  - **Role Isolation:** Separates viewing delivery logs and event catalogs from managing endpoint URLs and rotation secrets.
+  - **AI Tool Boundary:** Webhook management is kept strictly isolated from default agent, assistant, and MCP tool catalogs.
+
+  ### Database Performance & Maintenance Optimization
+
+  - **Routine Cleanup:** Automated maintenance jobs now prune internal HTTP response buffers and execution logs, preventing database bloat and maintaining fast query response times across candidate and account lists.
+  - **Internal Function Hardening:** Strengthened signature and token verification on internal background tasks and scheduled cron jobs.
+
+  ### Payload Dialog & Event Table Polish
+
+  - Fixed tooltip clipping in the webhook payload inspection modal.
+  - Aligned the recorded events and delivery history tables with the shared Nexus entity list design system.
+</Update>
+
 <Update label="CW 41 | October 2026">
   ## Bug Fixes
 

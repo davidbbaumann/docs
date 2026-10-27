@@ -3,6 +3,40 @@ title: "Changelog"
 description: "Produkt-Aktualisierungen und Ankündigungen"
 ---
 
+<Update label="KW 43 | Oktober 2026">
+  ## Neue Funktionen
+
+  ### Ausgehende Webhooks (Pilot-Release)
+
+  Nexus unterstützt nun ausgehende Webhooks. Externe Systeme, eigene Backends und Workflow-Automatisierungsplattformen (wie Zapier, Make und n8n) erhalten damit Echtzeit-Updates, sobald Datensätze erstellt, aktualisiert oder gelöscht werden.
+
+  - **Endpunkt-Verwaltung:** Konfigurieren Sie Webhook-Endpunkte unter **Einstellungen → Erweiterungen → Webhooks**. Endpunkte können bestimmte oder alle Events abonnieren und lassen sich per Klick aktivieren und deaktivieren.
+  - **Sicherheit nach Standard Webhooks:** Jede Zustellung enthält die standardisierten Signatur-Header (`webhook-id`, `webhook-timestamp`, `webhook-signature`), die per HMAC-SHA256 mit den Endpunkt-Secrets signiert werden.
+  - **Rotation mit zwei Secrets:** Signing-Secrets von Endpunkten können mit einem 24-stündigen Überlappungsfenster rotiert werden, sodass empfangende Anwendungen ihre Schlüssel ohne Ausfallzeit umstellen können.
+  - **Event-Katalog & Inspektion:** Ein interaktiver Katalog listet alle 22 unterstützten Event-Typen für Unternehmen, Kontakte, Kandidaten, Bewerbungen, Stellen, Projekte, Zuweisungen und Formularübermittlungen auf – mit schlanken, datenschutzfreundlichen ID-Payloads und kopierbaren Beispielen.
+  - **Zustellungsprotokolle & manuelles Wiederholen:** Prüfen Sie historische Event-Zustellungen mit HTTP-Statuscodes, Laufzeiten und Zustellversuchen. Abgeschlossene Zustellungen können direkt aus den Protokollen manuell erneut gesendet werden.
+  - **Robuster Wiederholungsplan & Health-Benachrichtigungen:** Fehlgeschlagene Zustellungen werden bis zu sechsmal mit exponentiellem Backoff wiederholt. Endpunkte, die dauerhaft fehlschlagen, wechseln in den Status „Fehlerhaft" oder „Pausiert" und lösen automatisch lokalisierte E-Mail-Benachrichtigungen an Workspace-Administratoren aus.
+
+  ## Verbesserungen
+
+  ### Granulare Webhook-Berechtigungen
+
+  Der Rollen- und Berechtigungsmatrix des Workspaces wurden die dedizierten Berechtigungen `webhooks:view` und `webhooks:manage` hinzugefügt:
+
+  - **Rollentrennung:** Trennt das Einsehen von Zustellungsprotokollen und Event-Katalogen vom Verwalten der Endpunkt-URLs und Rotations-Secrets.
+  - **Abgrenzung zu KI-Werkzeugen:** Die Webhook-Verwaltung ist strikt von den Standard-Werkzeugkatalogen der Agenten, des Assistenten und des MCP-Servers getrennt.
+
+  ### Datenbank-Performance & Wartungsoptimierung
+
+  - **Routinemäßige Bereinigung:** Automatisierte Wartungsjobs entfernen nun interne HTTP-Antwortpuffer und Ausführungsprotokolle. Das verhindert eine Aufblähung der Datenbank und sorgt für schnelle Antwortzeiten bei Kandidaten- und Unternehmenslisten.
+  - **Härtung interner Funktionen:** Die Signatur- und Token-Prüfung bei internen Hintergrundaufgaben und geplanten Cron-Jobs wurde verstärkt.
+
+  ### Feinschliff bei Payload-Dialog & Event-Tabelle
+
+  - Abgeschnittene Tooltips im Dialog zur Payload-Inspektion der Webhooks wurden behoben.
+  - Die Tabellen der erfassten Events und des Zustellungsverlaufs wurden an das gemeinsame Nexus-Listen-Designsystem angeglichen.
+</Update>
+
 <Update label="KW 41 | Oktober 2026">
   ## Fehlerbehebungen
 
