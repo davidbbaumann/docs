@@ -304,36 +304,57 @@
                     "group": "Kandidaten",
                     "pages": [
                       "de/webhooks/events/candidate-created",
-                      "de/webhooks/events/candidate-updated"
+                      "de/webhooks/events/candidate-updated",
+                      "de/webhooks/events/candidate-deleted"
                     ]
                   },
                   {
                     "group": "Bewerbungen",
-                    "pages": []
+                    "pages": [
+                      "de/webhooks/events/application-created",
+                      "de/webhooks/events/application-updated",
+                      "de/webhooks/events/application-deleted"
+                    ]
                   },
                   {
                     "group": "Projekte",
-                    "pages": []
+                    "pages": [
+                      "de/webhooks/events/project-created",
+                      "de/webhooks/events/project-updated",
+                      "de/webhooks/events/project-deleted"
+                    ]
                   },
                   {
                     "group": "Stellen",
-                    "pages": []
+                    "pages": [
+                      "de/webhooks/events/job-created",
+                      "de/webhooks/events/job-updated",
+                      "de/webhooks/events/job-deleted"
+                    ]
                   },
                   {
                     "group": "Zuordnungen",
-                    "pages": []
+                    "pages": [
+                      "de/webhooks/events/assignment-stage-changed"
+                    ]
                   },
                   {
                     "group": "Formulare",
-                    "pages": []
+                    "pages": [
+                      "de/webhooks/events/form-submitted"
+                    ]
                   },
                   {
                     "group": "Agenten",
-                    "pages": []
+                    "pages": [
+                      "de/webhooks/events/agent-run-completed"
+                    ]
                   },
                   {
                     "group": "Test",
-                    "pages": []
+                    "pages": [
+                      "de/webhooks/events/webhook-test"
+                    ]
                   }
                 ]
               }
