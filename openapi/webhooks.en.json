@@ -1,0 +1,2856 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Nexus Webhooks",
+    "version": "1.0.0",
+    "description": "Events that Nexus sends to your HTTPS endpoint. Payloads are intentionally thin and contain identifiers only."
+  },
+  "paths": {},
+  "webhooks": {
+    "account.created": {
+      "post": {
+        "summary": "Account created",
+        "description": "An account is created.\n\nPayloads contain identifiers only. Load the current record via the Nexus API or MCP.",
+        "tags": [
+          "Accounts"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "event",
+                  "timestamp",
+                  "workspace_id",
+                  "actor",
+                  "data"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Unique event ID (`evt_...`). Identical to the `webhook-id` header. Use it for deduplication."
+                  },
+                  "event": {
+                    "type": "string",
+                    "enum": [
+                      "account.created"
+                    ],
+                    "description": "Event type."
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "ISO 8601 UTC time when the event occurred."
+                  },
+                  "workspace_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "UUID of the Nexus workspace."
+                  },
+                  "actor": {
+                    "type": "object",
+                    "description": "Who triggered the event.",
+                    "required": [
+                      "type",
+                      "id",
+                      "channel"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "user",
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`user`, `agent` or `system`."
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "format": "uuid",
+                        "description": "UUID of the user or agent, if known."
+                      },
+                      "channel": {
+                        "type": "string",
+                        "enum": [
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`agent` if an AI agent made the change, otherwise `system`."
+                      }
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Identifiers of the affected record.",
+                    "required": [
+                      "entity_type",
+                      "id"
+                    ],
+                    "properties": {
+                      "entity_type": {
+                        "type": "string",
+                        "enum": [
+                          "account"
+                        ],
+                        "description": "Kind of the affected record."
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID of the account."
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "id": "evt_44444444-4444-4444-8444-444444444444",
+                "event": "account.created",
+                "timestamp": "2026-10-25T12:00:00.000Z",
+                "workspace_id": "55555555-5555-4555-8555-555555555555",
+                "actor": {
+                  "type": "user",
+                  "id": "66666666-6666-4666-8666-666666666666",
+                  "channel": "system"
+                },
+                "data": {
+                  "entity_type": "account",
+                  "id": "11111111-1111-4111-8111-111111111111"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return a `2xx` status within 5 seconds to acknowledge receipt."
+          }
+        }
+      }
+    },
+    "account.updated": {
+      "post": {
+        "summary": "Account updated",
+        "description": "An account is changed. Purely technical changes, such as search index or embedding updates, do not send an event.\n\nPayloads contain identifiers only. Load the current record via the Nexus API or MCP.",
+        "tags": [
+          "Accounts"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "event",
+                  "timestamp",
+                  "workspace_id",
+                  "actor",
+                  "data"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Unique event ID (`evt_...`). Identical to the `webhook-id` header. Use it for deduplication."
+                  },
+                  "event": {
+                    "type": "string",
+                    "enum": [
+                      "account.updated"
+                    ],
+                    "description": "Event type."
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "ISO 8601 UTC time when the event occurred."
+                  },
+                  "workspace_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "UUID of the Nexus workspace."
+                  },
+                  "actor": {
+                    "type": "object",
+                    "description": "Who triggered the event.",
+                    "required": [
+                      "type",
+                      "id",
+                      "channel"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "user",
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`user`, `agent` or `system`."
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "format": "uuid",
+                        "description": "UUID of the user or agent, if known."
+                      },
+                      "channel": {
+                        "type": "string",
+                        "enum": [
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`agent` if an AI agent made the change, otherwise `system`."
+                      }
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Identifiers of the affected record.",
+                    "required": [
+                      "entity_type",
+                      "id"
+                    ],
+                    "properties": {
+                      "entity_type": {
+                        "type": "string",
+                        "enum": [
+                          "account"
+                        ],
+                        "description": "Kind of the affected record."
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID of the account."
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "id": "evt_44444444-4444-4444-8444-444444444444",
+                "event": "account.updated",
+                "timestamp": "2026-10-25T12:00:00.000Z",
+                "workspace_id": "55555555-5555-4555-8555-555555555555",
+                "actor": {
+                  "type": "user",
+                  "id": "66666666-6666-4666-8666-666666666666",
+                  "channel": "system"
+                },
+                "data": {
+                  "entity_type": "account",
+                  "id": "11111111-1111-4111-8111-111111111111"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return a `2xx` status within 5 seconds to acknowledge receipt."
+          }
+        }
+      }
+    },
+    "account.deleted": {
+      "post": {
+        "summary": "Account deleted",
+        "description": "An account is deleted. The payload contains only the ID of the deleted record. When related records are deleted together with it, each related record may send its own event.\n\nPayloads contain identifiers only. Load the current record via the Nexus API or MCP.",
+        "tags": [
+          "Accounts"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "event",
+                  "timestamp",
+                  "workspace_id",
+                  "actor",
+                  "data"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Unique event ID (`evt_...`). Identical to the `webhook-id` header. Use it for deduplication."
+                  },
+                  "event": {
+                    "type": "string",
+                    "enum": [
+                      "account.deleted"
+                    ],
+                    "description": "Event type."
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "ISO 8601 UTC time when the event occurred."
+                  },
+                  "workspace_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "UUID of the Nexus workspace."
+                  },
+                  "actor": {
+                    "type": "object",
+                    "description": "Who triggered the event.",
+                    "required": [
+                      "type",
+                      "id",
+                      "channel"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "user",
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`user`, `agent` or `system`."
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "format": "uuid",
+                        "description": "UUID of the user or agent, if known."
+                      },
+                      "channel": {
+                        "type": "string",
+                        "enum": [
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`agent` if an AI agent made the change, otherwise `system`."
+                      }
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Identifiers of the affected record.",
+                    "required": [
+                      "entity_type",
+                      "id"
+                    ],
+                    "properties": {
+                      "entity_type": {
+                        "type": "string",
+                        "enum": [
+                          "account"
+                        ],
+                        "description": "Kind of the affected record."
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID of the deleted account."
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "id": "evt_44444444-4444-4444-8444-444444444444",
+                "event": "account.deleted",
+                "timestamp": "2026-10-25T12:00:00.000Z",
+                "workspace_id": "55555555-5555-4555-8555-555555555555",
+                "actor": {
+                  "type": "user",
+                  "id": "66666666-6666-4666-8666-666666666666",
+                  "channel": "system"
+                },
+                "data": {
+                  "entity_type": "account",
+                  "id": "11111111-1111-4111-8111-111111111111"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return a `2xx` status within 5 seconds to acknowledge receipt."
+          }
+        }
+      }
+    },
+    "contact.created": {
+      "post": {
+        "summary": "Contact created",
+        "description": "A contact is created.\n\nPayloads contain identifiers only. Load the current record via the Nexus API or MCP.",
+        "tags": [
+          "Contacts"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "event",
+                  "timestamp",
+                  "workspace_id",
+                  "actor",
+                  "data"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Unique event ID (`evt_...`). Identical to the `webhook-id` header. Use it for deduplication."
+                  },
+                  "event": {
+                    "type": "string",
+                    "enum": [
+                      "contact.created"
+                    ],
+                    "description": "Event type."
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "ISO 8601 UTC time when the event occurred."
+                  },
+                  "workspace_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "UUID of the Nexus workspace."
+                  },
+                  "actor": {
+                    "type": "object",
+                    "description": "Who triggered the event.",
+                    "required": [
+                      "type",
+                      "id",
+                      "channel"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "user",
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`user`, `agent` or `system`."
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "format": "uuid",
+                        "description": "UUID of the user or agent, if known."
+                      },
+                      "channel": {
+                        "type": "string",
+                        "enum": [
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`agent` if an AI agent made the change, otherwise `system`."
+                      }
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Identifiers of the affected record.",
+                    "required": [
+                      "entity_type",
+                      "id"
+                    ],
+                    "properties": {
+                      "entity_type": {
+                        "type": "string",
+                        "enum": [
+                          "contact"
+                        ],
+                        "description": "Kind of the affected record."
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID of the contact."
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "id": "evt_44444444-4444-4444-8444-444444444444",
+                "event": "contact.created",
+                "timestamp": "2026-10-25T12:00:00.000Z",
+                "workspace_id": "55555555-5555-4555-8555-555555555555",
+                "actor": {
+                  "type": "user",
+                  "id": "66666666-6666-4666-8666-666666666666",
+                  "channel": "system"
+                },
+                "data": {
+                  "entity_type": "contact",
+                  "id": "11111111-1111-4111-8111-111111111111"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return a `2xx` status within 5 seconds to acknowledge receipt."
+          }
+        }
+      }
+    },
+    "contact.updated": {
+      "post": {
+        "summary": "Contact updated",
+        "description": "A contact is changed. Purely technical changes, such as search index or embedding updates, do not send an event.\n\nPayloads contain identifiers only. Load the current record via the Nexus API or MCP.",
+        "tags": [
+          "Contacts"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "event",
+                  "timestamp",
+                  "workspace_id",
+                  "actor",
+                  "data"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Unique event ID (`evt_...`). Identical to the `webhook-id` header. Use it for deduplication."
+                  },
+                  "event": {
+                    "type": "string",
+                    "enum": [
+                      "contact.updated"
+                    ],
+                    "description": "Event type."
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "ISO 8601 UTC time when the event occurred."
+                  },
+                  "workspace_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "UUID of the Nexus workspace."
+                  },
+                  "actor": {
+                    "type": "object",
+                    "description": "Who triggered the event.",
+                    "required": [
+                      "type",
+                      "id",
+                      "channel"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "user",
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`user`, `agent` or `system`."
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "format": "uuid",
+                        "description": "UUID of the user or agent, if known."
+                      },
+                      "channel": {
+                        "type": "string",
+                        "enum": [
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`agent` if an AI agent made the change, otherwise `system`."
+                      }
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Identifiers of the affected record.",
+                    "required": [
+                      "entity_type",
+                      "id"
+                    ],
+                    "properties": {
+                      "entity_type": {
+                        "type": "string",
+                        "enum": [
+                          "contact"
+                        ],
+                        "description": "Kind of the affected record."
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID of the contact."
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "id": "evt_44444444-4444-4444-8444-444444444444",
+                "event": "contact.updated",
+                "timestamp": "2026-10-25T12:00:00.000Z",
+                "workspace_id": "55555555-5555-4555-8555-555555555555",
+                "actor": {
+                  "type": "user",
+                  "id": "66666666-6666-4666-8666-666666666666",
+                  "channel": "system"
+                },
+                "data": {
+                  "entity_type": "contact",
+                  "id": "11111111-1111-4111-8111-111111111111"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return a `2xx` status within 5 seconds to acknowledge receipt."
+          }
+        }
+      }
+    },
+    "contact.deleted": {
+      "post": {
+        "summary": "Contact deleted",
+        "description": "A contact is deleted. The payload contains only the ID of the deleted record. When related records are deleted together with it, each related record may send its own event.\n\nPayloads contain identifiers only. Load the current record via the Nexus API or MCP.",
+        "tags": [
+          "Contacts"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "event",
+                  "timestamp",
+                  "workspace_id",
+                  "actor",
+                  "data"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Unique event ID (`evt_...`). Identical to the `webhook-id` header. Use it for deduplication."
+                  },
+                  "event": {
+                    "type": "string",
+                    "enum": [
+                      "contact.deleted"
+                    ],
+                    "description": "Event type."
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "ISO 8601 UTC time when the event occurred."
+                  },
+                  "workspace_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "UUID of the Nexus workspace."
+                  },
+                  "actor": {
+                    "type": "object",
+                    "description": "Who triggered the event.",
+                    "required": [
+                      "type",
+                      "id",
+                      "channel"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "user",
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`user`, `agent` or `system`."
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "format": "uuid",
+                        "description": "UUID of the user or agent, if known."
+                      },
+                      "channel": {
+                        "type": "string",
+                        "enum": [
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`agent` if an AI agent made the change, otherwise `system`."
+                      }
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Identifiers of the affected record.",
+                    "required": [
+                      "entity_type",
+                      "id"
+                    ],
+                    "properties": {
+                      "entity_type": {
+                        "type": "string",
+                        "enum": [
+                          "contact"
+                        ],
+                        "description": "Kind of the affected record."
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID of the deleted contact."
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "id": "evt_44444444-4444-4444-8444-444444444444",
+                "event": "contact.deleted",
+                "timestamp": "2026-10-25T12:00:00.000Z",
+                "workspace_id": "55555555-5555-4555-8555-555555555555",
+                "actor": {
+                  "type": "user",
+                  "id": "66666666-6666-4666-8666-666666666666",
+                  "channel": "system"
+                },
+                "data": {
+                  "entity_type": "contact",
+                  "id": "11111111-1111-4111-8111-111111111111"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return a `2xx` status within 5 seconds to acknowledge receipt."
+          }
+        }
+      }
+    },
+    "candidate.created": {
+      "post": {
+        "summary": "Candidate created",
+        "description": "A candidate is created.\n\nPayloads contain identifiers only. Load the current record via the Nexus API or MCP.",
+        "tags": [
+          "Candidates"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "event",
+                  "timestamp",
+                  "workspace_id",
+                  "actor",
+                  "data"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Unique event ID (`evt_...`). Identical to the `webhook-id` header. Use it for deduplication."
+                  },
+                  "event": {
+                    "type": "string",
+                    "enum": [
+                      "candidate.created"
+                    ],
+                    "description": "Event type."
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "ISO 8601 UTC time when the event occurred."
+                  },
+                  "workspace_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "UUID of the Nexus workspace."
+                  },
+                  "actor": {
+                    "type": "object",
+                    "description": "Who triggered the event.",
+                    "required": [
+                      "type",
+                      "id",
+                      "channel"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "user",
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`user`, `agent` or `system`."
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "format": "uuid",
+                        "description": "UUID of the user or agent, if known."
+                      },
+                      "channel": {
+                        "type": "string",
+                        "enum": [
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`agent` if an AI agent made the change, otherwise `system`."
+                      }
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Identifiers of the affected record.",
+                    "required": [
+                      "entity_type",
+                      "id"
+                    ],
+                    "properties": {
+                      "entity_type": {
+                        "type": "string",
+                        "enum": [
+                          "candidate"
+                        ],
+                        "description": "Kind of the affected record."
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID of the candidate."
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "id": "evt_44444444-4444-4444-8444-444444444444",
+                "event": "candidate.created",
+                "timestamp": "2026-10-25T12:00:00.000Z",
+                "workspace_id": "55555555-5555-4555-8555-555555555555",
+                "actor": {
+                  "type": "user",
+                  "id": "66666666-6666-4666-8666-666666666666",
+                  "channel": "system"
+                },
+                "data": {
+                  "entity_type": "candidate",
+                  "id": "11111111-1111-4111-8111-111111111111"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return a `2xx` status within 5 seconds to acknowledge receipt."
+          }
+        }
+      }
+    },
+    "candidate.updated": {
+      "post": {
+        "summary": "Candidate updated",
+        "description": "A candidate is changed. Purely technical changes, such as search index or embedding updates, do not send an event.\n\nPayloads contain identifiers only. Load the current record via the Nexus API or MCP.",
+        "tags": [
+          "Candidates"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "event",
+                  "timestamp",
+                  "workspace_id",
+                  "actor",
+                  "data"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Unique event ID (`evt_...`). Identical to the `webhook-id` header. Use it for deduplication."
+                  },
+                  "event": {
+                    "type": "string",
+                    "enum": [
+                      "candidate.updated"
+                    ],
+                    "description": "Event type."
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "ISO 8601 UTC time when the event occurred."
+                  },
+                  "workspace_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "UUID of the Nexus workspace."
+                  },
+                  "actor": {
+                    "type": "object",
+                    "description": "Who triggered the event.",
+                    "required": [
+                      "type",
+                      "id",
+                      "channel"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "user",
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`user`, `agent` or `system`."
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "format": "uuid",
+                        "description": "UUID of the user or agent, if known."
+                      },
+                      "channel": {
+                        "type": "string",
+                        "enum": [
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`agent` if an AI agent made the change, otherwise `system`."
+                      }
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Identifiers of the affected record.",
+                    "required": [
+                      "entity_type",
+                      "id"
+                    ],
+                    "properties": {
+                      "entity_type": {
+                        "type": "string",
+                        "enum": [
+                          "candidate"
+                        ],
+                        "description": "Kind of the affected record."
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID of the candidate."
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "id": "evt_44444444-4444-4444-8444-444444444444",
+                "event": "candidate.updated",
+                "timestamp": "2026-10-25T12:00:00.000Z",
+                "workspace_id": "55555555-5555-4555-8555-555555555555",
+                "actor": {
+                  "type": "user",
+                  "id": "66666666-6666-4666-8666-666666666666",
+                  "channel": "system"
+                },
+                "data": {
+                  "entity_type": "candidate",
+                  "id": "11111111-1111-4111-8111-111111111111"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return a `2xx` status within 5 seconds to acknowledge receipt."
+          }
+        }
+      }
+    },
+    "candidate.deleted": {
+      "post": {
+        "summary": "Candidate deleted",
+        "description": "A candidate is deleted. The payload contains only the ID of the deleted record. When related records are deleted together with it, each related record may send its own event.\n\nPayloads contain identifiers only. Load the current record via the Nexus API or MCP.",
+        "tags": [
+          "Candidates"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "event",
+                  "timestamp",
+                  "workspace_id",
+                  "actor",
+                  "data"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Unique event ID (`evt_...`). Identical to the `webhook-id` header. Use it for deduplication."
+                  },
+                  "event": {
+                    "type": "string",
+                    "enum": [
+                      "candidate.deleted"
+                    ],
+                    "description": "Event type."
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "ISO 8601 UTC time when the event occurred."
+                  },
+                  "workspace_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "UUID of the Nexus workspace."
+                  },
+                  "actor": {
+                    "type": "object",
+                    "description": "Who triggered the event.",
+                    "required": [
+                      "type",
+                      "id",
+                      "channel"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "user",
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`user`, `agent` or `system`."
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "format": "uuid",
+                        "description": "UUID of the user or agent, if known."
+                      },
+                      "channel": {
+                        "type": "string",
+                        "enum": [
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`agent` if an AI agent made the change, otherwise `system`."
+                      }
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Identifiers of the affected record.",
+                    "required": [
+                      "entity_type",
+                      "id"
+                    ],
+                    "properties": {
+                      "entity_type": {
+                        "type": "string",
+                        "enum": [
+                          "candidate"
+                        ],
+                        "description": "Kind of the affected record."
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID of the deleted candidate."
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "id": "evt_44444444-4444-4444-8444-444444444444",
+                "event": "candidate.deleted",
+                "timestamp": "2026-10-25T12:00:00.000Z",
+                "workspace_id": "55555555-5555-4555-8555-555555555555",
+                "actor": {
+                  "type": "user",
+                  "id": "66666666-6666-4666-8666-666666666666",
+                  "channel": "system"
+                },
+                "data": {
+                  "entity_type": "candidate",
+                  "id": "11111111-1111-4111-8111-111111111111"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return a `2xx` status within 5 seconds to acknowledge receipt."
+          }
+        }
+      }
+    },
+    "application.created": {
+      "post": {
+        "summary": "Application created",
+        "description": "An application is created.\n\nPayloads contain identifiers only. Load the current record via the Nexus API or MCP.",
+        "tags": [
+          "Applications"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "event",
+                  "timestamp",
+                  "workspace_id",
+                  "actor",
+                  "data"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Unique event ID (`evt_...`). Identical to the `webhook-id` header. Use it for deduplication."
+                  },
+                  "event": {
+                    "type": "string",
+                    "enum": [
+                      "application.created"
+                    ],
+                    "description": "Event type."
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "ISO 8601 UTC time when the event occurred."
+                  },
+                  "workspace_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "UUID of the Nexus workspace."
+                  },
+                  "actor": {
+                    "type": "object",
+                    "description": "Who triggered the event.",
+                    "required": [
+                      "type",
+                      "id",
+                      "channel"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "user",
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`user`, `agent` or `system`."
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "format": "uuid",
+                        "description": "UUID of the user or agent, if known."
+                      },
+                      "channel": {
+                        "type": "string",
+                        "enum": [
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`agent` if an AI agent made the change, otherwise `system`."
+                      }
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Identifiers of the affected record.",
+                    "required": [
+                      "entity_type",
+                      "id"
+                    ],
+                    "properties": {
+                      "entity_type": {
+                        "type": "string",
+                        "enum": [
+                          "application"
+                        ],
+                        "description": "Kind of the affected record."
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID of the application."
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "id": "evt_44444444-4444-4444-8444-444444444444",
+                "event": "application.created",
+                "timestamp": "2026-10-25T12:00:00.000Z",
+                "workspace_id": "55555555-5555-4555-8555-555555555555",
+                "actor": {
+                  "type": "user",
+                  "id": "66666666-6666-4666-8666-666666666666",
+                  "channel": "system"
+                },
+                "data": {
+                  "entity_type": "application",
+                  "id": "11111111-1111-4111-8111-111111111111"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return a `2xx` status within 5 seconds to acknowledge receipt."
+          }
+        }
+      }
+    },
+    "application.updated": {
+      "post": {
+        "summary": "Application updated",
+        "description": "An application is changed. Purely technical changes, such as search index or embedding updates, do not send an event.\n\nPayloads contain identifiers only. Load the current record via the Nexus API or MCP.",
+        "tags": [
+          "Applications"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "event",
+                  "timestamp",
+                  "workspace_id",
+                  "actor",
+                  "data"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Unique event ID (`evt_...`). Identical to the `webhook-id` header. Use it for deduplication."
+                  },
+                  "event": {
+                    "type": "string",
+                    "enum": [
+                      "application.updated"
+                    ],
+                    "description": "Event type."
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "ISO 8601 UTC time when the event occurred."
+                  },
+                  "workspace_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "UUID of the Nexus workspace."
+                  },
+                  "actor": {
+                    "type": "object",
+                    "description": "Who triggered the event.",
+                    "required": [
+                      "type",
+                      "id",
+                      "channel"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "user",
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`user`, `agent` or `system`."
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "format": "uuid",
+                        "description": "UUID of the user or agent, if known."
+                      },
+                      "channel": {
+                        "type": "string",
+                        "enum": [
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`agent` if an AI agent made the change, otherwise `system`."
+                      }
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Identifiers of the affected record.",
+                    "required": [
+                      "entity_type",
+                      "id"
+                    ],
+                    "properties": {
+                      "entity_type": {
+                        "type": "string",
+                        "enum": [
+                          "application"
+                        ],
+                        "description": "Kind of the affected record."
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID of the application."
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "id": "evt_44444444-4444-4444-8444-444444444444",
+                "event": "application.updated",
+                "timestamp": "2026-10-25T12:00:00.000Z",
+                "workspace_id": "55555555-5555-4555-8555-555555555555",
+                "actor": {
+                  "type": "user",
+                  "id": "66666666-6666-4666-8666-666666666666",
+                  "channel": "system"
+                },
+                "data": {
+                  "entity_type": "application",
+                  "id": "11111111-1111-4111-8111-111111111111"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return a `2xx` status within 5 seconds to acknowledge receipt."
+          }
+        }
+      }
+    },
+    "application.deleted": {
+      "post": {
+        "summary": "Application deleted",
+        "description": "An application is deleted. The payload contains only the ID of the deleted record. When related records are deleted together with it, each related record may send its own event.\n\nPayloads contain identifiers only. Load the current record via the Nexus API or MCP.",
+        "tags": [
+          "Applications"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "event",
+                  "timestamp",
+                  "workspace_id",
+                  "actor",
+                  "data"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Unique event ID (`evt_...`). Identical to the `webhook-id` header. Use it for deduplication."
+                  },
+                  "event": {
+                    "type": "string",
+                    "enum": [
+                      "application.deleted"
+                    ],
+                    "description": "Event type."
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "ISO 8601 UTC time when the event occurred."
+                  },
+                  "workspace_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "UUID of the Nexus workspace."
+                  },
+                  "actor": {
+                    "type": "object",
+                    "description": "Who triggered the event.",
+                    "required": [
+                      "type",
+                      "id",
+                      "channel"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "user",
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`user`, `agent` or `system`."
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "format": "uuid",
+                        "description": "UUID of the user or agent, if known."
+                      },
+                      "channel": {
+                        "type": "string",
+                        "enum": [
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`agent` if an AI agent made the change, otherwise `system`."
+                      }
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Identifiers of the affected record.",
+                    "required": [
+                      "entity_type",
+                      "id"
+                    ],
+                    "properties": {
+                      "entity_type": {
+                        "type": "string",
+                        "enum": [
+                          "application"
+                        ],
+                        "description": "Kind of the affected record."
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID of the deleted application."
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "id": "evt_44444444-4444-4444-8444-444444444444",
+                "event": "application.deleted",
+                "timestamp": "2026-10-25T12:00:00.000Z",
+                "workspace_id": "55555555-5555-4555-8555-555555555555",
+                "actor": {
+                  "type": "user",
+                  "id": "66666666-6666-4666-8666-666666666666",
+                  "channel": "system"
+                },
+                "data": {
+                  "entity_type": "application",
+                  "id": "11111111-1111-4111-8111-111111111111"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return a `2xx` status within 5 seconds to acknowledge receipt."
+          }
+        }
+      }
+    },
+    "project.created": {
+      "post": {
+        "summary": "Project created",
+        "description": "A project is created.\n\nPayloads contain identifiers only. Load the current record via the Nexus API or MCP.",
+        "tags": [
+          "Projects"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "event",
+                  "timestamp",
+                  "workspace_id",
+                  "actor",
+                  "data"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Unique event ID (`evt_...`). Identical to the `webhook-id` header. Use it for deduplication."
+                  },
+                  "event": {
+                    "type": "string",
+                    "enum": [
+                      "project.created"
+                    ],
+                    "description": "Event type."
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "ISO 8601 UTC time when the event occurred."
+                  },
+                  "workspace_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "UUID of the Nexus workspace."
+                  },
+                  "actor": {
+                    "type": "object",
+                    "description": "Who triggered the event.",
+                    "required": [
+                      "type",
+                      "id",
+                      "channel"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "user",
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`user`, `agent` or `system`."
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "format": "uuid",
+                        "description": "UUID of the user or agent, if known."
+                      },
+                      "channel": {
+                        "type": "string",
+                        "enum": [
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`agent` if an AI agent made the change, otherwise `system`."
+                      }
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Identifiers of the affected record.",
+                    "required": [
+                      "entity_type",
+                      "id"
+                    ],
+                    "properties": {
+                      "entity_type": {
+                        "type": "string",
+                        "enum": [
+                          "project"
+                        ],
+                        "description": "Kind of the affected record."
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID of the project."
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "id": "evt_44444444-4444-4444-8444-444444444444",
+                "event": "project.created",
+                "timestamp": "2026-10-25T12:00:00.000Z",
+                "workspace_id": "55555555-5555-4555-8555-555555555555",
+                "actor": {
+                  "type": "user",
+                  "id": "66666666-6666-4666-8666-666666666666",
+                  "channel": "system"
+                },
+                "data": {
+                  "entity_type": "project",
+                  "id": "11111111-1111-4111-8111-111111111111"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return a `2xx` status within 5 seconds to acknowledge receipt."
+          }
+        }
+      }
+    },
+    "project.updated": {
+      "post": {
+        "summary": "Project updated",
+        "description": "A project is changed. Purely technical changes, such as search index or embedding updates, do not send an event.\n\nPayloads contain identifiers only. Load the current record via the Nexus API or MCP.",
+        "tags": [
+          "Projects"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "event",
+                  "timestamp",
+                  "workspace_id",
+                  "actor",
+                  "data"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Unique event ID (`evt_...`). Identical to the `webhook-id` header. Use it for deduplication."
+                  },
+                  "event": {
+                    "type": "string",
+                    "enum": [
+                      "project.updated"
+                    ],
+                    "description": "Event type."
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "ISO 8601 UTC time when the event occurred."
+                  },
+                  "workspace_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "UUID of the Nexus workspace."
+                  },
+                  "actor": {
+                    "type": "object",
+                    "description": "Who triggered the event.",
+                    "required": [
+                      "type",
+                      "id",
+                      "channel"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "user",
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`user`, `agent` or `system`."
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "format": "uuid",
+                        "description": "UUID of the user or agent, if known."
+                      },
+                      "channel": {
+                        "type": "string",
+                        "enum": [
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`agent` if an AI agent made the change, otherwise `system`."
+                      }
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Identifiers of the affected record.",
+                    "required": [
+                      "entity_type",
+                      "id"
+                    ],
+                    "properties": {
+                      "entity_type": {
+                        "type": "string",
+                        "enum": [
+                          "project"
+                        ],
+                        "description": "Kind of the affected record."
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID of the project."
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "id": "evt_44444444-4444-4444-8444-444444444444",
+                "event": "project.updated",
+                "timestamp": "2026-10-25T12:00:00.000Z",
+                "workspace_id": "55555555-5555-4555-8555-555555555555",
+                "actor": {
+                  "type": "user",
+                  "id": "66666666-6666-4666-8666-666666666666",
+                  "channel": "system"
+                },
+                "data": {
+                  "entity_type": "project",
+                  "id": "11111111-1111-4111-8111-111111111111"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return a `2xx` status within 5 seconds to acknowledge receipt."
+          }
+        }
+      }
+    },
+    "project.deleted": {
+      "post": {
+        "summary": "Project deleted",
+        "description": "A project is deleted. The payload contains only the ID of the deleted record. When related records are deleted together with it, each related record may send its own event.\n\nPayloads contain identifiers only. Load the current record via the Nexus API or MCP.",
+        "tags": [
+          "Projects"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "event",
+                  "timestamp",
+                  "workspace_id",
+                  "actor",
+                  "data"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Unique event ID (`evt_...`). Identical to the `webhook-id` header. Use it for deduplication."
+                  },
+                  "event": {
+                    "type": "string",
+                    "enum": [
+                      "project.deleted"
+                    ],
+                    "description": "Event type."
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "ISO 8601 UTC time when the event occurred."
+                  },
+                  "workspace_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "UUID of the Nexus workspace."
+                  },
+                  "actor": {
+                    "type": "object",
+                    "description": "Who triggered the event.",
+                    "required": [
+                      "type",
+                      "id",
+                      "channel"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "user",
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`user`, `agent` or `system`."
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "format": "uuid",
+                        "description": "UUID of the user or agent, if known."
+                      },
+                      "channel": {
+                        "type": "string",
+                        "enum": [
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`agent` if an AI agent made the change, otherwise `system`."
+                      }
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Identifiers of the affected record.",
+                    "required": [
+                      "entity_type",
+                      "id"
+                    ],
+                    "properties": {
+                      "entity_type": {
+                        "type": "string",
+                        "enum": [
+                          "project"
+                        ],
+                        "description": "Kind of the affected record."
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID of the deleted project."
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "id": "evt_44444444-4444-4444-8444-444444444444",
+                "event": "project.deleted",
+                "timestamp": "2026-10-25T12:00:00.000Z",
+                "workspace_id": "55555555-5555-4555-8555-555555555555",
+                "actor": {
+                  "type": "user",
+                  "id": "66666666-6666-4666-8666-666666666666",
+                  "channel": "system"
+                },
+                "data": {
+                  "entity_type": "project",
+                  "id": "11111111-1111-4111-8111-111111111111"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return a `2xx` status within 5 seconds to acknowledge receipt."
+          }
+        }
+      }
+    },
+    "job.created": {
+      "post": {
+        "summary": "Job created",
+        "description": "A job is created.\n\nPayloads contain identifiers only. Load the current record via the Nexus API or MCP.",
+        "tags": [
+          "Jobs"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "event",
+                  "timestamp",
+                  "workspace_id",
+                  "actor",
+                  "data"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Unique event ID (`evt_...`). Identical to the `webhook-id` header. Use it for deduplication."
+                  },
+                  "event": {
+                    "type": "string",
+                    "enum": [
+                      "job.created"
+                    ],
+                    "description": "Event type."
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "ISO 8601 UTC time when the event occurred."
+                  },
+                  "workspace_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "UUID of the Nexus workspace."
+                  },
+                  "actor": {
+                    "type": "object",
+                    "description": "Who triggered the event.",
+                    "required": [
+                      "type",
+                      "id",
+                      "channel"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "user",
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`user`, `agent` or `system`."
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "format": "uuid",
+                        "description": "UUID of the user or agent, if known."
+                      },
+                      "channel": {
+                        "type": "string",
+                        "enum": [
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`agent` if an AI agent made the change, otherwise `system`."
+                      }
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Identifiers of the affected record.",
+                    "required": [
+                      "entity_type",
+                      "id"
+                    ],
+                    "properties": {
+                      "entity_type": {
+                        "type": "string",
+                        "enum": [
+                          "job"
+                        ],
+                        "description": "Kind of the affected record."
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID of the job."
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "id": "evt_44444444-4444-4444-8444-444444444444",
+                "event": "job.created",
+                "timestamp": "2026-10-25T12:00:00.000Z",
+                "workspace_id": "55555555-5555-4555-8555-555555555555",
+                "actor": {
+                  "type": "user",
+                  "id": "66666666-6666-4666-8666-666666666666",
+                  "channel": "system"
+                },
+                "data": {
+                  "entity_type": "job",
+                  "id": "11111111-1111-4111-8111-111111111111"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return a `2xx` status within 5 seconds to acknowledge receipt."
+          }
+        }
+      }
+    },
+    "job.updated": {
+      "post": {
+        "summary": "Job updated",
+        "description": "A job is changed. Purely technical changes, such as search index or embedding updates, do not send an event.\n\nPayloads contain identifiers only. Load the current record via the Nexus API or MCP.",
+        "tags": [
+          "Jobs"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "event",
+                  "timestamp",
+                  "workspace_id",
+                  "actor",
+                  "data"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Unique event ID (`evt_...`). Identical to the `webhook-id` header. Use it for deduplication."
+                  },
+                  "event": {
+                    "type": "string",
+                    "enum": [
+                      "job.updated"
+                    ],
+                    "description": "Event type."
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "ISO 8601 UTC time when the event occurred."
+                  },
+                  "workspace_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "UUID of the Nexus workspace."
+                  },
+                  "actor": {
+                    "type": "object",
+                    "description": "Who triggered the event.",
+                    "required": [
+                      "type",
+                      "id",
+                      "channel"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "user",
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`user`, `agent` or `system`."
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "format": "uuid",
+                        "description": "UUID of the user or agent, if known."
+                      },
+                      "channel": {
+                        "type": "string",
+                        "enum": [
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`agent` if an AI agent made the change, otherwise `system`."
+                      }
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Identifiers of the affected record.",
+                    "required": [
+                      "entity_type",
+                      "id"
+                    ],
+                    "properties": {
+                      "entity_type": {
+                        "type": "string",
+                        "enum": [
+                          "job"
+                        ],
+                        "description": "Kind of the affected record."
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID of the job."
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "id": "evt_44444444-4444-4444-8444-444444444444",
+                "event": "job.updated",
+                "timestamp": "2026-10-25T12:00:00.000Z",
+                "workspace_id": "55555555-5555-4555-8555-555555555555",
+                "actor": {
+                  "type": "user",
+                  "id": "66666666-6666-4666-8666-666666666666",
+                  "channel": "system"
+                },
+                "data": {
+                  "entity_type": "job",
+                  "id": "11111111-1111-4111-8111-111111111111"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return a `2xx` status within 5 seconds to acknowledge receipt."
+          }
+        }
+      }
+    },
+    "job.deleted": {
+      "post": {
+        "summary": "Job deleted",
+        "description": "A job is deleted. The payload contains only the ID of the deleted record. When related records are deleted together with it, each related record may send its own event.\n\nPayloads contain identifiers only. Load the current record via the Nexus API or MCP.",
+        "tags": [
+          "Jobs"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "event",
+                  "timestamp",
+                  "workspace_id",
+                  "actor",
+                  "data"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Unique event ID (`evt_...`). Identical to the `webhook-id` header. Use it for deduplication."
+                  },
+                  "event": {
+                    "type": "string",
+                    "enum": [
+                      "job.deleted"
+                    ],
+                    "description": "Event type."
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "ISO 8601 UTC time when the event occurred."
+                  },
+                  "workspace_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "UUID of the Nexus workspace."
+                  },
+                  "actor": {
+                    "type": "object",
+                    "description": "Who triggered the event.",
+                    "required": [
+                      "type",
+                      "id",
+                      "channel"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "user",
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`user`, `agent` or `system`."
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "format": "uuid",
+                        "description": "UUID of the user or agent, if known."
+                      },
+                      "channel": {
+                        "type": "string",
+                        "enum": [
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`agent` if an AI agent made the change, otherwise `system`."
+                      }
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Identifiers of the affected record.",
+                    "required": [
+                      "entity_type",
+                      "id"
+                    ],
+                    "properties": {
+                      "entity_type": {
+                        "type": "string",
+                        "enum": [
+                          "job"
+                        ],
+                        "description": "Kind of the affected record."
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID of the deleted job."
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "id": "evt_44444444-4444-4444-8444-444444444444",
+                "event": "job.deleted",
+                "timestamp": "2026-10-25T12:00:00.000Z",
+                "workspace_id": "55555555-5555-4555-8555-555555555555",
+                "actor": {
+                  "type": "user",
+                  "id": "66666666-6666-4666-8666-666666666666",
+                  "channel": "system"
+                },
+                "data": {
+                  "entity_type": "job",
+                  "id": "11111111-1111-4111-8111-111111111111"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return a `2xx` status within 5 seconds to acknowledge receipt."
+          }
+        }
+      }
+    },
+    "assignment.stage_changed": {
+      "post": {
+        "summary": "Stage changed",
+        "description": "A candidate moves to another stage in a project. The payload contains the new stage only, not the previous one.\n\nPayloads contain identifiers only. Load the current record via the Nexus API or MCP.",
+        "tags": [
+          "Assignments"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "event",
+                  "timestamp",
+                  "workspace_id",
+                  "actor",
+                  "data"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Unique event ID (`evt_...`). Identical to the `webhook-id` header. Use it for deduplication."
+                  },
+                  "event": {
+                    "type": "string",
+                    "enum": [
+                      "assignment.stage_changed"
+                    ],
+                    "description": "Event type."
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "ISO 8601 UTC time when the event occurred."
+                  },
+                  "workspace_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "UUID of the Nexus workspace."
+                  },
+                  "actor": {
+                    "type": "object",
+                    "description": "Who triggered the event.",
+                    "required": [
+                      "type",
+                      "id",
+                      "channel"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "user",
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`user`, `agent` or `system`."
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "format": "uuid",
+                        "description": "UUID of the user or agent, if known."
+                      },
+                      "channel": {
+                        "type": "string",
+                        "enum": [
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`agent` if an AI agent made the change, otherwise `system`."
+                      }
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Identifiers of the affected record.",
+                    "required": [
+                      "entity_type",
+                      "id",
+                      "project_id",
+                      "new_stage_id"
+                    ],
+                    "properties": {
+                      "entity_type": {
+                        "type": "string",
+                        "enum": [
+                          "assignment"
+                        ],
+                        "description": "Kind of the affected record."
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID of the assignment (the candidate in the project)."
+                      },
+                      "project_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID of the project."
+                      },
+                      "new_stage_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID of the stage the candidate moved to."
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "id": "evt_44444444-4444-4444-8444-444444444444",
+                "event": "assignment.stage_changed",
+                "timestamp": "2026-10-25T12:00:00.000Z",
+                "workspace_id": "55555555-5555-4555-8555-555555555555",
+                "actor": {
+                  "type": "user",
+                  "id": "66666666-6666-4666-8666-666666666666",
+                  "channel": "system"
+                },
+                "data": {
+                  "entity_type": "assignment",
+                  "id": "11111111-1111-4111-8111-111111111111",
+                  "project_id": "22222222-2222-4222-8222-222222222222",
+                  "new_stage_id": "33333333-3333-4333-8333-333333333333"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return a `2xx` status within 5 seconds to acknowledge receipt."
+          }
+        }
+      }
+    },
+    "form.submitted": {
+      "post": {
+        "summary": "Form submitted",
+        "description": "A form is submitted. `actor.id` is `null` when no user is known.\n\nPayloads contain identifiers only. Load the current record via the Nexus API or MCP.",
+        "tags": [
+          "Forms"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "event",
+                  "timestamp",
+                  "workspace_id",
+                  "actor",
+                  "data"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Unique event ID (`evt_...`). Identical to the `webhook-id` header. Use it for deduplication."
+                  },
+                  "event": {
+                    "type": "string",
+                    "enum": [
+                      "form.submitted"
+                    ],
+                    "description": "Event type."
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "ISO 8601 UTC time when the event occurred."
+                  },
+                  "workspace_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "UUID of the Nexus workspace."
+                  },
+                  "actor": {
+                    "type": "object",
+                    "description": "Who triggered the event.",
+                    "required": [
+                      "type",
+                      "id",
+                      "channel"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "user",
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`user`, `agent` or `system`."
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "format": "uuid",
+                        "description": "UUID of the user or agent, if known."
+                      },
+                      "channel": {
+                        "type": "string",
+                        "enum": [
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`agent` if an AI agent made the change, otherwise `system`."
+                      }
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Identifiers of the affected record.",
+                    "required": [
+                      "entity_type",
+                      "id",
+                      "form_id"
+                    ],
+                    "properties": {
+                      "entity_type": {
+                        "type": "string",
+                        "enum": [
+                          "form_submission"
+                        ],
+                        "description": "Kind of the affected record."
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID of the form submission."
+                      },
+                      "form_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID of the submitted form."
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "id": "evt_44444444-4444-4444-8444-444444444444",
+                "event": "form.submitted",
+                "timestamp": "2026-10-25T12:00:00.000Z",
+                "workspace_id": "55555555-5555-4555-8555-555555555555",
+                "actor": {
+                  "type": "user",
+                  "id": "66666666-6666-4666-8666-666666666666",
+                  "channel": "system"
+                },
+                "data": {
+                  "entity_type": "form_submission",
+                  "id": "11111111-1111-4111-8111-111111111111",
+                  "form_id": "22222222-2222-4222-8222-222222222222"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return a `2xx` status within 5 seconds to acknowledge receipt."
+          }
+        }
+      }
+    },
+    "agent_run.completed": {
+      "post": {
+        "summary": "Agent run completed",
+        "description": "An AI agent run finishes. The event is sent once, when the run status changes to `completed`.\n\nPayloads contain identifiers only. Load the current record via the Nexus API or MCP.",
+        "tags": [
+          "Agents"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "event",
+                  "timestamp",
+                  "workspace_id",
+                  "actor",
+                  "data"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Unique event ID (`evt_...`). Identical to the `webhook-id` header. Use it for deduplication."
+                  },
+                  "event": {
+                    "type": "string",
+                    "enum": [
+                      "agent_run.completed"
+                    ],
+                    "description": "Event type."
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "ISO 8601 UTC time when the event occurred."
+                  },
+                  "workspace_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "UUID of the Nexus workspace."
+                  },
+                  "actor": {
+                    "type": "object",
+                    "description": "Who triggered the event.",
+                    "required": [
+                      "type",
+                      "id",
+                      "channel"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "user",
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`user`, `agent` or `system`."
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "format": "uuid",
+                        "description": "UUID of the user or agent, if known."
+                      },
+                      "channel": {
+                        "type": "string",
+                        "enum": [
+                          "agent",
+                          "system"
+                        ],
+                        "description": "`agent` if an AI agent made the change, otherwise `system`."
+                      }
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Identifiers of the affected record.",
+                    "required": [
+                      "entity_type",
+                      "id",
+                      "agent_id",
+                      "run_id",
+                      "status"
+                    ],
+                    "properties": {
+                      "entity_type": {
+                        "type": "string",
+                        "enum": [
+                          "agent_run"
+                        ],
+                        "description": "Kind of the affected record."
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID of the agent run."
+                      },
+                      "agent_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID of the agent."
+                      },
+                      "run_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID of the agent run. Identical to `data.id`."
+                      },
+                      "status": {
+                        "type": "string",
+                        "enum": [
+                          "completed"
+                        ],
+                        "description": "Always `completed`."
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "id": "evt_44444444-4444-4444-8444-444444444444",
+                "event": "agent_run.completed",
+                "timestamp": "2026-10-25T12:00:00.000Z",
+                "workspace_id": "55555555-5555-4555-8555-555555555555",
+                "actor": {
+                  "type": "agent",
+                  "id": "22222222-2222-4222-8222-222222222222",
+                  "channel": "agent"
+                },
+                "data": {
+                  "entity_type": "agent_run",
+                  "id": "11111111-1111-4111-8111-111111111111",
+                  "agent_id": "22222222-2222-4222-8222-222222222222",
+                  "run_id": "11111111-1111-4111-8111-111111111111",
+                  "status": "completed"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return a `2xx` status within 5 seconds to acknowledge receipt."
+          }
+        }
+      }
+    },
+    "webhook.test": {
+      "post": {
+        "summary": "Test event",
+        "description": "A manager clicks **Send test event** for an endpoint. Test events never affect the endpoint health.\n\nPayloads contain identifiers only. Load the current record via the Nexus API or MCP.",
+        "tags": [
+          "Test"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "event",
+                  "timestamp",
+                  "workspace_id",
+                  "actor",
+                  "data"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Unique event ID (`evt_...`). Identical to the `webhook-id` header. Use it for deduplication."
+                  },
+                  "event": {
+                    "type": "string",
+                    "enum": [
+                      "webhook.test"
+                    ],
+                    "description": "Event type."
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "ISO 8601 UTC time when the event occurred."
+                  },
+                  "workspace_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "UUID of the Nexus workspace."
+                  },
+                  "actor": {
+                    "type": "object",
+                    "description": "Who triggered the event.",
+                    "required": [
+                      "type",
+                      "id",
+                      "channel"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "user"
+                        ],
+                        "description": "`user`, `agent` or `system`."
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID of the user who sent the test event."
+                      },
+                      "channel": {
+                        "type": "string",
+                        "enum": [
+                          "ui"
+                        ],
+                        "description": "Always `ui` for test events."
+                      }
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Identifiers of the affected record.",
+                    "required": [
+                      "endpoint_id"
+                    ],
+                    "properties": {
+                      "endpoint_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID of the endpoint the test event was sent to."
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "id": "evt_44444444-4444-4444-8444-444444444444",
+                "event": "webhook.test",
+                "timestamp": "2026-10-25T12:00:00.000Z",
+                "workspace_id": "55555555-5555-4555-8555-555555555555",
+                "actor": {
+                  "type": "user",
+                  "id": "66666666-6666-4666-8666-666666666666",
+                  "channel": "ui"
+                },
+                "data": {
+                  "endpoint_id": "22222222-2222-4222-8222-222222222222"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return a `2xx` status within 5 seconds to acknowledge receipt."
+          }
+        }
+      }
+    }
+  }
+}
