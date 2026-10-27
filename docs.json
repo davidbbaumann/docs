@@ -103,45 +103,75 @@
                 "pages": [
                   {
                     "group": "Accounts",
-                    "pages": []
+                    "pages": [
+                      "webhooks/events/account-created",
+                      "webhooks/events/account-updated",
+                      "webhooks/events/account-deleted"
+                    ]
                   },
                   {
                     "group": "Contacts",
-                    "pages": []
+                    "pages": [
+                      "webhooks/events/contact-created",
+                      "webhooks/events/contact-updated",
+                      "webhooks/events/contact-deleted"
+                    ]
                   },
                   {
                     "group": "Candidates",
                     "pages": [
-                      "webhooks/events/candidate-created"
+                      "webhooks/events/candidate-created",
+                      "webhooks/events/candidate-updated",
+                      "webhooks/events/candidate-deleted"
                     ]
                   },
                   {
                     "group": "Applications",
-                    "pages": []
+                    "pages": [
+                      "webhooks/events/application-created",
+                      "webhooks/events/application-updated",
+                      "webhooks/events/application-deleted"
+                    ]
                   },
                   {
                     "group": "Projects",
-                    "pages": []
+                    "pages": [
+                      "webhooks/events/project-created",
+                      "webhooks/events/project-updated",
+                      "webhooks/events/project-deleted"
+                    ]
                   },
                   {
                     "group": "Jobs",
-                    "pages": []
+                    "pages": [
+                      "webhooks/events/job-created",
+                      "webhooks/events/job-updated",
+                      "webhooks/events/job-deleted"
+                    ]
                   },
                   {
                     "group": "Assignments",
-                    "pages": []
+                    "pages": [
+                      "webhooks/events/assignment-stage-changed"
+                    ]
                   },
                   {
                     "group": "Forms",
-                    "pages": []
+                    "pages": [
+                      "webhooks/events/form-submitted"
+                    ]
                   },
                   {
                     "group": "Agents",
-                    "pages": []
+                    "pages": [
+                      "webhooks/events/agent-run-completed"
+                    ]
                   },
                   {
                     "group": "Test",
-                    "pages": []
+                    "pages": [
+                      "webhooks/events/webhook-test"
+                    ]
                   }
                 ]
               }
@@ -256,16 +286,25 @@
                 "pages": [
                   {
                     "group": "Unternehmen",
-                    "pages": []
+                    "pages": [
+                      "de/webhooks/events/account-created",
+                      "de/webhooks/events/account-updated",
+                      "de/webhooks/events/account-deleted"
+                    ]
                   },
                   {
                     "group": "Kontakte",
-                    "pages": []
+                    "pages": [
+                      "de/webhooks/events/contact-created",
+                      "de/webhooks/events/contact-updated",
+                      "de/webhooks/events/contact-deleted"
+                    ]
                   },
                   {
                     "group": "Kandidaten",
                     "pages": [
-                      "de/webhooks/events/candidate-created"
+                      "de/webhooks/events/candidate-created",
+                      "de/webhooks/events/candidate-updated"
                     ]
                   },
                   {
