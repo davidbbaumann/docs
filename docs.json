@@ -79,6 +79,21 @@
             "icon": "tools"
           },
           {
+            "tab": "MCP",
+            "groups": [
+              {
+                "group": "Get started",
+                "icon": "rocket",
+                "pages": []
+              },
+              {
+                "group": "Reference",
+                "icon": "book-open",
+                "pages": []
+              }
+            ]
+          },
+          {
             "tab": "Webhooks",
             "pages": [
               "webhooks",
@@ -242,6 +257,21 @@
               }
             ],
             "icon": "tools"
+          },
+          {
+            "tab": "MCP",
+            "groups": [
+              {
+                "group": "Erste Schritte",
+                "icon": "rocket",
+                "pages": []
+              },
+              {
+                "group": "Referenz",
+                "icon": "book-open",
+                "pages": []
+              }
+            ]
           },
           {
             "tab": "Webhooks",
