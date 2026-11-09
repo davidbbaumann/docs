@@ -1,6 +1,67 @@
 ---
 title: "Connect an AI assistant to Nexus with MCP"
 sidebarTitle: "Connect"
+description: "Add the Nexus MCP server as a custom connector in Claude, ChatGPT or another MCP client, authorize it for one workspace and disconnect it again."
+icon: "link"
+keywords:
+  - "MCP"
+  - "connector"
+  - "OAuth"
+  - "Claude Desktop"
+  - "ChatGPT"
+  - "revoke"
 ---
 
-Draft in progress.
+To use Nexus with an AI assistant, add the Nexus MCP server as a custom connector in your MCP client, sign in to Nexus and authorize the connection for one workspace. Each person connects individually, and you can revoke a connection at any time.
+
+## Before you start
+
+- You need a Nexus Search account that is a member of the workspace you want to use.
+- You need an MCP client that supports custom connectors, such as Claude Desktop or ChatGPT.
+
+## Connect
+
+<Steps>
+  <Step title="Add the connector in your MCP client">
+    In Claude Desktop, ChatGPT or another MCP-compatible client, add a new **Custom Connector** (or "MCP Server") and paste the endpoint URL:
+
+    ```text
+    https://platform.nexus-search.io/functions/v1/nexus-mcp-server
+    ```
+  </Step>
+  <Step title="Start the authorization">
+    The client registers itself with Nexus and then redirects you to the Nexus consent page.
+  </Step>
+  <Step title="Sign in and select a workspace">
+    Sign in with your Nexus credentials. The consent screen shows:
+
+    - The name of the external application that requests access.
+    - A dropdown to pick the **workspace** you want to make available.
+    - The redirect URI the client returns to.
+
+    Click **Allow** to authorize the connection, or **Deny** to cancel.
+  </Step>
+  <Step title="Start using the tools">
+    After you approve, the assistant can use the available tools in the selected workspace. See the [tool reference](/mcp/tools) for the full list.
+  </Step>
+</Steps>
+
+<Note>
+  Each person must connect individually. The assistant cannot see data from workspaces you are not a member of, and it respects the same role-based permissions as the Nexus web app.
+</Note>
+
+## How long a connection lasts
+
+The access token of a connection is valid for 24 hours. The assistant renews it automatically with a refresh token, which is valid for 30 days. If the refresh token expires or you revoke the connection, authorize it again.
+
+A connection belongs to the workspace you selected during authorization. To work in another workspace, authorize a new connection and select that workspace.
+
+## Disconnect
+
+You can revoke an MCP connection at any time:
+
+1. Open **Settings → Extensions → MCP** in Nexus Search.
+2. Under **Connected applications**, find the client you want to disconnect.
+3. Click **Revoke** next to the connection.
+
+Revoking immediately invalidates the access token and the linked refresh token. The external assistant can no longer call tools in your workspace until you authorize a new connection.

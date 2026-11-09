@@ -1,6 +1,70 @@
 ---
 title: "Nexus MCP server: connect AI assistants to Nexus"
 sidebarTitle: "Overview"
+description: "Connect Claude, ChatGPT or another MCP-compatible assistant to your Nexus Search workspace to read data, analyze it and make confirmed changes."
+icon: "plug"
+keywords:
+  - "MCP"
+  - "Model Context Protocol"
+  - "Claude"
+  - "ChatGPT"
+  - "connector"
+  - "AI assistant"
 ---
 
-Draft in progress.
+The Nexus MCP server lets external AI assistants such as Claude Desktop or ChatGPT work with the data in your Nexus Search workspace through the Model Context Protocol (MCP). The assistant calls tools that read records, analyze data and, after your confirmation, change records. This page explains what the server offers and where to find the details.
+
+## What you can do
+
+- Look up candidates, accounts, contacts, projects, jobs, applications and activities.
+- Follow relationships, for example from a company to its projects, jobs, applications and candidates.
+- Count and group records, for example candidates by city.
+- Calculate distances and rank candidates by how close they are to a job.
+- Read documents attached to records, meeting summaries and transcripts.
+- Create and update records, move candidates through a project pipeline and publish jobs. Changes are discussed with you first, and risky changes need your explicit confirmation.
+- Use the skills of your workspace to follow your own procedures.
+
+## Endpoint
+
+```text
+https://platform.nexus-search.io/functions/v1/nexus-mcp-server
+```
+
+Add this URL as a custom connector in your MCP client. The steps are described in [Connect an AI assistant](/mcp/connect).
+
+## How it works
+
+The server uses Streamable HTTP transport and follows the MCP authorization specification (OAuth 2.1 with PKCE and dynamic client registration). You sign in with your Nexus account and select the workspace the assistant may use. The assistant can only read or change what your account and role already allow in that workspace.
+
+## Example prompts
+
+- "How many candidates do we have in Munich?"
+- "Show our candidates grouped by city."
+- "Which candidates are in the pipelines of the projects of company X?"
+- "Which candidates live closest to the job Senior Data Engineer?"
+- "Show me the latest meeting recording with Anna Schmidt."
+- "Create a follow-up task for the Q4 proposal and assign it to me."
+
+<Note>
+  Which tools an assistant can use depends on your role. Tools you are not allowed to use are not offered to the assistant. See [Permissions and confirmations](/mcp/security).
+</Note>
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Connect" icon="plug" href="/mcp/connect">
+    Add the connector, authorize a workspace and disconnect again.
+  </Card>
+
+  <Card title="Security" icon="shield-check" href="/mcp/security">
+    Permissions, confirmations and protection of consent and identity data.
+  </Card>
+
+  <Card title="Tools" icon="wrench" href="/mcp/tools">
+    All tools, grouped by purpose.
+  </Card>
+
+  <Card title="Skills" icon="sparkles" href="/mcp/skills">
+    How workspace skills work in an MCP connection.
+  </Card>
+</Columns>

@@ -1,6 +1,55 @@
 ---
 title: "MCP permissions, confirmations and data protection"
 sidebarTitle: "Security"
+description: "Learn which data an MCP-connected assistant can access, which actions need your confirmation and how Nexus protects consent and identity data."
+icon: "shield-check"
+keywords:
+  - "MCP"
+  - "permissions"
+  - "roles"
+  - "confirmation"
+  - "consent"
+  - "audit"
 ---
 
-Draft in progress.
+An assistant connected through MCP works with your identity: it can only see and change what your Nexus account and role allow, in the workspace you selected. This page explains how permissions, confirmations and the protection of consent and identity data work for MCP connections.
+
+## Access is limited to your account and workspace
+
+- A connection is bound to the workspace you selected during authorization. The assistant cannot access other workspaces.
+- The assistant respects the same role-based permissions as the Nexus web app.
+- Tools that your role does not allow are not offered to the assistant.
+- Some actions are limited to workspace owners: creating and deleting custom attributes, and creating, updating and deleting workflows. Workflows can only be changed while they are drafts.
+- Managing skills requires the permission to manage settings.
+- If you are no longer a member of the workspace, actions that change data are refused.
+
+## Changes are confirmed
+
+The assistant is designed to discuss a change with you before it makes it. In addition, Nexus asks for explicit confirmation in these cases:
+
+- A new record might duplicate an existing one.
+- A change affects identity fields, for example names, email addresses or company domains.
+- A change clears existing data or changes many fields at once.
+- A change deletes data. Deleting a document is permanent, and the assistant first shows a preview of what will be removed. Deleting a template is a two-step action.
+- A change moves, assigns or archives candidates in a project pipeline. These changes always carry a reason that is recorded in the audit log.
+
+When a confirmation is needed, the assistant shows you what will change and waits for your answer before it applies the change.
+
+## Consent is never granted by an assistant
+
+Candidates and applications created through MCP always start with the privacy consent and the extended data processing consent set to pending. An assistant cannot grant consent on behalf of a candidate. Recruiters collect consent separately through the consent process in Nexus.
+
+## What assistants cannot do
+
+- Change your own profile. The `update_user_profile` tool is not available through MCP. You can change sensitive identity fields (email, phone, name, time zone, language) only in the Nexus web app.
+- Email candidates, contacts or other external parties. The notification tool sends internal emails to members of your workspace only.
+- Create or change calls, meetings, emails and LinkedIn messages. These activity types are read-only. Assistants can create and change tasks and notes.
+- Create or change document templates. Use the Document Builder in Nexus for these.
+
+## Traceability
+
+Changes made through MCP are recorded in the audit trail as coming from an MCP connection.
+
+## Tokens and revocation
+
+The access token of a connection is valid for 24 hours and is renewed automatically with a refresh token that is valid for 30 days. You can revoke a connection at any time, which invalidates both tokens immediately. See [Connect an AI assistant](/mcp/connect#disconnect).
