@@ -84,12 +84,20 @@
               {
                 "group": "Get started",
                 "icon": "rocket",
-                "pages": []
+                "pages": [
+                  "mcp/overview",
+                  "mcp/connect",
+                  "mcp/security"
+                ]
               },
               {
                 "group": "Reference",
                 "icon": "book-open",
-                "pages": []
+                "pages": [
+                  "mcp/tools",
+                  "mcp/skills",
+                  "mcp/troubleshooting"
+                ]
               }
             ]
           },
@@ -264,12 +272,20 @@
               {
                 "group": "Erste Schritte",
                 "icon": "rocket",
-                "pages": []
+                "pages": [
+                  "de/mcp/overview",
+                  "de/mcp/connect",
+                  "de/mcp/security"
+                ]
               },
               {
                 "group": "Referenz",
                 "icon": "book-open",
-                "pages": []
+                "pages": [
+                  "de/mcp/tools",
+                  "de/mcp/skills",
+                  "de/mcp/troubleshooting"
+                ]
               }
             ]
           },
