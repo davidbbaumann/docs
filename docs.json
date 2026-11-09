@@ -79,6 +79,29 @@
             "icon": "tools"
           },
           {
+            "tab": "MCP",
+            "groups": [
+              {
+                "group": "Get started",
+                "icon": "rocket",
+                "pages": [
+                  "mcp/overview",
+                  "mcp/connect",
+                  "mcp/security"
+                ]
+              },
+              {
+                "group": "Reference",
+                "icon": "book-open",
+                "pages": [
+                  "mcp/tools",
+                  "mcp/skills",
+                  "mcp/troubleshooting"
+                ]
+              }
+            ]
+          },
+          {
             "tab": "Webhooks",
             "pages": [
               "webhooks",
@@ -242,6 +265,29 @@
               }
             ],
             "icon": "tools"
+          },
+          {
+            "tab": "MCP",
+            "groups": [
+              {
+                "group": "Erste Schritte",
+                "icon": "rocket",
+                "pages": [
+                  "de/mcp/overview",
+                  "de/mcp/connect",
+                  "de/mcp/security"
+                ]
+              },
+              {
+                "group": "Referenz",
+                "icon": "book-open",
+                "pages": [
+                  "de/mcp/tools",
+                  "de/mcp/skills",
+                  "de/mcp/troubleshooting"
+                ]
+              }
+            ]
           },
           {
             "tab": "Webhooks",
