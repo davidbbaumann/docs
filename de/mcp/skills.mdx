@@ -1,6 +1,51 @@
 ---
 title: "Workspace-Skills im Nexus MCP Server"
 sidebarTitle: "Skills"
+description: "Nutzen Sie die Skill-Werkzeuge des Nexus MCP Servers, um Workspace-Skills aufzulisten, zu laden und zu verwalten, und erfahren Sie, wie ein Skill die Werkzeuge einschränkt."
+icon: "sparkles"
+keywords:
+  - "MCP"
+  - "Skills"
+  - "Agent Skills"
+  - "load_skill"
+  - "erlaubte Werkzeuge"
+  - "Workflow"
 ---
 
-Entwurf in Arbeit.
+Der Nexus MCP Server gibt Assistenten Zugriff auf die Skills Ihres Workspaces. Ein Skill ist ein wiederverwendbarer, workspace-spezifischer Ablauf, den Ihr Team geschrieben hat, zum Beispiel ein eigenes Matching-Raster, ein kundenspezifisches Shortlist-Format oder eine Intake-Checkliste. Diese Seite erklärt, wie ein Assistent Skills über MCP findet, lädt und verwaltet und wie sich ein geladener Skill auf die nutzbaren Werkzeuge auswirkt. Skills erstellen und pflegen Sie in Nexus unter **Einstellungen → Agenten & Skills**.
+
+## Skill-Werkzeuge
+
+| Werkzeug | Was es tut |
+| --- | --- |
+| `list_skills` | Listet die Skills des Workspaces mit Schlüssel, Name, Beschreibung, Tags und Slash-Befehl auf. Sie können nach Suchtext oder Tag filtern und deaktivierte Skills einschließen. |
+| `load_skill` | Lädt die vollständigen Anweisungen eines Skills über seinen Schlüssel oder Slash-Befehl. Das Ergebnis listet außerdem die Dateien auf, die zum Skill gehören. Deaktivierte Skills lassen sich nicht laden. |
+| `load_skill_file` | Liest eine Datei, die zu einem geladenen Skill gehört, zum Beispiel Referenznotizen. Lange Dateien werden in Abschnitten geliefert. |
+| `unload_skill` | Entlädt den geladenen Skill, sodass wieder alle Werkzeuge verfügbar sind. |
+| `manage_skills` | Erstellt und ändert eigene Skills und ihre Referenzdateien. Erfordert die Berechtigung, Einstellungen zu verwalten. |
+
+## So funktioniert ein geladener Skill
+
+1. Der Assistent listet die Skills auf und wählt einen, dessen Beschreibung zu Ihrer Anfrage passt, oder Sie nennen einen Skill oder Slash-Befehl.
+2. Der Assistent lädt den Skill und folgt seinen Anweisungen.
+3. Wenn die Anweisungen eine Datei des Skills erwähnen, liest der Assistent sie mit `load_skill_file`.
+
+Beachten Sie diese Regeln:
+
+- Es ist immer nur ein Skill geladen. Ein zweiter Skill ersetzt den ersten.
+- Ein geladener Skill bleibt für den Rest der Verbindung aktiv, bis er entladen oder ersetzt wird.
+- Ein Skill kann die Werkzeuge einschränken, die während seiner Nutzung verwendet werden dürfen. Listet der Skill erlaubte Werkzeuge auf, kann der Assistent nur diese aufrufen. `list_skills`, `load_skill` und `unload_skill` bleiben immer verfügbar, damit der Assistent den Skill wechseln oder entladen kann.
+- Ein Skill kann nur einschränken, was ein Assistent tun darf. Er gewährt nie Werkzeuge oder Datenzugriff, die Ihre Rolle nicht ohnehin erlaubt.
+
+<Tip>
+  Wird ein Werkzeug abgelehnt, während ein Skill geladen ist, bitten Sie den Assistenten, den Skill zu entladen. Danach sind wieder alle Werkzeuge verfügbar.
+</Tip>
+
+## Skills über MCP verwalten
+
+Mit `manage_skills` kann ein Assistent einen neuen Skill erstellen, einen bestehenden ändern und Referenzdateien hinzufügen oder entfernen. Beachten Sie diese Regeln:
+
+- Nur eigene Skills Ihres Workspaces lassen sich ändern. Von Nexus verwaltete Skills sind schreibgeschützt. Um einen davon anzupassen, erstellen Sie eine Kopie als Workspace-Skill.
+- Der Assistent zeigt Ihnen den vollständigen Entwurf (Name, Beschreibung, Anweisungen, erlaubte Werkzeuge und Slash-Befehl) und bittet um Ihre Bestätigung, bevor er einen Skill erstellt oder ändert.
+- Die Beschreibung eines Skills entscheidet, wann er später verwendet wird. Sie sollte daher beschreiben, was der Skill tut und wann er genutzt werden soll.
+- Binärdateien wie Bilder oder Word-Dokumente lassen sich nicht über MCP hinzufügen. Fügen Sie sie unter **Einstellungen → Agenten & Skills** hinzu.

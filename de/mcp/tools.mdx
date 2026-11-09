@@ -1,6 +1,106 @@
 ---
 title: "MCP-Werkzeugreferenz für Nexus Search"
 sidebarTitle: "Werkzeuge"
+description: "Alle Werkzeuge des Nexus MCP Servers, nach Zweck gruppiert, mit Beschreibung und Hinweis, welche Aktionen Daten ändern oder Workspace-Inhabern vorbehalten sind."
+icon: "wrench"
+keywords:
+  - "MCP"
+  - "Werkzeuge"
+  - "Referenz"
+  - "manage"
+  - "get"
+  - "Kandidaten"
+  - "Unternehmen"
 ---
 
-Entwurf in Arbeit.
+Der Nexus MCP Server stellt Werkzeuge bereit, die ein Assistent aufruft, um Daten in Ihrem Workspace zu lesen, auszuwerten und zu ändern. Diese Seite listet alle Werkzeuge nach Zweck gruppiert auf. Werkzeuge mit der Kennzeichnung **Ändern** erstellen, aktualisieren oder löschen Daten und unterliegen den [Bestätigungen](/de/mcp/security#änderungen-werden-bestätigt) aus dem Sicherheitsleitfaden.
+
+<Note>
+  Ihre Rolle bestimmt, welche Werkzeuge ein Assistent nutzen kann. Werkzeuge, die Sie nicht verwenden dürfen, werden nicht angeboten. Lange Listen werden seitenweise geliefert, und der Assistent macht weiter, bis die Liste vollständig ist.
+</Note>
+
+## Profil und Personen
+
+| Werkzeug | Zugriff | Beschreibung |
+| --- | --- | --- |
+| `get_user_profile` | Lesen | Ruft Ihr eigenes Benutzerprofil ab (Name, E-Mail, Zeitzone, Sprache). |
+| `get_users` | Lesen | Findet Workspace-Mitglieder nach Name, E-Mail, Telefonnummer, Rolle oder ID, zum Beispiel um einem Kollegen eine Aufgabe zuzuweisen. |
+
+## Datensätze
+
+| Werkzeug | Zugriff | Beschreibung |
+| --- | --- | --- |
+| `get_candidates` | Lesen | Kandidaten abrufen mit Filtern für Standort, Fähigkeiten, Status, Tags, Projektzuweisung und benutzerdefinierte Attribute. |
+| `get_accounts` | Lesen | Unternehmen und Kunden abrufen mit Filtern für Standort, Branche, Beziehungstyp und Priorität. |
+| `get_contacts` | Lesen | Kontakte abrufen mit Filtern für Unternehmen, Berufsbezeichnung, Standort und Priorität. |
+| `get_projects` | Lesen | Recruiting-Projekte abrufen mit Filtern für Unternehmen, Priorität, Status und Workflow-Schritt. |
+| `get_project_requirements` | Lesen | Anforderungen eines Projekts abrufen, zum Beispiel die Muss-Kriterien. |
+| `get_jobs` | Lesen | Stellenanzeigen abrufen mit Filtern für Projekt, Status, Vertragsart, Remote-Optionen und Sichtbarkeit auf der Karriereseite. |
+| `get_applications` | Lesen | Bewerbungen abrufen mit Filtern für Einwilligungsstatus, Ablaufdaten, Quelle und verknüpfte Kandidaten. |
+| `get_activities` | Lesen | CRM-Aktivitäten und synchronisierte Kalendereinträge abrufen (Anrufe, E-Mails, Meetings, Notizen, Aufgaben). |
+| `get_activity_details` | Lesen | Aktivitäten mit Zusammenfassungen von Meeting-Aufzeichnungen und aufgelösten Datensatznamen abrufen. |
+| `get_organisation_units` | Lesen | Organisationsstruktur des Workspaces abrufen (Abteilungen, Bereiche, Teams). |
+| `get_forms` | Lesen | Bewerbungsformulare auflisten, zum Beispiel um das Formular einer Stelle auszuwählen. |
+| `get_career_pages` | Lesen | Karriereseiten auflisten, zum Beispiel um eine Stelle auf einer Seite zu veröffentlichen. |
+| `get_workflow_options` | Lesen | Prozesse und ihre Status-Schritte auflisten, wie sie in den Dropdowns der Datensatzformulare angezeigt werden. |
+
+## Beziehungen und Analysen
+
+| Werkzeug | Zugriff | Beschreibung |
+| --- | --- | --- |
+| `traverse_relationships` | Lesen | Beziehungsketten über Datensätze hinweg verfolgen, zum Beispiel Unternehmen → Projekte → Stellen → Bewerbungen → Kandidaten. Bis zu 3 Ebenen. |
+| `count_records` | Lesen | Datensätze mit optionalen Filtern zählen, zum Beispiel "Wie viele Kandidaten in München?". |
+| `group_by_field` | Lesen | Datensätze nach einem Feld gruppieren und die Verteilung ausgeben, zum Beispiel Kandidaten nach Stadt. Passen mehr Datensätze als lesbar sind, wird das Ergebnis als unvollständig gekennzeichnet. |
+
+## Entfernungen
+
+| Werkzeug | Zugriff | Beschreibung |
+| --- | --- | --- |
+| `calculate_distance` | Lesen | Luftlinie, Routenentfernung und Reisezeit zwischen zwei Punkten berechnen (Datensätze, Koordinaten oder Adressen). |
+| `calculate_distance_matrix` | Lesen | Bis zu 100 Ziele nach Nähe zu einem Ausgangspunkt sortieren, zum Beispiel die Kandidaten, die einer Stelle am nächsten sind. |
+
+## Dokumente, Meetings und Content Studio
+
+| Werkzeug | Zugriff | Beschreibung |
+| --- | --- | --- |
+| `get_files` | Lesen | Dokumente eines Kandidaten, Kontakts, Unternehmens, Projekts, einer Bewerbung oder Stelle auflisten, oder auflisten, welche Datensätze Dokumente haben. |
+| `get_file_content` | Lesen | Den extrahierten Text eines Dokuments lesen. |
+| `manage_files` | Ändern | Eine Datei an einem Datensatz hochladen, umbenennen oder löschen. Jede Aktion zeigt zuerst eine Vorschau. Das Löschen entfernt die Datei und ihren Inhalt endgültig. Text und kleine Dateien (bis 5 MB) können direkt übergeben werden, größere Dateien können von einem öffentlichen https-Link geladen werden (bis 50 MB). |
+| `get_meeting_recordings` | Lesen | Meeting-Aufzeichnungen mit KI-Zusammenfassung abrufen, gefiltert nach Gegenüber, Datum, Quelle oder Status. |
+| `get_recording_transcript` | Lesen | Das Transkript einer Meeting-Aufzeichnung abrufen. |
+| `get_templates` | Lesen | Content-Studio-Vorlagen auflisten (E-Mail-, Notiz-, Aufgaben-, Meeting-, Dokument- und Prompt-Vorlagen). |
+| `get_creatives` | Lesen | Die Bilder der Content-Studio-Bibliothek auflisten. |
+
+## Datensätze erstellen und ändern
+
+| Werkzeug | Zugriff | Beschreibung |
+| --- | --- | --- |
+| `manage_accounts` | Ändern | Unternehmen erstellen und ändern, einschließlich des Mutterunternehmens für Konzernstrukturen. Neue Unternehmen werden auf Duplikate geprüft. |
+| `manage_contacts` | Ändern | Kontakte erstellen und ändern sowie Kontakte mit Unternehmen verknüpfen oder die Verknüpfung beenden. |
+| `manage_projects` | Ändern | Projekte erstellen und ändern. Anforderungen werden mit `manage_project_requirements` verwaltet. |
+| `manage_project_requirements` | Ändern | Anforderungen eines Projekts erstellen, ändern und löschen oder bis zu 25 Anforderungen auf einmal erstellen. |
+| `manage_jobs` | Ändern | Stellen erstellen und ändern sowie auf Karriereseiten veröffentlichen oder die Veröffentlichung zurücknehmen. |
+| `manage_applications` | Ändern | Bewerbungen erstellen und ändern. Neue Bewerbungen starten immer mit der Einwilligung im Status "ausstehend". |
+| `manage_candidates` | Ändern | Kandidaten erstellen und ändern. Neue Kandidaten starten immer mit der Einwilligung im Status "ausstehend". |
+| `manage_activities` | Ändern | Aufgaben und Notizen erstellen und ändern sowie Aufgaben abschließen. |
+| `manage_assignments` | Ändern | Kandidaten in der Pipeline eines Projekts verwalten: Zuweisungen und Workflow-Schritte auflisten, Anzahlen pro Projekt anzeigen, Kandidaten zuweisen, in einen anderen Schritt verschieben oder eine Zuweisung archivieren. Jede Änderung braucht eine Begründung, die im Audit-Log festgehalten wird. |
+
+## Administration
+
+| Werkzeug | Zugriff | Beschreibung |
+| --- | --- | --- |
+| `manage_custom_attributes` | Ändern | Definitionen benutzerdefinierter Attribute für Kandidaten, Kontakte, Unternehmen, Projekte und Bewerbungen auflisten, erstellen oder löschen. Erstellen und Löschen ist Workspace-Inhabern vorbehalten. |
+| `manage_workflows` | Ändern | Workflows im Workflow Builder auflisten und lesen sowie erstellen, ändern oder löschen. Änderungen sind Workspace-Inhabern und Workflows im Entwurfsstatus vorbehalten. Neue Workflows werden als Entwurf angelegt, die Automatisierungen einzelner Schritte richten Sie in Nexus ein. |
+| `manage_templates` | Ändern | E-Mail-, Notiz-, Aufgaben-, Meeting- und Prompt-Vorlagen erstellen, ändern, duplizieren und löschen sowie die in ihnen nutzbaren Variablen auflisten. Das Löschen erfolgt in zwei Schritten. Dokumentvorlagen erstellen Sie im Document Builder. |
+| `list_skills`, `load_skill`, `load_skill_file`, `unload_skill`, `manage_skills` | Lesen und ändern | Mit den Skills Ihres Workspaces arbeiten. Siehe [Skills](/de/mcp/skills). |
+
+## Weitere Werkzeuge
+
+| Werkzeug | Zugriff | Beschreibung |
+| --- | --- | --- |
+| `search_documentation` | Lesen | Die Nexus Search Produktdokumentation durchsuchen, um Fragen zu Funktionen, Konfiguration und Konzepten zu beantworten. |
+| `send_notification` | Ändern | Eine interne Benachrichtigungs-E-Mail an Sie selbst oder ein anderes Mitglied Ihres Workspaces senden. Externe Empfänger sind nicht möglich. |
+
+<Warning>
+  Das Werkzeug `update_user_profile` ist über den MCP Server nicht verfügbar. Sensible Identitätsfelder (E-Mail, Telefon, Name, Zeitzone, Sprache) können Sie ausschließlich in der Nexus Web-App ändern.
+</Warning>

@@ -1,6 +1,48 @@
 ---
 title: "Probleme mit der Nexus MCP-Verbindung beheben"
 sidebarTitle: "Fehlerbehebung"
+description: "Beheben Sie häufige Probleme mit dem Nexus MCP Server: fehlende Werkzeuge, abgelaufene Autorisierung, abgelehnte Aufrufe, unvollständige Listen und nicht angewendete Änderungen."
+icon: "life-buoy"
+keywords:
+  - "MCP"
+  - "Fehlerbehebung"
+  - "Autorisierung"
+  - "fehlende Werkzeuge"
+  - "Fehler"
 ---
 
-Entwurf in Arbeit.
+Diese Seite hilft Ihnen bei häufigen Problemen, wenn ein KI-Assistent per MCP mit Nexus arbeitet. Suchen Sie das Symptom, das Sie sehen, und folgen Sie den Schritten.
+
+<AccordionGroup>
+  <Accordion title="Ein Werkzeug fehlt oder wird nicht angeboten">
+    - Ihre Rolle bestimmt, welche Werkzeuge angeboten werden. Erlaubt Ihre Rolle eine Aktion nicht, erscheint das Werkzeug nicht. Bitten Sie einen Workspace-Inhaber, Ihre Rolle zu prüfen.
+    - Ist ein Skill geladen, können nur die Werkzeuge dieses Skills genutzt werden. Bitten Sie den Assistenten, den Skill zu entladen. Siehe [Skills](/de/mcp/skills).
+    - Das Werkzeug `update_user_profile` ist über MCP nie verfügbar. Ändern Sie Ihr Profil in der Nexus Web-App.
+  </Accordion>
+
+  <Accordion title="Der Assistent bittet Sie, sich erneut zu autorisieren">
+    Das Access Token einer Verbindung ist 24 Stunden gültig und wird automatisch erneuert. Ist die Erneuerung nicht mehr möglich, weil das Refresh Token nach 30 Tagen abgelaufen ist oder weil Sie oder jemand anderes die Verbindung widerrufen hat, autorisieren Sie die Verbindung erneut. Siehe [KI-Assistenten verbinden](/de/mcp/connect).
+  </Accordion>
+
+  <Accordion title="Der Assistent arbeitet im falschen Workspace">
+    Eine Verbindung gehört zu dem Workspace, den Sie bei der Autorisierung ausgewählt haben. Widerrufen Sie die Verbindung unter **Einstellungen → Erweiterungen → MCP**, fügen Sie den Connector erneut hinzu und wählen Sie den anderen Workspace aus.
+  </Accordion>
+
+  <Accordion title="Eine Änderung wurde abgelehnt, weil Sie nicht mehr Mitglied des Workspaces sind">
+    Aktionen, die Daten ändern, sind nur möglich, solange Sie Mitglied des Workspaces sind. Bitten Sie einen Workspace-Inhaber, Ihren Zugang wiederherzustellen.
+  </Accordion>
+
+  <Accordion title="Eine Änderung wurde nicht angewendet">
+    Viele Änderungen brauchen Ihre ausdrückliche Bestätigung, zum Beispiel wenn ein Datensatz ein Duplikat sein könnte, wenn Identitätsfelder geändert oder Daten gelöscht werden. Der Assistent zeigt, was sich ändert. Antworten Sie mit einem klaren Ja, um die Änderung anzuwenden. Siehe [Berechtigungen und Bestätigungen](/de/mcp/security#änderungen-werden-bestätigt).
+  </Accordion>
+
+  <Accordion title="Eine Liste oder Auswertung wirkt unvollständig">
+    Lange Ergebnisse werden seitenweise geliefert, und sehr große Ergebnisse werden mit einem Hinweis gekürzt. Bitten Sie den Assistenten, mit der nächsten Seite fortzufahren oder die Anfrage mit Filtern wie Standort, Status oder Zeitraum einzugrenzen. Gruppierte Ergebnisse werden als unvollständig gekennzeichnet, wenn mehr Datensätze passen, als gelesen werden können. Verwenden Sie für eine genaue Zahl eine Zählung mit denselben Filtern.
+  </Accordion>
+
+  <Accordion title="Eine Datei lässt sich nicht hochladen">
+    Text und kleine Dateien bis 5 MB können direkt übergeben werden. Größere Dateien können von einem öffentlichen https-Link bis 50 MB geladen werden. Laden Sie noch größere Dateien direkt am Datensatz in Nexus hoch.
+  </Accordion>
+</AccordionGroup>
+
+Besteht das Problem weiter, wenden Sie sich an den Nexus Support und teilen Sie uns mit, welchen Assistenten Sie verwenden und wann das Problem aufgetreten ist.
