@@ -1,6 +1,55 @@
 ---
 title: "MCP: Berechtigungen, Bestätigungen und Datenschutz"
 sidebarTitle: "Sicherheit"
+description: "Erfahren Sie, auf welche Daten ein per MCP verbundener Assistent zugreift, welche Aktionen Ihre Bestätigung brauchen und wie Nexus Einwilligungsdaten schützt."
+icon: "shield-check"
+keywords:
+  - "MCP"
+  - "Berechtigungen"
+  - "Rollen"
+  - "Bestätigung"
+  - "Einwilligung"
+  - "Audit"
 ---
 
-Entwurf in Arbeit.
+Ein per MCP verbundener Assistent arbeitet mit Ihrer Identität: Er kann nur sehen und ändern, was Ihr Nexus-Konto und Ihre Rolle in dem ausgewählten Workspace erlauben. Diese Seite erklärt, wie Berechtigungen, Bestätigungen und der Schutz von Einwilligungs- und Identitätsdaten bei MCP-Verbindungen funktionieren.
+
+## Der Zugriff ist auf Ihr Konto und Ihren Workspace beschränkt
+
+- Eine Verbindung ist an den Workspace gebunden, den Sie bei der Autorisierung ausgewählt haben. Der Assistent kann nicht auf andere Workspaces zugreifen.
+- Der Assistent respektiert dieselben rollenbasierten Berechtigungen wie die Nexus Web-App.
+- Werkzeuge, die Ihre Rolle nicht erlaubt, werden dem Assistenten nicht angeboten.
+- Einige Aktionen sind Workspace-Inhabern vorbehalten: benutzerdefinierte Attribute erstellen und löschen sowie Workflows erstellen, ändern und löschen. Workflows lassen sich nur ändern, solange sie Entwürfe sind.
+- Das Verwalten von Skills erfordert die Berechtigung, Einstellungen zu verwalten.
+- Wenn Sie nicht mehr Mitglied des Workspaces sind, werden Aktionen, die Daten ändern, abgelehnt.
+
+## Änderungen werden bestätigt
+
+Der Assistent ist darauf ausgelegt, eine Änderung vorab mit Ihnen zu besprechen. Zusätzlich verlangt Nexus in diesen Fällen eine ausdrückliche Bestätigung:
+
+- Ein neuer Datensatz könnte ein Duplikat eines bestehenden sein.
+- Eine Änderung betrifft Identitätsfelder, zum Beispiel Namen, E-Mail-Adressen oder Unternehmens-Domains.
+- Eine Änderung löscht vorhandene Daten oder ändert viele Felder auf einmal.
+- Eine Änderung löscht Daten. Das Löschen eines Dokuments ist endgültig, und der Assistent zeigt vorher eine Vorschau dessen, was entfernt wird. Das Löschen einer Vorlage erfolgt in zwei Schritten.
+- Eine Änderung verschiebt, weist zu oder archiviert Kandidaten in der Pipeline eines Projekts. Solche Änderungen enthalten immer eine Begründung, die im Audit-Log festgehalten wird.
+
+Wenn eine Bestätigung nötig ist, zeigt Ihnen der Assistent, was sich ändert, und wartet auf Ihre Antwort, bevor er die Änderung anwendet.
+
+## Einwilligungen erteilt nie ein Assistent
+
+Über MCP erstellte Kandidaten und Bewerbungen starten immer mit der Datenschutzeinwilligung und der erweiterten Einwilligung zur Datenverarbeitung im Status "ausstehend". Ein Assistent kann keine Einwilligung im Namen eines Kandidaten erteilen. Recruiter holen Einwilligungen separat über den Einwilligungsprozess in Nexus ein.
+
+## Was Assistenten nicht können
+
+- Ihr eigenes Profil ändern. Das Werkzeug `update_user_profile` ist über MCP nicht verfügbar. Sensible Identitätsfelder (E-Mail, Telefon, Name, Zeitzone, Sprache) können Sie ausschließlich in der Nexus Web-App ändern.
+- Kandidaten, Kontakte oder andere externe Personen per E-Mail anschreiben. Das Benachrichtigungswerkzeug sendet nur interne E-Mails an Mitglieder Ihres Workspaces.
+- Anrufe, Meetings, E-Mails und LinkedIn-Nachrichten erstellen oder ändern. Diese Aktivitätstypen sind nur lesbar. Assistenten können Aufgaben und Notizen erstellen und ändern.
+- Dokumentvorlagen erstellen oder ändern. Verwenden Sie dafür den Document Builder in Nexus.
+
+## Nachvollziehbarkeit
+
+Änderungen über MCP werden im Audit-Trail als Änderungen aus einer MCP-Verbindung festgehalten.
+
+## Tokens und Widerruf
+
+Das Access Token einer Verbindung ist 24 Stunden gültig und wird automatisch mit einem Refresh Token erneuert, das 30 Tage gültig ist. Sie können eine Verbindung jederzeit widerrufen, wodurch beide Tokens sofort ungültig werden. Siehe [KI-Assistenten verbinden](/de/mcp/connect#verbindung-trennen).

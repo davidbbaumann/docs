@@ -1,6 +1,70 @@
 ---
 title: "Nexus MCP Server: KI-Assistenten mit Nexus verbinden"
 sidebarTitle: "Überblick"
+description: "Verbinden Sie Claude, ChatGPT oder einen anderen MCP-kompatiblen Assistenten mit Ihrem Nexus Search Workspace, um Daten zu lesen, auszuwerten und zu ändern."
+icon: "plug"
+keywords:
+  - "MCP"
+  - "Model Context Protocol"
+  - "Claude"
+  - "ChatGPT"
+  - "Connector"
+  - "KI-Assistent"
 ---
 
-Entwurf in Arbeit.
+Der Nexus MCP Server ermöglicht es externen KI-Assistenten wie Claude Desktop oder ChatGPT, über das Model Context Protocol (MCP) mit den Daten in Ihrem Nexus Search Workspace zu arbeiten. Der Assistent ruft Werkzeuge auf, die Datensätze lesen, Daten auswerten und nach Ihrer Bestätigung Datensätze ändern. Diese Seite erklärt, was der Server bietet und wo Sie die Details finden.
+
+## Was Sie tun können
+
+- Kandidaten, Unternehmen, Kontakte, Projekte, Stellen, Bewerbungen und Aktivitäten nachschlagen.
+- Beziehungen verfolgen, zum Beispiel von einem Unternehmen zu seinen Projekten, Stellen, Bewerbungen und Kandidaten.
+- Datensätze zählen und gruppieren, zum Beispiel Kandidaten nach Stadt.
+- Entfernungen berechnen und Kandidaten danach sortieren, wie nah sie an einer Stelle wohnen.
+- An Datensätzen hinterlegte Dokumente sowie Meeting-Zusammenfassungen und Transkripte lesen.
+- Datensätze erstellen und ändern, Kandidaten durch die Pipeline eines Projekts bewegen und Stellen veröffentlichen. Änderungen werden vorab mit Ihnen besprochen, riskante Änderungen erfordern Ihre ausdrückliche Bestätigung.
+- Die Skills Ihres Workspaces nutzen, um Ihren eigenen Abläufen zu folgen.
+
+## Endpunkt
+
+```text
+https://platform.nexus-search.io/functions/v1/nexus-mcp-server
+```
+
+Fügen Sie diese URL in Ihrem MCP-Client als Custom Connector hinzu. Die Schritte finden Sie unter [KI-Assistenten verbinden](/de/mcp/connect).
+
+## So funktioniert es
+
+Der Server verwendet den Streamable HTTP Transport und folgt der MCP-Autorisierungsspezifikation (OAuth 2.1 mit PKCE und dynamischer Client-Registrierung). Sie melden sich mit Ihrem Nexus-Konto an und wählen den Workspace aus, den der Assistent nutzen darf. Der Assistent kann in diesem Workspace nur lesen oder ändern, was Ihr Konto und Ihre Rolle bereits erlauben.
+
+## Beispiel-Prompts
+
+- "Wie viele Kandidaten haben wir in München?"
+- "Zeige mir unsere Kandidaten gruppiert nach Stadt."
+- "Welche Kandidaten befinden sich in den Pipelines der Projekte von Unternehmen X?"
+- "Welche Kandidaten wohnen am nächsten zur Stelle Senior Data Engineer?"
+- "Zeige mir die letzte Meeting-Aufzeichnung mit Anna Schmidt."
+- "Erstelle eine Folgeaufgabe zum Q4-Angebot und weise sie mir zu."
+
+<Note>
+  Welche Werkzeuge ein Assistent nutzen kann, hängt von Ihrer Rolle ab. Werkzeuge, die Sie nicht verwenden dürfen, werden dem Assistenten nicht angeboten. Siehe [Berechtigungen und Bestätigungen](/de/mcp/security).
+</Note>
+
+## Nächste Schritte
+
+<Columns cols={2}>
+  <Card title="Verbinden" icon="plug" href="/de/mcp/connect">
+    Connector hinzufügen, Workspace autorisieren und die Verbindung wieder trennen.
+  </Card>
+
+  <Card title="Sicherheit" icon="shield-check" href="/de/mcp/security">
+    Berechtigungen, Bestätigungen und Schutz von Einwilligungs- und Identitätsdaten.
+  </Card>
+
+  <Card title="Werkzeuge" icon="wrench" href="/de/mcp/tools">
+    Alle Werkzeuge, nach Zweck gruppiert.
+  </Card>
+
+  <Card title="Skills" icon="sparkles" href="/de/mcp/skills">
+    Wie Workspace-Skills in einer MCP-Verbindung funktionieren.
+  </Card>
+</Columns>

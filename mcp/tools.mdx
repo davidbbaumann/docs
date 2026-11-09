@@ -1,6 +1,106 @@
 ---
 title: "MCP tool reference for Nexus Search"
 sidebarTitle: "Tools"
+description: "All tools the Nexus MCP server provides, grouped by purpose, with what each one does and which actions change data or are limited to owners."
+icon: "wrench"
+keywords:
+  - "MCP"
+  - "tools"
+  - "reference"
+  - "manage"
+  - "get"
+  - "candidates"
+  - "accounts"
 ---
 
-Draft in progress.
+The Nexus MCP server provides tools that an assistant calls to read, analyze and change data in your workspace. This page lists every tool, grouped by purpose. Tools marked **Change** create, update or delete data and are subject to the [confirmations](/mcp/security#changes-are-confirmed) described in the security guide.
+
+<Note>
+  Your role decides which tools an assistant can use. Tools you are not allowed to use are not offered. Long lists are returned in pages, and the assistant continues until the list is complete.
+</Note>
+
+## Profile and people
+
+| Tool | Access | Description |
+| --- | --- | --- |
+| `get_user_profile` | Read | Retrieve your own user profile (name, email, time zone, language). |
+| `get_users` | Read | Find workspace members by name, email, phone number, role or ID, for example to assign a task to a colleague. |
+
+## Records
+
+| Tool | Access | Description |
+| --- | --- | --- |
+| `get_candidates` | Read | Fetch candidates with filters for location, skills, status, tags, project assignment and custom attributes. |
+| `get_accounts` | Read | Fetch accounts (companies and clients) with filters for location, industry, relationship type and priority. |
+| `get_contacts` | Read | Fetch contacts with filters for account, job title, location and priority. |
+| `get_projects` | Read | Fetch recruiting projects with filters for account, priority, status and workflow step. |
+| `get_project_requirements` | Read | Fetch the requirements of one project, for example the must-haves. |
+| `get_jobs` | Read | Fetch job postings with filters for project, status, contract type, remote options and career page visibility. |
+| `get_applications` | Read | Fetch applications with filters for consent status, expiry dates, source and related candidates. |
+| `get_activities` | Read | Fetch CRM activities and synchronized calendar events (calls, emails, meetings, notes, tasks). |
+| `get_activity_details` | Read | Fetch activities with meeting recording summaries and resolved record names. |
+| `get_organisation_units` | Read | Fetch the organizational structure of the workspace (departments, divisions, teams). |
+| `get_forms` | Read | List application forms, for example to pick the form of a job. |
+| `get_career_pages` | Read | List career pages, for example to publish a job on a page. |
+| `get_workflow_options` | Read | List processes and their status steps, as shown in the dropdowns of record forms. |
+
+## Relationships and analytics
+
+| Tool | Access | Description |
+| --- | --- | --- |
+| `traverse_relationships` | Read | Follow relationship chains across records, for example account → projects → jobs → applications → candidates. Up to 3 hops. |
+| `count_records` | Read | Count records with optional filters, for example "How many candidates in Munich?". |
+| `group_by_field` | Read | Group records by a field and return the distribution, for example candidates by city. If more records match than can be read, the result is marked as partial. |
+
+## Distances
+
+| Tool | Access | Description |
+| --- | --- | --- |
+| `calculate_distance` | Read | Calculate the straight-line distance, the route distance and the travel time between two points (records, coordinates or addresses). |
+| `calculate_distance_matrix` | Read | Rank up to 100 destinations by their proximity to one origin, for example the candidates closest to a job. |
+
+## Documents, meetings and Content Studio
+
+| Tool | Access | Description |
+| --- | --- | --- |
+| `get_files` | Read | List the documents attached to a candidate, contact, account, project, application or job, or list which records have documents. |
+| `get_file_content` | Read | Read the extracted text of one document. |
+| `manage_files` | Change | Upload a file to a record, rename a file or delete a file. Every action shows a preview first. Deleting removes the file and its content permanently. Text and small files (up to 5 MB) can be sent directly, and larger files can be fetched from a public https link (up to 50 MB). |
+| `get_meeting_recordings` | Read | Fetch meeting recordings with their AI summary, filtered by counterparty, date, source or status. |
+| `get_recording_transcript` | Read | Fetch the transcript of one meeting recording. |
+| `get_templates` | Read | List Content Studio templates (email, note, task, meeting, document and prompt templates). |
+| `get_creatives` | Read | List the images of the Content Studio library. |
+
+## Create and change records
+
+| Tool | Access | Description |
+| --- | --- | --- |
+| `manage_accounts` | Change | Create and update accounts, including the parent company for account hierarchies. New accounts are checked for duplicates. |
+| `manage_contacts` | Change | Create and update contacts, and link contacts to accounts or end the link. |
+| `manage_projects` | Change | Create and update projects. Requirements are managed with `manage_project_requirements`. |
+| `manage_project_requirements` | Change | Create, update and delete requirements of a project, or create up to 25 requirements at once. |
+| `manage_jobs` | Change | Create and update jobs, and publish them on career pages or unpublish them. |
+| `manage_applications` | Change | Create and update applications. New applications always start with consent set to pending. |
+| `manage_candidates` | Change | Create and update candidates. New candidates always start with consent set to pending. |
+| `manage_activities` | Change | Create and update tasks and notes, and complete tasks. |
+| `manage_assignments` | Change | Manage the candidates in a project pipeline: list assignments and workflow steps, show counts per project, assign candidates, move them to another step or archive an assignment. Every change needs a reason that is recorded in the audit log. |
+
+## Administration
+
+| Tool | Access | Description |
+| --- | --- | --- |
+| `manage_custom_attributes` | Change | List, create or delete custom attribute definitions for candidates, contacts, accounts, projects and applications. Creating and deleting is limited to workspace owners. |
+| `manage_workflows` | Change | List and read workflows in the Workflow Builder, and create, update or delete them. Changes are limited to workspace owners and to workflows that are drafts. New workflows are created as drafts, and automations of single steps are set up in Nexus. |
+| `manage_templates` | Change | Create, update, duplicate and delete email, note, task, meeting and prompt templates, and list the variables you can use in them. Deleting is a two-step action. Document templates are created in the Document Builder. |
+| `list_skills`, `load_skill`, `load_skill_file`, `unload_skill`, `manage_skills` | Read and change | Work with the skills of your workspace. See [Skills](/mcp/skills). |
+
+## Other tools
+
+| Tool | Access | Description |
+| --- | --- | --- |
+| `search_documentation` | Read | Search the Nexus Search product documentation to answer questions about features, configuration and concepts. |
+| `send_notification` | Change | Send an internal notification email to yourself or another member of your workspace. It cannot email external parties. |
+
+<Warning>
+  The `update_user_profile` tool is not available through the MCP server. You can change sensitive identity fields (email, phone, name, time zone, language) only in the Nexus web app.
+</Warning>

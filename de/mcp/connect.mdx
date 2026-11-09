@@ -1,6 +1,67 @@
 ---
 title: "KI-Assistenten per MCP mit Nexus verbinden"
 sidebarTitle: "Verbinden"
+description: "Fügen Sie den Nexus MCP Server als Custom Connector in Claude, ChatGPT oder einem anderen MCP-Client hinzu, autorisieren Sie einen Workspace und trennen Sie ihn wieder."
+icon: "link"
+keywords:
+  - "MCP"
+  - "Connector"
+  - "OAuth"
+  - "Claude Desktop"
+  - "ChatGPT"
+  - "Widerrufen"
 ---
 
-Entwurf in Arbeit.
+Um Nexus mit einem KI-Assistenten zu nutzen, fügen Sie den Nexus MCP Server in Ihrem MCP-Client als Custom Connector hinzu, melden sich bei Nexus an und autorisieren die Verbindung für einen Workspace. Jede Person verbindet sich einzeln, und Sie können eine Verbindung jederzeit widerrufen.
+
+## Voraussetzungen
+
+- Sie benötigen ein Nexus Search Konto, das Mitglied des Workspaces ist, den Sie nutzen möchten.
+- Sie benötigen einen MCP-Client, der Custom Connectors unterstützt, zum Beispiel Claude Desktop oder ChatGPT.
+
+## Verbindung herstellen
+
+<Steps>
+  <Step title="Connector im MCP-Client hinzufügen">
+    Fügen Sie in Claude Desktop, ChatGPT oder einem anderen MCP-kompatiblen Client einen neuen **Custom Connector** (bzw. "MCP Server") hinzu und fügen Sie die Endpunkt-URL ein:
+
+    ```text
+    https://platform.nexus-search.io/functions/v1/nexus-mcp-server
+    ```
+  </Step>
+  <Step title="Autorisierung starten">
+    Der Client registriert sich bei Nexus und leitet Sie anschließend zur Nexus-Zustimmungsseite weiter.
+  </Step>
+  <Step title="Anmelden und Workspace auswählen">
+    Melden Sie sich mit Ihren Nexus-Zugangsdaten an. Der Zustimmungsbildschirm zeigt:
+
+    - Den Namen der externen Anwendung, die Zugriff anfordert.
+    - Ein Dropdown zur Auswahl des **Workspaces**, den Sie freigeben möchten.
+    - Den Redirect-URI, zu dem der Client zurückgeleitet wird.
+
+    Klicken Sie auf **Erlauben**, um die Verbindung zu autorisieren, oder auf **Ablehnen**, um den Vorgang abzubrechen.
+  </Step>
+  <Step title="Werkzeuge verwenden">
+    Nach der Genehmigung kann der Assistent die verfügbaren Werkzeuge im ausgewählten Workspace nutzen. Die vollständige Liste finden Sie in der [Werkzeugreferenz](/de/mcp/tools).
+  </Step>
+</Steps>
+
+<Note>
+  Jede Person muss die Verbindung einzeln herstellen. Der Assistent kann keine Daten aus Workspaces einsehen, in denen Sie kein Mitglied sind, und respektiert dieselben rollenbasierten Berechtigungen wie die Nexus Web-App.
+</Note>
+
+## Wie lange eine Verbindung gültig ist
+
+Das Access Token einer Verbindung ist 24 Stunden gültig. Der Assistent erneuert es automatisch mit einem Refresh Token, das 30 Tage gültig ist. Wenn das Refresh Token abläuft oder Sie die Verbindung widerrufen, autorisieren Sie die Verbindung erneut.
+
+Eine Verbindung gehört zu dem Workspace, den Sie bei der Autorisierung ausgewählt haben. Um in einem anderen Workspace zu arbeiten, autorisieren Sie eine neue Verbindung und wählen diesen Workspace aus.
+
+## Verbindung trennen
+
+Sie können eine MCP-Verbindung jederzeit widerrufen:
+
+1. Öffnen Sie **Einstellungen → Erweiterungen → MCP** in Nexus Search.
+2. Suchen Sie unter **Verbundene Anwendungen** den Client, den Sie trennen möchten.
+3. Klicken Sie neben der Verbindung auf **Widerrufen**.
+
+Durch den Widerruf werden das Access Token und das zugehörige Refresh Token sofort ungültig. Der externe Assistent kann keine Werkzeuge mehr in Ihrem Workspace aufrufen, bis Sie eine neue Verbindung autorisieren.

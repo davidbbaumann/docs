@@ -1,6 +1,51 @@
 ---
 title: "Workspace skills in the Nexus MCP server"
 sidebarTitle: "Skills"
+description: "Use the skill tools of the Nexus MCP server to list, load and manage workspace skills, and learn how a loaded skill restricts the available tools."
+icon: "sparkles"
+keywords:
+  - "MCP"
+  - "skills"
+  - "agent skills"
+  - "load_skill"
+  - "allowed tools"
+  - "workflow"
 ---
 
-Draft in progress.
+The Nexus MCP server gives assistants access to the skills of your workspace. A skill is a reusable, workspace-specific procedure written by your team, for example a custom matching rubric, a client-specific shortlist format or an intake checklist. This page explains how an assistant finds, loads and manages skills through MCP and how a loaded skill affects the tools it can use. Skills are created and maintained in **Settings → Agents & Skills** in Nexus.
+
+## Skill tools
+
+| Tool | What it does |
+| --- | --- |
+| `list_skills` | Lists the skills of the workspace with key, name, description, tags and slash command. You can filter by search text or tag, and include deactivated skills. |
+| `load_skill` | Loads the full instructions of one skill by its key or slash command. The result also lists the files that belong to the skill. Deactivated skills cannot be loaded. |
+| `load_skill_file` | Reads one file that belongs to a loaded skill, for example reference notes. Long files are returned in chunks. |
+| `unload_skill` | Clears the loaded skill so that the full tool set is available again. |
+| `manage_skills` | Creates and updates custom skills and their reference files. Requires the permission to manage settings. |
+
+## How a loaded skill works
+
+1. The assistant lists the skills and picks one whose description matches your request, or you name a skill or slash command.
+2. The assistant loads the skill and follows its instructions.
+3. If a file of the skill is mentioned in the instructions, the assistant reads it with `load_skill_file`.
+
+Keep these rules in mind:
+
+- Only one skill is loaded at a time. Loading a second skill replaces the first one.
+- A loaded skill stays active for the rest of the connection until it is unloaded or replaced.
+- A skill can restrict the tools that may be used while it is loaded. If the skill lists allowed tools, the assistant can only call those tools. `list_skills`, `load_skill` and `unload_skill` always remain available, so the assistant can switch or clear the skill.
+- A skill can only narrow what an assistant can do. It never grants tools or data access that your role does not already allow.
+
+<Tip>
+  If a tool is refused while a skill is loaded, ask the assistant to unload the skill. The full tool set is available again afterwards.
+</Tip>
+
+## Manage skills through MCP
+
+With `manage_skills`, an assistant can create a new skill, update an existing one and add or remove reference files. Keep these rules in mind:
+
+- Only custom skills of your workspace can be changed. Skills managed by Nexus are read-only. To adapt one of them, create a copy as a workspace skill.
+- The assistant shows you the full draft (name, description, instructions, allowed tools and slash command) and asks for your confirmation before it creates or changes a skill.
+- The description of a skill decides when it is used later, so it should state what the skill does and when to use it.
+- Binary files such as images or Word documents cannot be added through MCP. Add them in **Settings → Agents & Skills**.

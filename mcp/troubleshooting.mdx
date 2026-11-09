@@ -1,6 +1,48 @@
 ---
 title: "Troubleshoot the Nexus MCP connection"
 sidebarTitle: "Troubleshooting"
+description: "Fix common problems with the Nexus MCP server: missing tools, expired authorization, refused calls, incomplete lists and changes that were not applied."
+icon: "life-buoy"
+keywords:
+  - "MCP"
+  - "troubleshooting"
+  - "authorization"
+  - "missing tools"
+  - "errors"
 ---
 
-Draft in progress.
+This page helps you fix common problems when an AI assistant works with Nexus through MCP. Find the symptom you see and follow the steps.
+
+<AccordionGroup>
+  <Accordion title="A tool is missing or not offered">
+    - Your role decides which tools are offered. If your role does not allow an action, the tool does not appear. Ask a workspace owner to check your role.
+    - If a skill is loaded, only the tools of that skill can be used. Ask the assistant to unload the skill. See [Skills](/mcp/skills).
+    - The `update_user_profile` tool is never available through MCP. Change your profile in the Nexus web app.
+  </Accordion>
+
+  <Accordion title="The assistant asks you to authorize again">
+    The access token of a connection is valid for 24 hours and is renewed automatically. If renewal is no longer possible because the refresh token expired after 30 days, or because you or someone else revoked the connection, authorize the connection again. See [Connect an AI assistant](/mcp/connect).
+  </Accordion>
+
+  <Accordion title="The assistant works in the wrong workspace">
+    A connection belongs to the workspace you selected during authorization. Revoke the connection in **Settings → Extensions → MCP**, add the connector again and select the other workspace.
+  </Accordion>
+
+  <Accordion title="A change was refused because you are no longer a member of the workspace">
+    Actions that change data are only possible while you are a member of the workspace. Ask a workspace owner to restore your access.
+  </Accordion>
+
+  <Accordion title="A change was not applied">
+    Many changes need your explicit confirmation, for example when a record might be a duplicate, when identity fields change or when data is cleared. The assistant shows what will change. Answer with a clear yes to apply it. See [Permissions and confirmations](/mcp/security#changes-are-confirmed).
+  </Accordion>
+
+  <Accordion title="A list or an analysis looks incomplete">
+    Long results are returned in pages, and very large results are shortened with a notice. Ask the assistant to continue with the next page, or to narrow the request with filters such as a location, a status or a date range. Grouped results are marked as partial when more records match than can be read. Use a count with the same filters for an exact number.
+  </Accordion>
+
+  <Accordion title="A file cannot be uploaded">
+    Text and small files up to 5 MB can be sent directly. Larger files can be fetched from a public https link up to 50 MB. For files that are larger still, upload them directly on the record in Nexus.
+  </Accordion>
+</AccordionGroup>
+
+If the problem remains, contact Nexus support and tell us which assistant you use and when the problem occurred.
